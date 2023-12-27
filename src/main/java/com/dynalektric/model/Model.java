@@ -41,6 +41,6 @@ public class Model {
     }
 
     public void clearModel(){
-        LOGGER.info("Clearing model");
+        model = null;
     }
 }
