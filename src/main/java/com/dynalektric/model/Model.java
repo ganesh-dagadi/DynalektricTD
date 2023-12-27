@@ -1,5 +1,7 @@
 package com.dynalektric.model;
 
+import com.dynalektric.model.repositories.general.GeneralRepo;
+import com.dynalektric.model.repositories.general.GeneralRepoJSONImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,5 +44,9 @@ public class Model {
 
     public void clearModel(){
         model = null;
+    }
+
+    public GeneralRepo getGeneralRepo(){
+        return new GeneralRepoJSONImpl();
     }
 }
