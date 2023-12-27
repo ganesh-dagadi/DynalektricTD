@@ -1,7 +1,10 @@
 package com.dynalektric.view;
 
+import com.dynalektric.model.Model;
+
 public class View{
     private static View view;
+    Model model = Model.getSingleton();
     private View(){
 
     }
@@ -10,5 +13,13 @@ public class View{
             view = new View();
         }
         return view;
+    }
+
+    public void initView(){
+
+    }
+
+    private void initializeUI(){
+
     }
 }
