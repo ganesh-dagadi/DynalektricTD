@@ -1,7 +1,6 @@
 package com.dynalektric.helpers;
 
-import com.fasterxml.jackson.core.exc.StreamWriteException;
-import com.fasterxml.jackson.databind.DatabindException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,7 +23,7 @@ public class JacksonFileIOHelper implements FileIOHelper{
     }
 
     @Override
-    public Object readData(File file , Class<Object> target) {
+    public Object readData(File file , Class<?> target) {
         try{
             BufferedReader reader = new BufferedReader(new FileReader(file));
             StringBuilder strBuilder = new StringBuilder();

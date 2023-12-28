@@ -41,6 +41,9 @@ public class Model {
     public void setLiveView(ModelObserver observer){
         this.liveView = observer;
     }
+    public void  notifyLiveView(String msg){
+        this.liveView.update(msg);
+    }
 
     public void clearModel(){
         model = null;

@@ -18,7 +18,7 @@ public class WelcomeWorkView extends AbstractWorkView{
 
     @Override
     public void update(String msg) {
-
+        super.update(msg);
     }
 
     @Override
