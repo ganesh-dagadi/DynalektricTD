@@ -6,7 +6,8 @@ public class Control {
     Model model = Model.getSingleton();
     Calculations calculations = new Calculations();
     public Control(){
-
     }
-
+    public WelcomeWorkViewController getWelcomeWorkViewController(){
+        return new WelcomeWorkViewController();
+    }
 }
