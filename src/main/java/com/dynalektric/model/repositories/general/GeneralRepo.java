@@ -9,6 +9,7 @@ public interface GeneralRepo {
     public String getLoadedProjectName();
     public void setLoadedProjectName(String name);
     public Set<String> getNamesOfAllProjectsCreated();
+    public void deleteProjectByName(String name);
     public void addNewCreatedProjectName(String name);
     public void createNewProject(Project project);
     public Project getProjectByName(String name);

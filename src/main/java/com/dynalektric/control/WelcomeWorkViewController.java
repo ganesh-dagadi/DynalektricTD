@@ -21,4 +21,19 @@ public class WelcomeWorkViewController {
         repo.addNewCreatedProjectName(name);
         repo.createNewProject(newProject);
     }
+
+    public void deleteProjectByName(String name){
+        GeneralRepo repo= model.getGeneralRepo();
+        repo.deleteProjectByName(name);
+    }
+    public void openProjectWithName(String name){
+        model.clearProjectData();
+        GeneralRepo repo = model.getGeneralRepo();
+        repo.setLoadedProjectName(name);
+        Project project = repo.getProjectByName(name);
+        model.setLoadedProjectInput(project.inputs);
+        model.loadNewProject(project);
+        //TODO after workspacePanel is created
+//        View.getSingleton().setView(null);
+    }
 }

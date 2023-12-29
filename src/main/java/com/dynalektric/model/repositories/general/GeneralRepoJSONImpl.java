@@ -2,6 +2,7 @@ package com.dynalektric.model.repositories.general;
 
 import com.dynalektric.constants.SystemConstants;
 import com.dynalektric.constants.ViewMessages;
+import com.dynalektric.helpers.FileHelpers;
 import com.dynalektric.helpers.FileIOHelper;
 import com.dynalektric.helpers.JacksonFileIOHelper;
 import com.dynalektric.model.Model;
@@ -43,6 +44,17 @@ public class GeneralRepoJSONImpl implements GeneralRepo{
     public Set<String> getNamesOfAllProjectsCreated() {
         General general = (General) fileIOHelper.readData(new File(SystemConstants.GENERAL_FILE) , General.class);
         return general.createdProjectNames;
+    }
+
+    @Override
+    public void deleteProjectByName(String name) {
+        General general = (General) fileIOHelper.readData(new File(SystemConstants.GENERAL_FILE) , General.class);
+        Set<String> projectsSet = general.createdProjectNames;
+        projectsSet.remove(name);
+        general.createdProjectNames = projectsSet;
+        fileIOHelper.writeData(new File(SystemConstants.GENERAL_FILE) , general);
+        System.out.println(SystemConstants.DATABASE_DIR+name+"json");
+        FileHelpers.deleteFile(new File(SystemConstants.DATABASE_DIR+name+".json"));
     }
 
     @Override
