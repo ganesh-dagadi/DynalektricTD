@@ -13,7 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class NewProjectModal extends AbstractModal{
-        AbstractWorkView parentView;
         public NewProjectModal(AbstractWorkView parentView){
             super(parentView, DisplayConstant.NEW_PROJECT);
         }
@@ -74,5 +73,4 @@ public class NewProjectModal extends AbstractModal{
         this.setVisible(true);
 
     }
-
 }

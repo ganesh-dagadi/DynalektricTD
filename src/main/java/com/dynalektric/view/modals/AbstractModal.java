@@ -10,6 +10,7 @@ public abstract class AbstractModal extends JDialog {
         protected AbstractModal(AbstractWorkView parentView,String title){
             super(SwingUtilities.windowForComponent(parentView),title, ModalityType.DOCUMENT_MODAL);
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            this.parentView = parentView;
         }
 
         public abstract void init();

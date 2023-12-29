@@ -4,12 +4,14 @@ import com.dynalektric.constants.Constant;
 import com.dynalektric.constants.DisplayConstant;
 import com.dynalektric.constants.StyleConstants;
 import com.dynalektric.control.Control;
+import com.dynalektric.control.WelcomeWorkViewController;
 import com.dynalektric.model.Model;
 import com.dynalektric.view.ChildFrameListener;
 import com.dynalektric.view.View;
 import com.dynalektric.view.ViewMessage;
 import com.dynalektric.view.modals.AbstractModal;
 import com.dynalektric.view.modals.NewProjectModal;
+import com.dynalektric.view.modals.OpenProjectModal;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,14 +22,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Set;
 
 
 public class WelcomeWorkView extends AbstractWorkView implements ChildFrameListener {
 
     private final JPanel logoPanel = new JPanel();
-
-    private final Control controller = new Control();
-    private WelcomeWorkView thisReference = this;
+    private final WelcomeWorkViewController controller = new WelcomeWorkViewController();
+    private final WelcomeWorkView thisReference = this;
     private final static Logger LOGGER = LogManager.getLogger(WelcomeWorkView.class);
     public WelcomeWorkView(Model model) {
         super(model);
@@ -116,6 +118,15 @@ public class WelcomeWorkView extends AbstractWorkView implements ChildFrameListe
                 newProject.init();
             }
         });
+
+        openProjectButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                Set<String> projects = model.getGeneralRepo().getNamesOfAllProjectsCreated();
+                AbstractModal openProject = new OpenProjectModal(thisReference, projects);
+                openProject.init();
+            }
+        });
     }
     private void initializeLogoPanel(){
         logoPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
@@ -151,11 +162,12 @@ public class WelcomeWorkView extends AbstractWorkView implements ChildFrameListe
 
     }
 
+    @Override
     public void captureEventFromChildSubFrame(ViewMessage message){
         switch(message.getMsgType()) {
             case Constant.ViewMessages.NEW_PROJECT_NAME:
                 LOGGER.info("Creating new project {} ", message.getMsgData());
-                //controller.createNewProject((String) message.getMsgData());
+                controller.createNewProject((String) message.getMsgData());
                 System.out.println(message.getMsgData());
                 break;
         }
