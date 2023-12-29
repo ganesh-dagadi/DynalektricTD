@@ -17,6 +17,11 @@ public class View{
     private static View view;
     private MainFrame mainFrame;
     private MainPanel mainPanel;
+
+    public final static Dimension SCREEN_DIMENSION = new Dimension(
+            (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth(),
+            (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight()
+        );
     Model model = Model.getSingleton();
     private View(){
 
@@ -63,7 +68,8 @@ public class View{
             mainFrame.setContentPane(new JPanel(new BorderLayout()));
             mainFrame.getContentPane().add(mainPanel , BorderLayout.CENTER);
             mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            mainFrame.setSize(400 , 400);
+            System.out.println(mainFrame.getPreferredSize());
+            mainFrame.setSize(View.SCREEN_DIMENSION);
             mainFrame.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosing(WindowEvent e) {

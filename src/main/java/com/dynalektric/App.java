@@ -5,6 +5,9 @@ import com.dynalektric.control.WelcomeWorkViewController;
 import com.dynalektric.model.Model;
 import com.dynalektric.view.View;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class App 
 {
     public static void main( String[] args )
@@ -15,5 +18,6 @@ public class App
         view.initView();
         view.chooseWorkView();
         view.startApp();
+
     }
 }
