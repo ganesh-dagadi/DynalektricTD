@@ -23,7 +23,7 @@ public class WelcomeWorkView extends AbstractWorkView{
 
     @Override
     public void update(String msg, Object data) {
-
+        super.update(msg , data);
     }
 
     @Override
