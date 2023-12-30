@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.util.List;
 import java.util.Set;
 
 public class GeneralRepoJSONImpl implements GeneralRepo{
@@ -41,20 +42,16 @@ public class GeneralRepoJSONImpl implements GeneralRepo{
     }
 
     @Override
-    public Set<String> getNamesOfAllProjectsCreated() {
+    public List<String> getNamesOfAllProjectsCreated() {
         General general = (General) fileIOHelper.readData(new File(SystemConstants.GENERAL_FILE) , General.class);
         return general.createdProjectNames;
     }
 
     @Override
-    public void deleteProjectByName(String name) {
+    public void setNamesOfAllProjectCreated(List<String> names) {
         General general = (General) fileIOHelper.readData(new File(SystemConstants.GENERAL_FILE) , General.class);
-        Set<String> projectsSet = general.createdProjectNames;
-        projectsSet.remove(name);
-        general.createdProjectNames = projectsSet;
+        general.createdProjectNames = names;
         fileIOHelper.writeData(new File(SystemConstants.GENERAL_FILE) , general);
-        System.out.println(SystemConstants.DATABASE_DIR+name+"json");
-        FileHelpers.deleteFile(new File(SystemConstants.DATABASE_DIR+name+".json"));
     }
 
     @Override
@@ -64,13 +61,4 @@ public class GeneralRepoJSONImpl implements GeneralRepo{
         fileIOHelper.writeData(new File(SystemConstants.GENERAL_FILE) , general);
     }
 
-    @Override
-    public void createNewProject(Project project) {
-        fileIOHelper.writeData(new File(SystemConstants.DATABASE_DIR+project.projectName+".json") , project);
-    }
-
-    @Override
-    public Project getProjectByName(String name) {
-        return null;
-    }
 }
