@@ -2,6 +2,7 @@ package com.dynalektric.view;
 
 import com.dynalektric.model.Model;
 import com.dynalektric.view.workViews.AbstractWorkView;
+import com.dynalektric.view.workViews.InputWorkView;
 import com.dynalektric.view.workViews.WelcomeWorkView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -65,6 +66,7 @@ public class View{
             mainFrame = new MainFrame();
             mainPanel = new MainPanel(new BorderLayout());
             mainPanel.loadWorkView(new WelcomeWorkView(model));
+            mainPanel.loadWorkView(new InputWorkView(model));
             mainFrame.setContentPane(new JPanel(new BorderLayout()));
             mainFrame.getContentPane().add(mainPanel , BorderLayout.CENTER);
             mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

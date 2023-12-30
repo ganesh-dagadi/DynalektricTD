@@ -1,9 +1,8 @@
 package com.dynalektric.view.modals;
 
-import com.dynalektric.constants.Constant;
 import com.dynalektric.constants.DisplayConstant;
 import com.dynalektric.constants.StyleConstants;
-import com.dynalektric.view.ChildFrameListener;
+import com.dynalektric.constants.ViewMessages;
 import com.dynalektric.view.ViewMessage;
 import com.dynalektric.view.workViews.AbstractWorkView;
 
@@ -64,7 +63,7 @@ public class NewProjectModal extends AbstractModal{
             public void actionPerformed(ActionEvent event) {
                 String projectName = sessionNameTB.getText();
                 dispose();
-                parentView.captureEventFromChildSubFrame(new ViewMessage(Constant.ViewMessages.NEW_PROJECT_NAME , projectName));
+                parentView.captureEventFromChildSubFrame(new ViewMessage(ViewMessages.NEW_PROJECT_NAME , projectName));
 
             }
         });

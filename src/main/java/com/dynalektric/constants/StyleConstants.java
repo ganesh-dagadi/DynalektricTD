@@ -9,6 +9,7 @@ public class StyleConstants {
     public final static Font RECENT_PROJECTS = new Font(Font.SANS_SERIF , Font.PLAIN , 35);
 
     public final static Font NORMAL_TEXT = new Font(Font.SANS_SERIF , Font.PLAIN , 20);
+    public final static Font SMALL_TEXT = new Font(Font.SANS_SERIF , Font.PLAIN , 15);
 
     public final static Color FOREGROUND_PRIMARY = new Color(10, 10, 10);
     public final static Color BACKGROUND_PRIMARY = new Color(210, 210, 210);

@@ -2,15 +2,21 @@ package com.dynalektric.view.modals;
 
 import com.dynalektric.constants.DisplayConstant;
 import com.dynalektric.constants.StyleConstants;
+import com.dynalektric.constants.ViewMessages;
+import com.dynalektric.view.ChildFrameListener;
+import com.dynalektric.view.ViewMessage;
 import com.dynalektric.view.workViews.AbstractWorkView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Set;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
 
-public class OpenProjectModal extends AbstractModal{
-    Set<String>projectNames;
-    public OpenProjectModal(AbstractWorkView parentView, Set<String>projectNames){
+public class OpenProjectModal extends AbstractModal implements ChildFrameListener {
+    List<String>projectNames;
+    private final OpenProjectModal thisReference = this;
+        public OpenProjectModal(AbstractWorkView parentView, List<String>projectNames){
         super(parentView, DisplayConstant.OPEN_PROJECT);
         this.parentView = parentView;
         this.projectNames = projectNames;
@@ -52,15 +58,39 @@ public class OpenProjectModal extends AbstractModal{
     private JPanel createCardForProject(String project){
         JPanel cardContent = new JPanel(new FlowLayout(FlowLayout.LEADING));
         cardContent.setBackground(StyleConstants.BACKGROUND_SECONDARY);
-        JButton OpenProjectButton = new JButton(project);
-        OpenProjectButton.setFont(StyleConstants.NEW_PROJECT);
-        OpenProjectButton.setBackground(StyleConstants.BACKGROUND_SECONDARY);
-        OpenProjectButton.setPreferredSize(new Dimension(540 , OpenProjectButton.getPreferredSize().height));
-        OpenProjectButton.setHorizontalAlignment(SwingConstants.LEFT);
-        cardContent.add(OpenProjectButton);
+        JButton openProjectButton = new JButton(project);
+        openProjectButton.setFont(StyleConstants.NEW_PROJECT);
+        openProjectButton.setBackground(StyleConstants.BACKGROUND_SECONDARY);
+        openProjectButton.setPreferredSize(new Dimension(540 , openProjectButton.getPreferredSize().height));
+        openProjectButton.setHorizontalAlignment(SwingConstants.LEFT);
+        openProjectButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(e.getButton() == MouseEvent.BUTTON1) {
+                    dispose();
+                    parentView.captureEventFromChildSubFrame(new ViewMessage(ViewMessages.OPEN_SELECTED_PROJECT , project));
+                }else {
+                    ProjectPopUpMenu popMenu = new ProjectPopUpMenu(project , thisReference);
+                    popMenu.show(e.getComponent() , e.getX() , e.getY());
+                }
+            }
+        });
+        cardContent.add(openProjectButton);
         cardContent.setMaximumSize(new Dimension(550 , cardContent.getPreferredSize().height));
         cardContent.setAlignmentX(LEFT_ALIGNMENT);
         return cardContent;
     }
 
+    @Override
+    public void captureEventFromChildSubFrame(ViewMessage message) {
+        switch(message.getMsgType()) {
+            case ViewMessages.DELETE_SELECTED_PROJECT:
+                dispose();
+                parentView.captureEventFromChildSubFrame(message);
+                break;
+            case ViewMessages.OPEN_SELECTED_PROJECT:
+                dispose();
+                parentView.captureEventFromChildSubFrame(message);
+        }
+    }
 }
