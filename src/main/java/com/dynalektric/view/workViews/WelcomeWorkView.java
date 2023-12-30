@@ -69,17 +69,18 @@ public class WelcomeWorkView extends AbstractWorkView implements ChildFrameListe
 
         JPanel leftPanel = new JPanel();
         JPanel rightPanel = new JPanel();
+        JPanel resultPanel = new JPanel();
+        BoxLayout layout = new BoxLayout(resultPanel,BoxLayout.Y_AXIS);
+        resultPanel.setLayout(layout);
 
         rightPanel.setLayout(new BoxLayout(rightPanel , BoxLayout.Y_AXIS));
         leftPanel.setLayout(new BoxLayout(leftPanel , BoxLayout.Y_AXIS));
-
 
         JLabel heading = new JLabel(DisplayConstant.APP_TITLE);
         JLabel recentProjects = new JLabel(DisplayConstant.RECENT_PROJECTS);
 
         JButton newProjectButton = new JButton(DisplayConstant.NEW_PROJECT);
         JButton openProjectButton = new JButton(DisplayConstant.OPEN_PROJECT);
-
 
         heading.setFont(StyleConstants.HEADING_MAIN);
         heading.setAlignmentX(CENTER_ALIGNMENT);
@@ -90,18 +91,27 @@ public class WelcomeWorkView extends AbstractWorkView implements ChildFrameListe
         recentProjects.setFont(StyleConstants.RECENT_PROJECTS);
         recentProjects.setAlignmentX(CENTER_ALIGNMENT);
 
-
-
         leftPanel.add(Box.createVerticalStrut(50));
         leftPanel.add(recentProjects);
+        Set<String> projects = model.getGeneralRepo().getNamesOfAllProjectsCreated();
+        for(String project : projects){
+            resultPanel.add(Box.createVerticalStrut(15));
+            System.out.println(project);
+            resultPanel.add(createCardForProject(project));
+            resultPanel.add(Box.createVerticalStrut(15));
+        }
+        JScrollPane scrollPane = new JScrollPane(resultPanel);
+        leftPanel.add(Box.createVerticalStrut(15));
 
-
+        leftPanel.add(scrollPane);
         rightPanel.add(Box.createVerticalStrut(50));
         rightPanel.add(heading);
         rightPanel.add(Box.createVerticalStrut(30));
         rightPanel.add(newProjectButton);
         rightPanel.add(Box.createVerticalStrut(10));
         rightPanel.add(openProjectButton);
+
+
 
         welcomeWorkViewMainPanel.add(leftPanel);
         welcomeWorkViewMainPanel.add(rightPanel);
@@ -127,6 +137,20 @@ public class WelcomeWorkView extends AbstractWorkView implements ChildFrameListe
                 openProject.init();
             }
         });
+    }
+
+    private JPanel createCardForProject(String project){
+        JPanel cardContent = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        cardContent.setBackground(StyleConstants.BACKGROUND_SECONDARY);
+        JButton OpenProjectButton = new JButton(project);
+        OpenProjectButton.setFont(StyleConstants.NEW_PROJECT);
+        OpenProjectButton.setBackground(StyleConstants.BACKGROUND_SECONDARY);
+        OpenProjectButton.setPreferredSize(new Dimension(540 , OpenProjectButton.getPreferredSize().height));
+        OpenProjectButton.setHorizontalAlignment(SwingConstants.LEFT);
+        cardContent.add(OpenProjectButton);
+        cardContent.setMaximumSize(new Dimension(550 , cardContent.getPreferredSize().height));
+        cardContent.setAlignmentX(LEFT_ALIGNMENT);
+        return cardContent;
     }
     private void initializeLogoPanel(){
         logoPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
@@ -172,4 +196,6 @@ public class WelcomeWorkView extends AbstractWorkView implements ChildFrameListe
                 break;
         }
     }
+
+
 }
