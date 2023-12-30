@@ -5,9 +5,7 @@ import com.dynalektric.helpers.JacksonFileIOHelper;
 import com.dynalektric.model.repositories.general.General;
 import com.dynalektric.model.repositories.general.GeneralRepo;
 import com.dynalektric.model.repositories.general.GeneralRepoJSONImpl;
-import com.dynalektric.model.repositories.project.InputData;
-import com.dynalektric.model.repositories.project.OutputData;
-import com.dynalektric.model.repositories.project.Project;
+import com.dynalektric.model.repositories.project.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,6 +21,7 @@ public class Model {
 
     private Project loadedProject;
     private OutputData loadedProjectOutput;
+    private Boolean hasUnsavedChanges;
     private static Model model;
     private Model(){};
     public static Model getSingleton(){
@@ -64,6 +63,10 @@ public class Model {
             new JacksonFileIOHelper().writeData(generalFile , general);
         }
     }
+
+    public void dissolveModel(){
+        model = null;
+    }
     public void loadNewProject(Project project){
         this.loadedProject = project;
     }
@@ -82,10 +85,22 @@ public class Model {
         return this.loadedProject.inputs;
     }
 
+    public Project getLoadedProject(){
+        return this.loadedProject;
+    }
+
     public void setLoadedProjectInput(InputData input){
         this.loadedProject.inputs = input;
     }
     public GeneralRepo getGeneralRepo(){
         return new GeneralRepoJSONImpl();
+    }
+    public ProjectRepo getProjectRepo(){return new ProjectRepoJSONImpl();}
+
+    public Boolean hasUnsavedChanges(){
+        return hasUnsavedChanges;
+    }
+    public void setHasUnsavedChanges(Boolean value){
+        model.hasUnsavedChanges = true;
     }
 }

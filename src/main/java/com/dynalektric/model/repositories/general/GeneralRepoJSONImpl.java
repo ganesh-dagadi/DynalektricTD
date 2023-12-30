@@ -2,6 +2,7 @@ package com.dynalektric.model.repositories.general;
 
 import com.dynalektric.constants.SystemConstants;
 import com.dynalektric.constants.ViewMessages;
+import com.dynalektric.helpers.FileHelpers;
 import com.dynalektric.helpers.FileIOHelper;
 import com.dynalektric.helpers.JacksonFileIOHelper;
 import com.dynalektric.model.Model;
@@ -10,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.util.List;
 import java.util.Set;
 
 public class GeneralRepoJSONImpl implements GeneralRepo{
@@ -40,9 +42,16 @@ public class GeneralRepoJSONImpl implements GeneralRepo{
     }
 
     @Override
-    public Set<String> getNamesOfAllProjectsCreated() {
+    public List<String> getNamesOfAllProjectsCreated() {
         General general = (General) fileIOHelper.readData(new File(SystemConstants.GENERAL_FILE) , General.class);
         return general.createdProjectNames;
+    }
+
+    @Override
+    public void setNamesOfAllProjectCreated(List<String> names) {
+        General general = (General) fileIOHelper.readData(new File(SystemConstants.GENERAL_FILE) , General.class);
+        general.createdProjectNames = names;
+        fileIOHelper.writeData(new File(SystemConstants.GENERAL_FILE) , general);
     }
 
     @Override
@@ -52,13 +61,4 @@ public class GeneralRepoJSONImpl implements GeneralRepo{
         fileIOHelper.writeData(new File(SystemConstants.GENERAL_FILE) , general);
     }
 
-    @Override
-    public void createNewProject(Project project) {
-        fileIOHelper.writeData(new File(SystemConstants.DATABASE_DIR+project.projectName+".json") , project);
-    }
-
-    @Override
-    public Project getProjectByName(String name) {
-        return null;
-    }
 }
