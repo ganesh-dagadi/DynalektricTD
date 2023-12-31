@@ -44,12 +44,4 @@ public class WelcomeWorkViewController {
         model.setLoadedProjectInput(project.inputs);
         View.getSingleton().setView(new InputWorkView(model));
     }
-
-    public void closeOpenedProject(){
-        if(model.hasUnsavedChanges()){
-            new Control().saveProject();
-            model.setHasUnsavedChanges(false);
-        }
-        model.clearProjectData();
-    }
 }

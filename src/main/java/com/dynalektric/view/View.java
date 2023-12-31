@@ -1,5 +1,6 @@
 package com.dynalektric.view;
 
+import com.dynalektric.control.WelcomeWorkViewController;
 import com.dynalektric.model.Model;
 import com.dynalektric.view.workViews.AbstractWorkView;
 import com.dynalektric.view.workViews.InputWorkView;
@@ -11,13 +12,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class View{
     private final static Logger LOGGER = LogManager.getLogger(View.class);
     private static View view;
-    private MainFrame mainFrame;
-    private MainPanel mainPanel;
+    private final MainFrame mainFrame = new MainFrame();
+    private final MainPanel mainPanel = new MainPanel(new BorderLayout());
+    public Map<String , AbstractWorkView> loadedViews = new HashMap<>();
 
     public final static Dimension SCREEN_DIMENSION = new Dimension(
             (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth(),
@@ -36,16 +40,24 @@ public class View{
 
     public void initView(){
         LOGGER.info("Initializing the UI");
-        this.initializeUI();
+        view.loadWorkViews();
+        view.initializeUI();
     }
 
     public void setView (AbstractWorkView view){
         model.setLiveView(view);
-        this.mainPanel.displayWorkView(view.getViewName());
+        View.getSingleton().mainPanel.displayWorkView(view.getViewName());
     }
 
     public void chooseWorkView(){
-        this.setView(new WelcomeWorkView(model));
+        String loadedProject = model.getGeneralRepo().getLoadedProjectName();
+        if(loadedProject == null){
+            view.setView(view.loadedViews.get(WelcomeWorkView.VIEW_NAME));
+        }
+        else{
+           new WelcomeWorkViewController().openProjectWithName(loadedProject);
+           view.setView(view.loadedViews.get(InputWorkView.VIEW_NAME));
+        }
     }
 
     public void startApp(){
@@ -61,16 +73,20 @@ public class View{
         }
     }
 
+    private void loadWorkViews(){
+        WelcomeWorkView welcomeView = new WelcomeWorkView(model);
+        InputWorkView inputView = new InputWorkView(model);
+        view.loadedViews.put(welcomeView.getViewName() ,welcomeView);
+        view.loadedViews.put(inputView.getViewName(),inputView);
+        mainPanel.loadWorkView(welcomeView);
+        mainPanel.loadWorkView(inputView);
+    }
+
     private void initializeUI(){
         try{
-            mainFrame = new MainFrame();
-            mainPanel = new MainPanel(new BorderLayout());
-            mainPanel.loadWorkView(new WelcomeWorkView(model));
-            mainPanel.loadWorkView(new InputWorkView(model));
             mainFrame.setContentPane(new JPanel(new BorderLayout()));
             mainFrame.getContentPane().add(mainPanel , BorderLayout.CENTER);
             mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            System.out.println(mainFrame.getPreferredSize());
             mainFrame.setSize(View.SCREEN_DIMENSION);
             mainFrame.addWindowListener(new WindowAdapter() {
                 @Override
