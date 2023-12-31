@@ -5,6 +5,8 @@ import com.dynalektric.model.Model;
 import com.dynalektric.model.repositories.general.GeneralRepo;
 import com.dynalektric.model.repositories.project.Project;
 import com.dynalektric.model.repositories.project.ProjectRepo;
+import com.dynalektric.view.View;
+import com.dynalektric.view.workViews.InputWorkView;
 
 import java.util.List;
 
@@ -40,8 +42,7 @@ public class WelcomeWorkViewController {
         }
         model.loadNewProject(project);
         model.setLoadedProjectInput(project.inputs);
-        //TODO after workspacePanel is created
-//        View.getSingleton().setView(null);
+        View.getSingleton().setView(new InputWorkView(model));
     }
 
     public void closeOpenedProject(){

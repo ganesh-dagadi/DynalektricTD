@@ -4,10 +4,10 @@ import javax.swing.*;
 import com.dynalektric.model.Model;
 import com.dynalektric.model.ModelObserver;
 import com.dynalektric.constants.ViewMessages;
+import com.dynalektric.view.ChildFrameListener;
 
 import java.util.Objects;
-
-public abstract class AbstractWorkView extends JPanel implements ModelObserver {
+public abstract class AbstractWorkView extends JPanel implements ModelObserver, ChildFrameListener {
     public abstract String getViewName();
     public abstract Integer getViewId();
     Model model;

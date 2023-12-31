@@ -32,7 +32,7 @@ public class GeneralRepoJSONImpl implements GeneralRepo{
     @Override
     public void setLoadedProjectName(String name) {
         try{
-            General generalData = new General();
+            General generalData = (General)fileIOHelper.readData(new File(SystemConstants.GENERAL_FILE) , General.class);
             generalData.loadedProject = name;
             fileIOHelper.writeData(new File(SystemConstants.GENERAL_FILE) , generalData);
         }catch(Exception e){
