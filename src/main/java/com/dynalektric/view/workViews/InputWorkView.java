@@ -7,6 +7,7 @@ import com.dynalektric.control.Control;
 import com.dynalektric.model.Model;
 import com.dynalektric.view.View;
 import com.dynalektric.view.ViewMessage;
+import com.dynalektric.view.components.InputDropDown;
 import com.dynalektric.view.components.InputTextFieldWithLabel;
 import com.dynalektric.view.components.MenuBar;
 import com.dynalektric.view.components.MenuItem;
@@ -18,6 +19,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 
 
 public class InputWorkView extends AbstractWorkView{
@@ -69,15 +71,61 @@ public class InputWorkView extends AbstractWorkView{
         JPanel defaultRightPanel = new JPanel();
         defaultLeftPanel.setLayout(new BoxLayout(defaultLeftPanel,BoxLayout.Y_AXIS));
         defaultRightPanel.setLayout(new BoxLayout(defaultRightPanel,BoxLayout.Y_AXIS));
-        defaultLeftPanel.setBackground(Color.GRAY);
-        defaultRightPanel.setBackground(Color.green);
-        dropDownLeftPanel.setBackground(Color.white);
-        dropDownRightPanel.setBackground(Color.black);
-        inputRightPanel.setBackground(Color.RED);
-        inputLeftPanel.setBackground(Color.CYAN);
 
-        inputLeftPanel.add(new InputTextFieldWithLabel("Gagan"));
+        inputLeftPanel.add(Box.createVerticalStrut(15));
+        inputLeftPanel.add(new InputTextFieldWithLabel("KVA :"));
+        inputLeftPanel.add(Box.createVerticalStrut(15));
+        inputLeftPanel.add(new InputTextFieldWithLabel("K :"));
+        inputLeftPanel.add(Box.createVerticalStrut(15));
+        inputLeftPanel.add(new InputTextFieldWithLabel("LV :"));
+        inputLeftPanel.add(Box.createVerticalStrut(15));
+        inputLeftPanel.add(new InputTextFieldWithLabel("HV :"));
+        inputLeftPanel.add(Box.createVerticalStrut(15));
 
+        inputRightPanel.add(Box.createVerticalStrut(15));
+        inputRightPanel.add(new InputTextFieldWithLabel("Connection :"));
+        inputRightPanel.add(Box.createVerticalStrut(15));
+        inputRightPanel.add(new InputTextFieldWithLabel("Cooling :"));
+        inputRightPanel.add(Box.createVerticalStrut(15));
+        inputRightPanel.add(new InputTextFieldWithLabel("Frequency :"));
+        inputRightPanel.add(Box.createVerticalStrut(15));
+        inputRightPanel.add(new InputTextFieldWithLabel("Wire Bare :"));
+        inputRightPanel.add(Box.createVerticalStrut(15));
+
+        dropDownLeftPanel.add(Box.createVerticalStrut(15));
+        String[] typesOfMaterialInputs = {"Copper","Aluminium"};
+        String[] typesOfWindingInputs = {"Strip", "Foil"};
+        String[] typesOfConnectionInputs = {"Star","Delta"};
+        String[] windingTemperatureInputs = {"90","115"};
+        String[] steelGradeInputs = {"CRNO-35","M4-27","MOH-23"};
+        String[] oilDuctsLv1Inputs = {"0","1","2","3","4","5"};
+        String[] oilDuctsLv2Inputs = {"0","6","8","10","12"};
+        String[] oilDuctsHv1Inputs = {"0","1","2"};
+        String[] oilDuctsHv2Inputs = {"0","6","8","10","12"};
+        String[] coreBldgInputs = {"1.5","2"};
+
+        dropDownLeftPanel.add(new InputDropDown(typesOfMaterialInputs , "Type Of Material" , "Copper"));
+        dropDownLeftPanel.add(Box.createVerticalStrut(15));
+        dropDownLeftPanel.add(new InputDropDown(typesOfWindingInputs,"Type Of Winding","Strip"));
+        dropDownLeftPanel.add(Box.createVerticalStrut(15));
+        dropDownLeftPanel.add(new InputDropDown(typesOfConnectionInputs,"Types Of Connection","Star"));
+        dropDownLeftPanel.add(Box.createVerticalStrut(15));
+        dropDownLeftPanel.add(new InputDropDown(oilDuctsLv1Inputs,"Oil Ducts Lv1","0"));
+        dropDownLeftPanel.add(Box.createVerticalStrut(15));
+        dropDownLeftPanel.add(new InputDropDown(oilDuctsLv2Inputs,"Oil Ducts Lv2","0"));
+        dropDownLeftPanel.add(Box.createVerticalStrut(15));
+
+        dropDownRightPanel.add(Box.createVerticalStrut(15));
+        dropDownRightPanel.add(new InputDropDown(windingTemperatureInputs,"Winding Temperature","90"));
+        dropDownRightPanel.add(Box.createVerticalStrut(15));
+        dropDownRightPanel.add(new InputDropDown(steelGradeInputs,"Steel Grade","CRNO-35"));
+        dropDownRightPanel.add(Box.createVerticalStrut(15));
+        dropDownRightPanel.add(new InputDropDown(coreBldgInputs,"Core Bldg","1.5"));
+        dropDownRightPanel.add(Box.createVerticalStrut(15));
+        dropDownRightPanel.add(new InputDropDown(oilDuctsHv1Inputs,"Oil Ducts Hv1","0"));
+        dropDownRightPanel.add(Box.createVerticalStrut(15));
+        dropDownRightPanel.add(new InputDropDown(oilDuctsHv2Inputs,"Oil Ducts Hv2","0"));
+        dropDownRightPanel.add(Box.createVerticalStrut(15));
 
         inputPanel.add(inputLeftPanel);
         inputPanel.add(inputRightPanel);
@@ -92,7 +140,6 @@ public class InputWorkView extends AbstractWorkView{
         inputWorkViewPanel.add(leftPanel);
         inputWorkViewPanel.add(rightPanel);
         mainPanel.add(inputWorkViewPanel);
-
     }
 
     private void initializeLogoPanel(){
