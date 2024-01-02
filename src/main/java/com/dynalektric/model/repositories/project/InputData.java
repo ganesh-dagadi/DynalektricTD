@@ -37,10 +37,27 @@ public class InputData {
     public Integer OIL_DUCTS_RADIAL_LV2 = 0;
     public Integer OIL_DUCTS_RADIAL_HV1 = 0;
     public Integer OIL_DUCTS_RADIAL_HV2 = 0;
-    public Double CONDUCTIVITY_COPPER_90 = 44.7;
-    public Double CONDUCTIVITY_ALUMINIUM_90 = 28.0;
-    public Double CONDUCTIVITY_COPPER_115 = 42.76;
-    public Double CONDUCTIVITY_ALUMINIUM_115 = 26.73;
+
+//    public Double CONDUCTIVITY_COPPER_90 = 44.7;
+//    public Double CONDUCTIVITY_ALUMINIUM_90 = 28.0;
+//    public Double CONDUCTIVITY_COPPER_115 = 42.76;
+//    public Double CONDUCTIVITY_ALUMINIUM_115 = 26.73;
+
     public Double FLUX_DENSITY = 1.640;
+    public String STEEL_GRADE = "CRNO-35";
+    public Double STACKING_FACTOR = 0.97;
+    public Double CORE_BLDG_FACTOR = 1.5;
+    public Double CORE_W = 120.0;
+    public Integer LIMB_PLATE_W = 0;
+    public Integer LIMB_PLATE_D = 4;
+    public Integer GAP_W = 16;
+    public Integer GAP_D = 16;
+    public Integer DELTA_W = 16;
+    public Integer DELTA_D = 16;
+    public Integer AM_W = 13;
+    public Integer AM_D = 13;
+    public String CONDUCTOR = "COPPER";
+    public Double WIND_TEMP = 115.0;
+    public Double CONDUCTIVITY = 42.76;
 
 }
