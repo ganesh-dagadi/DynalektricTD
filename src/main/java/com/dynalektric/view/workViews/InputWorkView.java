@@ -7,6 +7,7 @@ import com.dynalektric.control.Control;
 import com.dynalektric.model.Model;
 import com.dynalektric.view.View;
 import com.dynalektric.view.ViewMessage;
+import com.dynalektric.view.components.InputTextFieldWithLabel;
 import com.dynalektric.view.components.MenuBar;
 import com.dynalektric.view.components.MenuItem;
 import org.apache.logging.log4j.LogManager;
@@ -74,6 +75,10 @@ public class InputWorkView extends AbstractWorkView{
         dropDownRightPanel.setBackground(Color.black);
         inputRightPanel.setBackground(Color.RED);
         inputLeftPanel.setBackground(Color.CYAN);
+
+        inputLeftPanel.add(new InputTextFieldWithLabel("Gagan"));
+
+
         inputPanel.add(inputLeftPanel);
         inputPanel.add(inputRightPanel);
         dropDownPanel.add(dropDownLeftPanel);
