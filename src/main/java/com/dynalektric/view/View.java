@@ -47,7 +47,12 @@ public class View{
 
     public void setView (AbstractWorkView view){
         model.setLiveView(view);
+        view.refreshUI();
         View.getSingleton().mainPanel.displayWorkView(view.getViewName());
+    }
+
+    public void setView(String viewName){
+        this.setView(loadedViews.get(viewName));
     }
 
     public void chooseWorkView(){
@@ -57,8 +62,7 @@ public class View{
         }
         else{
            new WelcomeWorkViewController().openProjectWithName(loadedProject);
-           //TODO revert this change
-           view.setView(view.loadedViews.get(OutputOneWorkView.VIEW_NAME));
+           view.setView(view.loadedViews.get(InputWorkView.VIEW_NAME));
         }
     }
 
