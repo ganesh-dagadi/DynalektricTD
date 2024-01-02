@@ -4,6 +4,7 @@ import com.dynalektric.control.WelcomeWorkViewController;
 import com.dynalektric.model.Model;
 import com.dynalektric.view.workViews.AbstractWorkView;
 import com.dynalektric.view.workViews.InputWorkView;
+import com.dynalektric.view.workViews.OutputOneWorkView;
 import com.dynalektric.view.workViews.WelcomeWorkView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -56,7 +57,8 @@ public class View{
         }
         else{
            new WelcomeWorkViewController().openProjectWithName(loadedProject);
-           view.setView(view.loadedViews.get(InputWorkView.VIEW_NAME));
+           //TODO revert this change
+           view.setView(view.loadedViews.get(OutputOneWorkView.VIEW_NAME));
         }
     }
 
@@ -76,10 +78,13 @@ public class View{
     private void loadWorkViews(){
         WelcomeWorkView welcomeView = new WelcomeWorkView(model);
         InputWorkView inputView = new InputWorkView(model);
+        OutputOneWorkView outputOneWorkView = new OutputOneWorkView(model);
+        view.loadedViews.put(outputOneWorkView.getViewName() , outputOneWorkView);
         view.loadedViews.put(welcomeView.getViewName() ,welcomeView);
         view.loadedViews.put(inputView.getViewName(),inputView);
         mainPanel.loadWorkView(welcomeView);
         mainPanel.loadWorkView(inputView);
+        mainPanel.loadWorkView(outputOneWorkView);
     }
 
     private void initializeUI(){
