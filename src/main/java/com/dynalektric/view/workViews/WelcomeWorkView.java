@@ -35,6 +35,7 @@ public class WelcomeWorkView extends AbstractWorkView implements ChildFrameListe
     private final WelcomeWorkViewController controller = new WelcomeWorkViewController();
     private final WelcomeWorkView thisReference = this;
     private final static Logger LOGGER = LogManager.getLogger(WelcomeWorkView.class);
+    public final static String VIEW_NAME = "Welcome work view";
     public WelcomeWorkView(Model model) {
         super(model);
         SwingUtilities.invokeLater(new Runnable() {
@@ -57,7 +58,7 @@ public class WelcomeWorkView extends AbstractWorkView implements ChildFrameListe
 
     @Override
     public String getViewName() {
-        return "Welcome work view";
+        return VIEW_NAME;
     }
 
     @Override

@@ -21,7 +21,7 @@ public class Model {
 
     private Project loadedProject;
     private OutputData loadedProjectOutput;
-    private Boolean hasUnsavedChanges;
+    private Boolean hasUnsavedChanges = false;
     private static Model model;
     private Model(){};
     public static Model getSingleton(){

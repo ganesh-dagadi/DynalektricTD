@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 public class General {
-    public String loadedProject = "";
+    public String loadedProject = null;
     public List<String> createdProjectNames = new ArrayList<>();
 }
