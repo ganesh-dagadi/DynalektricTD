@@ -5,6 +5,7 @@ import com.dynalektric.model.Model;
 import com.dynalektric.model.repositories.project.InputData;
 import com.dynalektric.model.repositories.project.OutputData;
 import java.lang.Math;
+import java.security.PublicKey;
 import java.util.Objects;
 
 public class Calculations {
@@ -288,13 +289,13 @@ public class Calculations {
 
     public void spec_losses() {
         if(Objects.equals(inputData.STEEL_GRADE, "CRNO-35")) {
-            outputData.SPEC_LOSSES = 2.450;
+            outputData.SPEC_LOSSES = 2.508;
         }
         else if(Objects.equals(inputData.STEEL_GRADE, "M4-27")) {
-            outputData.SPEC_LOSSES = 1.060;
+            outputData.SPEC_LOSSES = 0.924;
         }
         else if(Objects.equals(inputData.STEEL_GRADE, "MOH-23")) {
-            outputData.SPEC_LOSSES = 0.790;
+            outputData.SPEC_LOSSES = 0.7392;
         }
     }
 
@@ -654,7 +655,7 @@ public class Calculations {
     }
 
     public void mass_limb_dash() {
-        outputData.MASS_LIMB_DASH = 1.45 * outputData.MASS_LIMB;
+        outputData.MASS_LIMB_DASH = 0.82 * outputData.MASS_LIMB;
     }
 
     public void mass_yoke() {
@@ -662,18 +663,18 @@ public class Calculations {
     }
 
     public void mass_yoke_dash() {
-        outputData.MASS_YOKE_DASH = 1.45 * outputData.MASS_YOKE;
+        outputData.MASS_YOKE_DASH = 0.82 * outputData.MASS_YOKE;
     }
 
     public void mass_corner() {
         outputData.MASS_CORNER = Math.pow(inputData.CORE_W,2) * outputData.CORE_D * inputData.STACKING_FACTOR * 6 * 7.65 * 0.000001;
     }
     public void MASS_CORNER_DASH() {
-        outputData.MASS_CORNER_DASH = 6 * 1.45 * outputData.MASS_CORNER;
+        outputData.MASS_CORNER_DASH = 6 * 0.82 * outputData.MASS_CORNER;
     }
 
     public void gap_va() {
-        outputData.GAP_VA = 6 * 3.11 * inputData.CORE_W * outputData.CORE_D * inputData.STACKING_FACTOR * 0.01;
+        outputData.GAP_VA = 6 * 1.37 * inputData.CORE_W * outputData.CORE_D * inputData.STACKING_FACTOR * 0.01;
     }
 
     public void sum_va() {
@@ -688,5 +689,72 @@ public class Calculations {
         outputData.EXTRA_NL_LOSS = Math.pow(((outputData.NL_CURRENT_PERCENTAGE / 100) * outputData.RATED_CURRENT_HV), 2) * outputData.RESISTANCE_HV * 3;
     }
 
+    public void l_active() {
+        outputData.L_ACTIVE = (double)Math.round((2 * outputData.C_DIST + (outputData.OD_W - inputData.CORE_W)) / 5.0) * 5;
+    }
 
+    public void b_active() {
+        outputData.B_ACTIVE = (double)Math.round(outputData.LEADS / 5.0) * 5;
+    }
+
+    public void h_active() {
+        outputData.H_ACTIVE = (double)Math.round((5 + 2 * inputData.CORE_W + outputData.LIMB_H) / 5.0) * 5.0;
+    }
+    public void l_mechanical() {
+       double answer = Math.round((outputData.L_ACTIVE +  (2*250) ) / 5);
+        outputData.L_MECHANICAL = answer * 5;
+    }
+    public  void b_mechanical() {
+        double answer = Math.round((outputData.B_ACTIVE + (2*260) ) / 5 );
+        outputData.B_MECHANICAL = answer * 5;
+    }
+    public void h_mechanical() {
+        double answer = Math.round((outputData.H_ACTIVE  + 250 + 75 ) / 5);
+        outputData.H_MECHANICAL = answer * 5;
+    }
+    public void bom_core() {
+        outputData.BOM_CORE = outputData.TOTAL_CORE_MASS;
+    }
+    public void bom_core_steel() {
+        outputData.BOM_CORE_STEEL = (double)Math.round(outputData.TOTAL_CORE_MASS * 0.1);
+    }
+    public void bom_conductor() {
+        outputData.BOM_CONDUCTOR_WT = (double)Math.round((outputData.CONDUCTOR_LV2 + outputData.CONDUCTOR_HV2) * 1.025);
+    }
+    public void bom_leads() {
+        outputData.BOM_LEADS = outputData.BOM_CONDUCTOR_WT * 0.04;
+    }
+    public void bom_insulation_fg() {
+        outputData.BOM_INSULATION_FG = 0.12 * outputData.BOM_CONDUCTOR_WT;
+    }
+    public void bom_connection_fg() {
+        outputData.BOM_CONNECTION_FG = (4 * outputData.BOM_CONDUCTOR_WT) / 1000;
+    }
+    public  void bom_insulation_cl_h() {
+        outputData.BOM_INSULATION_CL_H = (0.025 * outputData.BOM_CONDUCTOR_WT);
+    }
+    public void bom_resin_v50() {
+        outputData.BOM_RESIN_VT50 = (outputData.BOM_CORE + outputData.BOM_CORE_STEEL + outputData.BOM_CONDUCTOR_WT + outputData.BOM_LEADS + outputData.BOM_INSULATION_FG + outputData.BOM_CONNECTION_FG + outputData.BOM_INSULATION_CL_H) * 0.05;
+    }
+    public void bom_misc() {
+        outputData.BOM_MISC = (outputData.BOM_CORE + outputData.BOM_CORE_STEEL + outputData.BOM_CONDUCTOR_WT + outputData.BOM_LEADS + outputData.BOM_INSULATION_FG + outputData.BOM_CONNECTION_FG + outputData.BOM_INSULATION_CL_H + outputData.BOM_RESIN_VT50) * 0.05;
+    }
+    public void bom_total_mass() {
+        outputData.BOM_TOTAL_MASS = outputData.BOM_CORE + outputData.BOM_CORE_STEEL + outputData.BOM_CONDUCTOR_WT + outputData.BOM_LEADS + outputData.BOM_INSULATION_FG + outputData.BOM_CONNECTION_FG + outputData.BOM_INSULATION_CL_H + outputData.BOM_RESIN_VT50 + outputData.BOM_MISC + inputData.BOM_CRCA_ENCL;
+    }
+
+    public void mass() {
+        outputData.MASS = outputData.CONDUCTOR_LV1 + outputData.CONDUCTOR_HV1;
+    }
+
+    public void mass_core_wdg() {
+        outputData.MASS_CORE_WDG = (double)Math.round(1.135 * (outputData.TOTAL_CORE_MASS + outputData.MASS));
+    }
+    public void total_mass_w_o_encl() {
+        outputData.TOTAL_MASS_W_O_ENCL = outputData.BOM_TOTAL_MASS - inputData.BOM_CRCA_ENCL;
+    }
+
+    public void rmc() {
+        outputData.RMC = (double)Math.round((outputData.BOM_CORE * 260) + (outputData.BOM_CONDUCTOR_WT * 360) * 1.5);
+    }
 }

@@ -59,5 +59,5 @@ public class InputData {
     public String CONDUCTOR = "COPPER";
     public Double WIND_TEMP = 115.0;
     public Double CONDUCTIVITY = 42.76;
-
+    public Double BOM_CRCA_ENCL = 0.0;
 }

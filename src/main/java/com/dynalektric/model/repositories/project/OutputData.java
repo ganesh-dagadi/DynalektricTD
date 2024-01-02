@@ -1,5 +1,7 @@
 package com.dynalektric.model.repositories.project;
 
+import com.fasterxml.jackson.databind.node.DoubleNode;
+
 import java.security.PublicKey;
 
 public class OutputData {
@@ -33,7 +35,7 @@ public class OutputData {
     public Double WIND_RADIAL_DEPTH_LV = null;
     public Double WIND_RADIAL_DEPTH_HV = null;
     public Double NET_CROSS_SECTION = null;
-    public Double SPEC_LOSSES = 2.450;
+    public Double SPEC_LOSSES = 2.508;
     public Double CORE_D = null;
     public Double TOTAL_CORE_W = null;
     public Double TOTAL_CORE_D = null;
@@ -115,6 +117,26 @@ public class OutputData {
     public Double SUM_VA = null;
     public Double NL_CURRENT_PERCENTAGE = null;
     public Double EXTRA_NL_LOSS = null;
+    public Double L_ACTIVE = null;
+    public Double B_ACTIVE = null;
+    public Double H_ACTIVE = null;
+    public Double L_MECHANICAL = null;
+    public Double B_MECHANICAL = null;
+    public Double H_MECHANICAL = null;
+    public Double BOM_CORE = null;
+    public Double BOM_CORE_STEEL = null;
+    public Double BOM_CONDUCTOR_WT = null;
+    public Double BOM_LEADS = null;
+    public Double BOM_INSULATION_FG = null;
+    public Double BOM_CONNECTION_FG = null;
+    public Double BOM_INSULATION_CL_H = null;
+    public Double BOM_RESIN_VT50 = null;
+    public Double BOM_MISC = null;
+    public Double BOM_TOTAL_MASS = null;
+    public Double MASS_CORE_WDG = null;
+    public Double MASS = null;
+    public Double TOTAL_MASS_W_O_ENCL = null;
+    public Double RMC = null;
 
 
 }
