@@ -22,7 +22,10 @@ public class InputWorkView extends AbstractWorkView{
             }
         });
     }
+    @Override
+    public void refreshUI() {
 
+    }
     private void initializeUI(){
         this.setLayout(new BorderLayout());
         this.add(new MenuBar(this) , BorderLayout.NORTH);
@@ -45,4 +48,5 @@ public class InputWorkView extends AbstractWorkView{
     public Integer getViewId() {
         return 2;
     }
+
 }
