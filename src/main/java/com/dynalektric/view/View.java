@@ -47,7 +47,6 @@ public class View{
 
     public void setView (AbstractWorkView view){
         model.setLiveView(view);
-        view.refreshUI();
         View.getSingleton().mainPanel.displayWorkView(view.getViewName());
     }
 
