@@ -5,22 +5,171 @@ import com.dynalektric.model.Model;
 import com.dynalektric.model.repositories.project.InputData;
 import com.dynalektric.model.repositories.project.OutputData;
 import java.lang.Math;
-import java.security.PublicKey;
 import java.util.Objects;
 
 public class Calculations {
     Model model;
 
-    private final InputData inputData;
-    private final OutputData outputData;
+    private InputData inputData;
+    private OutputData outputData;
 
     public Calculations() {
         model = Model.getSingleton();
-        this.inputData = model.getLoadedProjectInput();
-        this.outputData = model.getOutputData();
     }
 
     public void beginCalculations() {
+
+        this.inputData = model.getLoadedProjectInput();
+        this.outputData = model.getOutputData();
+
+        // vph and iph based on connection type for LV
+        if(Objects.equals(inputData.CONNECTIONTYPELV, "STAR")) {
+            vph_lv_star();
+            iph_lv_star();
+        }
+        else {
+            vph_lv_delta();
+            iph_lv_delta();
+        }
+
+        // vph and iph based on connection type for HV
+        if(Objects.equals(inputData.CONNECTIONTYPEHV, "STAR")) {
+            vph_hv_star();
+            iph_hv_star();
+        }
+        else {
+            vph_hv_delta();
+            iph_hv_delta();
+        }
+
+        v_t();
+        rated_voltage_LV();
+        rated_voltage_HV();
+        rated_current_LV();
+        rated_current_HV();
+        cross_section_LV();
+        cross_section_HV();
+        current_density_LV();
+        current_density_HV();
+        turn_limb_LV();
+        turn_limb_HV();
+        turn_layer_LV();
+        turn_layer_HV();
+        wire_insulated_LV1();
+        wire_insulated_LV2();
+        wire_insulated_HV1();
+        wire_insulated_HV2();
+        wind_length_LV();
+        wind_length_HV();
+        wdg_lg_imp_calcu_LV();
+        wdg_lg_imp_calcu_HV();
+        limb_length_LV();
+        limb_length_HV();
+        wind_radial_depth_lv();
+        wind_radial_depth_hv();
+        net_cross_section();
+        spec_losses();
+        core_d();
+        total_core_w();
+        total_core_d();
+        id_w();
+        id_d();
+        lv_wdg();
+        od_w();
+        od_d();
+        total_id_w();
+        total_id_d();
+        hv_wdg();
+        total_od_w();
+        total_od_d();
+        c_dist();
+        yoke_l();
+        leads();
+        limb_h();
+        total_core_mass();
+        calc_loss();
+        r1();
+        r2();
+        r3();
+        r4();
+        perimeter1();
+        perimeter2();
+        perimeter3();
+        perimeter4();
+        mean_lg_lv();
+        mean_lg_delta();
+        mean_lg_hv();
+        turn_length_lv();
+        turn_length_hv();
+        wire_length_lv();
+        wire_length_hv();
+        resistance_lv();
+        resistance_hv();
+        conductor_lv1();
+        conductor_lv2();
+        conductor_hv1();
+        conductor_hv2();
+        h();
+        b();
+        kr();
+        ls();
+        delta_dash();
+        ex();
+        stray_loss_lv();
+        stray_loss_hv();
+        load_loss_lv();
+        load_loss_hv();
+        mass_of_conductor();
+        lv1();
+        hv_m();
+        tank();
+        obtained_loss();
+        er();
+        ek();
+        s_am2_wdg_lv();
+        s_am2_wdg_hv();
+        w_m2_lv();
+        w_m2_hv();
+        wdg_temp_rise_lv();
+        wdg_temp_rise_hv();
+        gr_wdg_lv();
+        gr_wdg_hv();
+        core();
+        core_sa();
+        wdg_sa();
+        sum_sa();
+        sum_loss();
+        theta_k();
+        mass_limb();
+        mass_limb_dash();
+        mass_yoke();
+        mass_yoke_dash();
+        mass_corner();
+        MASS_CORNER_DASH();
+        gap_va();
+        sum_va();
+        nl_current_percentage();
+        extra_nl_loss();
+        l_active();
+        b_active();
+        h_active();
+        l_mechanical();
+        b_mechanical();
+        h_mechanical();
+        bom_core();
+        bom_core_steel();
+        bom_conductor();
+        bom_leads();
+        bom_insulation_fg();
+        bom_connection_fg();
+        bom_insulation_cl_h();
+        bom_resin_v50();
+        bom_misc();
+        bom_total_mass();
+        mass();
+        mass_core_wdg();
+        total_mass_w_o_encl();
+        rmc();
     }
 
     //Write all the functions here
