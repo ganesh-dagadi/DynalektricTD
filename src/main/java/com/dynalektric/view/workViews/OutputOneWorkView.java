@@ -19,9 +19,24 @@ public class OutputOneWorkView extends AbstractWorkView{
     private final JPanel mainPanel = new JPanel();
     private final JPanel LV_HVPanel = new JPanel();
     private final JPanel coreDetailsPanel = new JPanel();
-    private final JTable LV_HV_Table = new JTable(18  , 3);
-    private final JTable wireDetailTable = new JTable(3 , 5);
-    private final JTable coreWdgTable = new JTable(13 , 3);
+    private final JTable LV_HV_Table = new JTable(18  , 3){
+        @Override
+        public boolean isCellEditable(int row , int col){
+            return false;
+        }
+    };
+    private final JTable wireDetailTable = new JTable(3 , 5){
+        @Override
+        public boolean isCellEditable(int row , int col){
+            return false;
+        }
+    };
+    private final JTable coreWdgTable = new JTable(13 , 3){
+        @Override
+        public boolean isCellEditable(int row , int col){
+            return false;
+        }
+    };
     private final JTable coreWeightTable = new JTable(1 , 5);
     private final JLabel cDistLabel = new JLabel("C Dist : ");
     private final JLabel yokeL = new JLabel("Yoke L : ");
@@ -129,6 +144,7 @@ public class OutputOneWorkView extends AbstractWorkView{
             @Override
             public void mouseClicked(MouseEvent e) {
 //                View.getSingleton().setView(OutputWorkViewTwo.VIEW_NAME);
+                System.out.println(coreWeightTable.getModel().getValueAt(0 , 1));
             }
         });
         navigationPanel.add(nextBtn);
