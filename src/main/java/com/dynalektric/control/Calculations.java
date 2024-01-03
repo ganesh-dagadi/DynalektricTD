@@ -170,6 +170,8 @@ public class Calculations {
         mass_core_wdg();
         total_mass_w_o_encl();
         rmc();
+
+        model.setOutputData(outputData);
     }
 
     //Write all the functions here
