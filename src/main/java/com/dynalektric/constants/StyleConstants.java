@@ -13,6 +13,7 @@ public class StyleConstants {
 
     public final static Color FOREGROUND_PRIMARY = new Color(10, 10, 10);
     public final static Color BACKGROUND_PRIMARY = new Color(210, 210, 210);
-    public final static Font HEADING_SUB1 = new Font(Font.SANS_SERIF , Font.PLAIN , 35);
+    public final static Font HEADING_SUB1 = new Font(Font.SANS_SERIF , Font.PLAIN , 30);
+    public final static Font HEADING_SUB2 = new Font(Font.SANS_SERIF , Font.PLAIN , 20);
     public  final static Font NEW_PROJECT = new Font(Font.SANS_SERIF ,Font.PLAIN,20 );
 }

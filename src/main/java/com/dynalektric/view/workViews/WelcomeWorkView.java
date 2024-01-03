@@ -66,11 +66,6 @@ public class WelcomeWorkView extends AbstractWorkView implements ChildFrameListe
         return 1;
     }
 
-    @Override
-    public void refreshUI() {
-        //No need to refresh here
-    }
-
     private void initializeUI(){
         this.setLayout(new BorderLayout());
         this.initializeLogoPanel();

@@ -10,7 +10,6 @@ import java.util.Objects;
 public abstract class AbstractWorkView extends JPanel implements ModelObserver, ChildFrameListener {
     public abstract String getViewName();
     public abstract Integer getViewId();
-    public abstract void refreshUI();
     Model model;
     protected AbstractWorkView(Model model) {
         this.model = model;
