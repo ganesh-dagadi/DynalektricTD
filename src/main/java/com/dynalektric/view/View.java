@@ -6,6 +6,7 @@ import com.dynalektric.view.workViews.AbstractWorkView;
 import com.dynalektric.view.workViews.InputWorkView;
 import com.dynalektric.view.workViews.OutputOneWorkView;
 import com.dynalektric.view.workViews.WelcomeWorkView;
+import com.dynalektric.view.workViews.OutputTwoWorkView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -82,12 +83,15 @@ public class View{
         WelcomeWorkView welcomeView = new WelcomeWorkView(model);
         InputWorkView inputView = new InputWorkView(model);
         OutputOneWorkView outputOneWorkView = new OutputOneWorkView(model);
+        OutputTwoWorkView outputTwoWorkView = new OutputTwoWorkView(model);
         view.loadedViews.put(outputOneWorkView.getViewName() , outputOneWorkView);
         view.loadedViews.put(welcomeView.getViewName() ,welcomeView);
         view.loadedViews.put(inputView.getViewName(),inputView);
+        view.loadedViews.put(outputTwoWorkView.getViewName(),outputTwoWorkView);
         mainPanel.loadWorkView(welcomeView);
         mainPanel.loadWorkView(inputView);
         mainPanel.loadWorkView(outputOneWorkView);
+        mainPanel.loadWorkView(outputTwoWorkView);
     }
 
     private void initializeUI(){
