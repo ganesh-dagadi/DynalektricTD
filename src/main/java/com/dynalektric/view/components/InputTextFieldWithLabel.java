@@ -14,11 +14,15 @@ public class InputTextFieldWithLabel extends JPanel {
         this.label.setText(labelName);
         this.initTextField();
     }
-    public InputTextFieldWithLabel(String labelName,Integer defaultValue){
+    public InputTextFieldWithLabel(String labelName,String defaultValue){
        this.label.setText(labelName);
-       this.textField.setText(defaultValue.toString());
+       this.textField.setText(defaultValue);
        this.initTextField();
     }
+    public void setValueEntered(String value){
+        this.textField.setText(value);
+    }
+
 
     public String getValueEntered(){
         return this.textField.getText();

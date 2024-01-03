@@ -29,6 +29,14 @@ public class InputDropDown extends JPanel {
         this.initDropDown(options);
     }
 
+    public void setValueSelected(String selectedValue){
+        for(int i = 0;i<options.length;i++){
+            if(Objects.equals(options[i], selectedValue)) {
+                this.dropdown.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
     public String getValueSelected(){
         int selectedIndex = this.dropdown.getSelectedIndex();
         return this.options[selectedIndex];
@@ -38,7 +46,7 @@ public class InputDropDown extends JPanel {
         this.setLayout(new FlowLayout());
         this.add(label);
         this.add(dropdown);
-        this.setMaximumSize(new Dimension(200 , 50));
+        this.setMaximumSize(new Dimension(250 , 50));
 
     }
 
