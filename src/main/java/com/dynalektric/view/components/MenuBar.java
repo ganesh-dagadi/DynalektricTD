@@ -26,13 +26,21 @@ public class MenuBar extends JMenuBar{
 
         //project Menu
         MenuItem closeProject = new MenuItem(DisplayConstant.MENU_ITEM_CLOSE_PROJECT);
+        MenuItem saveProject =new MenuItem(DisplayConstant.MENU_ITEM_SAVE_PROJECT);
         closeProject.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent event) {
                 parent.captureEventFromChildSubFrame(new ViewMessage(ViewMessages.CLOSE_OPENED_PROJECT , null));
             }
         });
+        saveProject.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                parent.captureEventFromChildSubFrame(new ViewMessage(ViewMessages.SAVE_PROJECT , null));
+            }
+        });
         projectMenu.add(closeProject);
+        projectMenu.add(saveProject);
         this.add(projectMenu);
         this.add(viewMenu);
         this.add(windowMenu);

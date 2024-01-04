@@ -42,6 +42,6 @@ public class WelcomeWorkViewController {
         }
         model.loadNewProject(project);
         model.setLoadedProjectInput(project.inputs);
-        View.getSingleton().setView(new InputWorkView(model));
+        View.getSingleton().setView(InputWorkView.VIEW_NAME);
     }
 }

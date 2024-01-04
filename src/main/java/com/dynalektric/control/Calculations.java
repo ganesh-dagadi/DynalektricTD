@@ -5,6 +5,7 @@ import com.dynalektric.model.Model;
 import com.dynalektric.model.repositories.project.InputData;
 import com.dynalektric.model.repositories.project.OutputData;
 import java.lang.Math;
+import java.security.PublicKey;
 import java.util.Objects;
 
 public class Calculations {
@@ -356,7 +357,7 @@ public class Calculations {
     }
 
     public void wire_insulated_HV2() {
-        double answer = inputData.WIREBAREHV2;
+        double answer = inputData.WIREBAREHV1;
         if (Objects.equals(inputData.WINDINGTYPEHV, "STRIP")) {
             answer += inputData.INSULATION_HV;
         }
@@ -408,26 +409,28 @@ public class Calculations {
     }
 
     public void limb_length_LV() {
-        outputData.LIMB_LENGTH_LV = outputData.WIND_LENGTH_LV + inputData.END_CLEARANCES_LV;
+        outputData.LIMB_LENGTH_LV = outputData.WIND_LENGTH_LV * inputData.END_CLEARANCES_LV;
     }
 
     public void limb_length_HV() {
-        outputData.LIMB_LENGTH_HV = outputData.WIND_LENGTH_HV + inputData.END_CLEARANCES_HV;
+        outputData.LIMB_LENGTH_HV = outputData.WIND_LENGTH_HV * inputData.END_CLEARANCES_HV;
     }
 
     public void wind_radial_depth_lv() {
-        double answer = outputData.WIRE_INSULATED_LV2 * inputData.NO_IN_PARALLEL_RA_LV1 * inputData.LAYER_LV;
+        double answer = outputData.WIRE_INSULATED_LV1 * inputData.NO_IN_PARALLEL_RA_LV2 * inputData.LAYER_LV;
         answer = answer + inputData.OIL_DUCTS_RADIAL_LV1 * inputData.OIL_DUCTS_RADIAL_LV2;
         answer = answer + (inputData.INSULATION_BETWEEN_LAYERS_LV * (inputData.LAYER_LV - 1) * 1.05);
-        answer = Math.round(answer / 5.0) * 5;
+        answer = answer / 5.0;
+        answer = Math.round(answer) * 5;
         outputData.WIND_RADIAL_DEPTH_LV = answer;
     }
 
     public void wind_radial_depth_hv() {
-        double answer = outputData.WIRE_INSULATED_HV2 * inputData.NO_IN_PARALLEL_RA_HV1 * inputData.LAYER_HV;
-        answer = answer + (inputData.OIL_DUCTS_RADIAL_HV1 * inputData.OIL_DUCTS_RADIAL_HV2);
+        double answer = outputData.WIRE_INSULATED_HV1 * inputData.NO_IN_PARALLEL_RA_HV2 * inputData.LAYER_HV;
+        answer = answer + inputData.OIL_DUCTS_RADIAL_HV1 * inputData.OIL_DUCTS_RADIAL_HV2;
         answer = answer + (inputData.INSULATION_BETWEEN_LAYERS_HV * (inputData.LAYER_HV - 1) * 1.05);
-        answer = Math.round(answer / 5.0) * 5;
+        answer = answer / 5.0;
+        answer = Math.round(answer) * 5;
         outputData.WIND_RADIAL_DEPTH_HV = answer;
     }
 
@@ -480,11 +483,11 @@ public class Calculations {
     }
 
     public void total_id_w() {
-        outputData.TOTAL_ID_W = outputData.OD_W + inputData.DELTA_W;
+        outputData.TOTAL_ID_W = outputData.ID_W + inputData.DELTA_W;
     }
 
     public void total_id_d() {
-        outputData.TOTAL_ID_D = outputData.OD_D + inputData.DELTA_D;
+        outputData.TOTAL_ID_D = outputData.ID_D + inputData.DELTA_D;
     }
 
     public void hv_wdg() {
@@ -516,7 +519,7 @@ public class Calculations {
     }
 
     public void total_core_mass() {
-        outputData.TOTAL_CORE_MASS = (((outputData.LIMB_H * 3) + (outputData.YOKE_L * 2)) * 0.1 * outputData.NET_CROSS_SECTION * 7.65) * 0.001;
+        outputData.TOTAL_CORE_MASS = (((outputData.LIMB_H * 3) + (outputData.YOKE_L * 2)) * 0.1 * outputData.NET_CROSS_SECTION * 7.65) / 1000;
     }
 
     public void calc_loss() {
