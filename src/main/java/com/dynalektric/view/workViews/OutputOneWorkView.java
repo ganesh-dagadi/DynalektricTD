@@ -100,7 +100,8 @@ public class OutputOneWorkView extends AbstractWorkView{
     private void initializeLV_HVPanel(){
         BoxLayout layout = new BoxLayout(this.LV_HVPanel , BoxLayout.Y_AXIS);
         this.LV_HVPanel.setLayout(layout);
-        setLVHVPanelValues();
+        if(model.getLoadedProject() != null)
+            setLVHVPanelValues();
         JLabel LV_HVHeading = new JLabel("LV HV data");
         LV_HVHeading.setFont(StyleConstants.HEADING_SUB1);
         LV_HVHeading.setAlignmentX(CENTER_ALIGNMENT);
@@ -128,7 +129,8 @@ public class OutputOneWorkView extends AbstractWorkView{
         JLabel coreDetailsHeading = new JLabel("Core details");
         coreDetailsHeading.setFont(StyleConstants.HEADING_SUB1);
         coreDetailsHeading.setAlignmentX(CENTER_ALIGNMENT);
-        this.setCorePanelValues();
+        if(model.getLoadedProject() != null)
+            this.setCorePanelValues();
         this.coreDetailsPanel.add(coreDetailsHeading);
         this.coreDetailsPanel.add(Box.createVerticalStrut(10));
         this.coreDetailsPanel.add(coreWdgTable);

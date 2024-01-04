@@ -5,17 +5,20 @@ import java.awt.*;
 
 public class InputTextFieldWithLabel extends JPanel {
     private final JLabel label = new JLabel();
-    private final JTextField textField = new JTextField();
+    private JTextField textField = new JTextField();
+    private String labelName;
     public InputTextFieldWithLabel(){
         this.label.setText("");
         this.initTextField();
     }
     public InputTextFieldWithLabel(String labelName){
         this.label.setText(labelName);
+        this.labelName = labelName;
         this.initTextField();
     }
     public InputTextFieldWithLabel(String labelName,String defaultValue){
        this.label.setText(labelName);
+       this.labelName = labelName;
        this.textField.setText(defaultValue);
        this.initTextField();
     }

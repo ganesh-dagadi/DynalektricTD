@@ -287,7 +287,8 @@ public class InputWorkView extends AbstractWorkView{
         inputWorkViewPanel.add(defaultScrollPane);
 
         mainPanel.add(inputWorkViewPanel);
-        this.refreshInputValues();
+        if(Model.getSingleton().getLoadedProject() != null)
+            this.refreshInputValues();
     }
 
     private void initializeLogoPanel(){
@@ -349,6 +350,7 @@ public class InputWorkView extends AbstractWorkView{
             @Override
             public void mouseClicked(MouseEvent e) {
                 getEnteredValueAndCalculate();
+                controller.beginCalculations();
             }
         });
         navigationPanel.add(calculateBtn);
@@ -360,6 +362,17 @@ public class InputWorkView extends AbstractWorkView{
         });
         navigationPanel.add(nextBtn);
         return navigationPanel;
+    }
+
+    @Override
+    public void update(String msg){
+        if(msg.equals("MODEL_UPDATED")){
+            this.removeAll();
+            this.revalidate();
+            System.out.print(this.model.getLoadedProjectInput());
+            this.initializeUI();
+            this.repaint();
+        }
     }
 
     private void refreshInputValues(){
