@@ -364,60 +364,60 @@ public class InputWorkView extends AbstractWorkView{
 
     private void refreshInputValues(){
         InputData inputData = model.getLoadedProject().inputs;
-        this.kvaIn.setValueEntered(inputData.KVA.toString());
-        this.kIn.setValueEntered(inputData.K.toString());
-        this.LVIn.setValueEntered(inputData.LINEVOLTSLV.toString());
-        this.HVIn.setValueEntered(inputData.LINEVOLTSHV.toString());
-        this.insulationLvIn.setValueEntered(inputData.INSULATION_LV.toString());
-        this.insulationHvIn.setValueEntered(inputData.INSULATION_HV.toString());
-        this.layersLvIn.setValueEntered(inputData.LAYER_LV.toString());
-        this.layersHvIn.setValueEntered(inputData.LAYER_HV.toString());
-        this.insulationBetweenLayersLvIn.setValueEntered(inputData.INSULATION_BETWEEN_LAYERS_LV.toString());
-        this.insulationBetweenLayersHvIn.setValueEntered(inputData.INSULATION_BETWEEN_LAYERS_HV.toString());
-        this.oilDuctsAxialIn.setValueEntered(inputData.OIL_DUCTS_AXIAL_LV.toString());
-        this.transpositionLvIn.setValueEntered(inputData.TRANSPOSITION_LV.toString());
-        this.transpositionHvIn.setValueEntered(inputData.TRANSPOSITION_HV.toString());
-        this.compGapIn.setValueEntered(inputData.COMP_GAP_LV.toString());
-        this.endClearanceLvIn.setValueEntered(inputData.END_CLEARANCES_LV.toString());
-        this.endClearanceHvIn.setValueEntered(inputData.END_CLEARANCES_HV.toString());
-        this.limbPlateIn.setValueEntered(inputData.LIMB_PLATE_W.toString());
-        this.wireBareLv1In.setValueEntered(inputData.WIREBARELV1.toString());
-        this.wireBareLv2In.setValueEntered(inputData.WIREBARELV2.toString());
-        this.wireBareHv1In.setValueEntered(inputData.WIREBAREHV1.toString());
-        this.wireBareHv2In.setValueEntered(inputData.WIREBAREHV2.toString());
-        this.noInParallel_R_A_Lv1In.setValueEntered(inputData.NO_IN_PARALLEL_RA_LV1.toString());
-        this.noInParallel_R_A_Lv2In.setValueEntered(inputData.NO_IN_PARALLEL_RA_LV2.toString());
-        this.noInParallel_R_A_Hv1In.setValueEntered(inputData.NO_IN_PARALLEL_RA_HV1.toString());
-        this.noInParallel_R_A_Hv2In.setValueEntered(inputData.NO_IN_PARALLEL_RA_HV2.toString());
+        this.kvaIn.setValueEntered(String.valueOf(inputData.KVA));
+        this.kIn.setValueEntered(String.valueOf(inputData.K));
+        this.LVIn.setValueEntered(String.valueOf(inputData.LINEVOLTSLV));
+        this.HVIn.setValueEntered(String.valueOf(inputData.LINEVOLTSHV));
+        this.insulationLvIn.setValueEntered(String.valueOf(inputData.INSULATION_LV));
+        this.insulationHvIn.setValueEntered(String.valueOf(inputData.INSULATION_HV));
+        this.layersLvIn.setValueEntered(String.valueOf(inputData.LAYER_LV));
+        this.layersHvIn.setValueEntered(String.valueOf(inputData.LAYER_HV));
+        this.insulationBetweenLayersLvIn.setValueEntered(String.valueOf(inputData.INSULATION_BETWEEN_LAYERS_LV));
+        this.insulationBetweenLayersHvIn.setValueEntered(String.valueOf(inputData.INSULATION_BETWEEN_LAYERS_HV));
+        this.oilDuctsAxialIn.setValueEntered(String.valueOf(inputData.OIL_DUCTS_AXIAL_LV));
+        this.transpositionLvIn.setValueEntered(String.valueOf(inputData.TRANSPOSITION_LV));
+        this.transpositionHvIn.setValueEntered(String.valueOf(inputData.TRANSPOSITION_HV));
+        this.compGapIn.setValueEntered(String.valueOf(inputData.COMP_GAP_LV));
+        this.endClearanceLvIn.setValueEntered(String.valueOf(inputData.END_CLEARANCES_LV));
+        this.endClearanceHvIn.setValueEntered(String.valueOf(inputData.END_CLEARANCES_HV));
+        this.limbPlateIn.setValueEntered(String.valueOf(inputData.LIMB_PLATE_W));
+        this.wireBareLv1In.setValueEntered(String.valueOf(inputData.WIREBARELV1));
+        this.wireBareLv2In.setValueEntered(String.valueOf(inputData.WIREBARELV2));
+        this.wireBareHv1In.setValueEntered(String.valueOf(inputData.WIREBAREHV1));
+        this.wireBareHv2In.setValueEntered(String.valueOf(inputData.WIREBAREHV2));
+        this.noInParallel_R_A_Lv1In.setValueEntered(String.valueOf(inputData.NO_IN_PARALLEL_RA_LV1));
+        this.noInParallel_R_A_Lv2In.setValueEntered(String.valueOf(inputData.NO_IN_PARALLEL_RA_LV2));
+        this.noInParallel_R_A_Hv1In.setValueEntered(String.valueOf(inputData.NO_IN_PARALLEL_RA_HV1));
+        this.noInParallel_R_A_Hv2In.setValueEntered(String.valueOf(inputData.NO_IN_PARALLEL_RA_HV2));
 
         //
-        this.gapBobbinIn.setValueEntered(inputData.GAP_W.toString());
-        this.deltaIn.setValueEntered(inputData.DELTA_W.toString());
-        this.amIn.setValueEntered(inputData.AM_W.toString());
+        this.gapBobbinIn.setValueEntered(String.valueOf(inputData.GAP_W));
+        this.deltaIn.setValueEntered(String.valueOf(inputData.DELTA_W));
+        this.amIn.setValueEntered(String.valueOf(inputData.AM_W));
         this.leadsIn.setValueEntered("6");
-        this.stackingFactorIn.setValueEntered(inputData.STACKING_FACTOR.toString());
-        this.fluxDensityIn.setValueEntered(inputData.FLUX_DENSITY.toString());
+        this.stackingFactorIn.setValueEntered(String.valueOf(inputData.STACKING_FACTOR));
+        this.fluxDensityIn.setValueEntered(String.valueOf(inputData.FLUX_DENSITY));
         //this.specLossIn.setValueEntered(inputData.);
-        this.coreWIn.setValueEntered(inputData.CORE_W.toString());
+        this.coreWIn.setValueEntered(String.valueOf(inputData.CORE_W));
         this.ambienceAirTempIn.setValueEntered("50");
         this.ekPercentageGaurIn.setValueEntered("5");
         //this.ambienceAirTempIn.setValueEntered(inputData.AMB);
 
         this.typesOfMaterialIn.setValueSelected(inputData.CONDUCTOR);
-        this.coreBldgIn.setValueSelected(inputData.CORE_BLDG_FACTOR.toString());
+        this.coreBldgIn.setValueSelected(String.valueOf(inputData.CORE_BLDG_FACTOR));
         this.connectionIn.setValueSelected(inputData.CONNECTION);
         this.coolingIn.setValueSelected(inputData.COOLING);
-        this.frequencyIn.setValueSelected(inputData.FREQUENCY.toString());
-        this.windingTemperatureIn.setValueSelected(inputData.WIND_TEMP.toString());
+        this.frequencyIn.setValueSelected(String.valueOf(inputData.FREQUENCY));
+        this.windingTemperatureIn.setValueSelected(String.valueOf(inputData.WIND_TEMP));
         this.steelGradeIn.setValueSelected(inputData.STEEL_GRADE);
         this.typesOfWindingLvIn.setValueSelected(inputData.WINDINGTYPELV);
         this.typesOfWindingHvIn.setValueSelected(inputData.WINDINGTYPEHV);
         this.typesOfConnectionLvIn.setValueSelected(inputData.CONNECTIONTYPELV);
         this.typesOfConnectionHvIn.setValueSelected(inputData.CONNECTIONTYPEHV);
-        this.oilDuctsLv1In.setValueSelected(inputData.OIL_DUCTS_RADIAL_LV1.toString());
-        this.oilDuctsLv2In.setValueSelected(inputData.OIL_DUCTS_RADIAL_LV2.toString());
-        this.oilDuctsHv1In.setValueSelected(inputData.OIL_DUCTS_RADIAL_HV1.toString());
-        this.oilDuctsHv2In.setValueSelected(inputData.OIL_DUCTS_RADIAL_HV2.toString());
+        this.oilDuctsLv1In.setValueSelected(String.valueOf(inputData.OIL_DUCTS_RADIAL_LV1));
+        this.oilDuctsLv2In.setValueSelected(String.valueOf(inputData.OIL_DUCTS_RADIAL_LV2));
+        this.oilDuctsHv1In.setValueSelected(String.valueOf(inputData.OIL_DUCTS_RADIAL_HV1));
+        this.oilDuctsHv2In.setValueSelected(String.valueOf(inputData.OIL_DUCTS_RADIAL_HV2));
     }
 
     private void getEnteredValueAndCalculate(){
