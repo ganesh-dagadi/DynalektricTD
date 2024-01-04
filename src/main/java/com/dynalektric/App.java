@@ -20,9 +20,6 @@ public class App
         view.initView();
         view.chooseWorkView();
         view.startApp();
-        Control controller = new Control();
-        controller.beginCalculations();
-        OutputData outputData = Model.getSingleton().getOutputData();
-        System.out.println(outputData);
+
     }
 }

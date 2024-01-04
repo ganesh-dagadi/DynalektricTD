@@ -61,7 +61,7 @@ public class View{
         }
         else{
            new WelcomeWorkViewController().openProjectWithName(loadedProject);
-           view.setView(view.loadedViews.get(OutputOneWorkView.VIEW_NAME));
+           view.setView(view.loadedViews.get(InputWorkView.VIEW_NAME));
         }
     }
 
