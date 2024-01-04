@@ -43,10 +43,10 @@ public class Calculations {
         }
 
         v_t();
-        rated_voltage_LV();
-        rated_voltage_HV();
-        rated_current_LV();
-        rated_current_HV();
+//        rated_voltage_LV();
+//        rated_voltage_HV();
+//        rated_current_LV();
+//        rated_current_HV();
         cross_section_LV();
         cross_section_HV();
         current_density_LV();
@@ -170,7 +170,6 @@ public class Calculations {
         mass_core_wdg();
         total_mass_w_o_encl();
         rmc();
-
         model.setOutputData(outputData);
     }
 
@@ -223,37 +222,37 @@ public class Calculations {
         outputData.V_T = 1.01 * Math.sqrt(inputData.KVA / 3) * (inputData.K / 100);
     }
 
-    public void rated_voltage_LV() {
-        if (Objects.equals(inputData.CONNECTIONTYPELV, "DELTA")) {
-            outputData.RATED_VOLTAGE_LV = inputData.LINEVOLTSLV / Math.sqrt(3);
-        } else {
-            outputData.RATED_VOLTAGE_LV = inputData.LINEVOLTSLV;
-        }
-    }
-
-    public void rated_voltage_HV() {
-        if (Objects.equals(inputData.CONNECTIONTYPEHV, "DELTA")) {
-            outputData.RATED_VOLTAGE_HV = inputData.LINEVOLTSHV / Math.sqrt(3);
-        } else {
-            outputData.RATED_VOLTAGE_HV = inputData.LINEVOLTSHV;
-        }
-    }
-
-    public void rated_current_LV() {
-        if (Objects.equals(inputData.CONNECTIONTYPELV, "DELTA")) {
-            outputData.RATED_CURRENT_LV = (inputData.KVA * 1000) / (3 * outputData.RATED_CURRENT_LV);
-        } else {
-            outputData.RATED_CURRENT_LV = inputData.KVA * 1000 / Math.sqrt(3) * inputData.LINEVOLTSLV;
-        }
-    }
-
-    public void rated_current_HV() {
-        if (Objects.equals(inputData.CONNECTIONTYPEHV, "DELTA")) {
-            outputData.RATED_CURRENT_HV = (inputData.KVA * 1000) / (3 * outputData.RATED_VOLTAGE_HV);
-        } else {
-            outputData.RATED_CURRENT_HV = (inputData.KVA * 1000) / (Math.sqrt(3) * inputData.LINEVOLTSHV);
-        }
-    }
+//    public void rated_voltage_LV() {
+//        if (Objects.equals(inputData.CONNECTIONTYPELV, "DELTA")) {
+//            outputData.RATED_VOLTAGE_LV = inputData.LINEVOLTSLV / Math.sqrt(3);
+//        } else {
+//            outputData.RATED_VOLTAGE_LV = inputData.LINEVOLTSLV;
+//        }
+//    }
+//
+//    public void rated_voltage_HV() {
+//        if (Objects.equals(inputData.CONNECTIONTYPEHV, "DELTA")) {
+//            outputData.RATED_VOLTAGE_HV = inputData.LINEVOLTSHV / Math.sqrt(3);
+//        } else {
+//            outputData.RATED_VOLTAGE_HV = inputData.LINEVOLTSHV;
+//        }
+//    }
+//
+//    public void rated_current_LV() {
+//        if (Objects.equals(inputData.CONNECTIONTYPELV, "DELTA")) {
+//            outputData.RATED_CURRENT_LV = (inputData.KVA * 1000) / (3 * outputData.RATED_VOLTAGE_LV);
+//        } else {
+//            outputData.RATED_CURRENT_LV = inputData.KVA * 1000 / Math.sqrt(3) * inputData.LINEVOLTSLV;
+//        }
+//    }
+//
+//    public void rated_current_HV() {
+//        if (Objects.equals(inputData.CONNECTIONTYPEHV, "DELTA")) {
+//            outputData.RATED_CURRENT_HV = (inputData.KVA * 1000) / (3 * outputData.RATED_VOLTAGE_HV);
+//        } else {
+//            outputData.RATED_CURRENT_HV = (inputData.KVA * 1000) / (Math.sqrt(3) * inputData.LINEVOLTSHV);
+//        }
+//    }
 
     public void cross_section_LV() {
         if (Objects.equals(inputData.WIREBARELV1, inputData.WIREBARELV2)) {
@@ -283,13 +282,13 @@ public class Calculations {
         } else {
             if (Objects.equals(inputData.WINDINGTYPEHV, "FOIL")) {
                 outputData.CROSS_SECTION_HV = inputData.WIREBAREHV1 * inputData.WIREBAREHV2 * inputData.NO_IN_PARALLEL_RA_HV1 * inputData.NO_IN_PARALLEL_RA_HV2;
-            } else {
+            }
+            else {
                 double answer = inputData.WIREBAREHV1 * inputData.WIREBAREHV2;
-                // Strip = 1.0
+
                 if (Objects.equals(inputData.WINDINGTYPEHV, "STRIP")) {
                     answer -= 0.55;
                 }
-                // Foil = 2.0
                 else {
                     answer -= 0.88;
                 }
@@ -301,22 +300,22 @@ public class Calculations {
 
     public void current_density_LV() {
         //calculating current density value for LV connection type.
-        outputData.CURRENT_DENSITY_LV = outputData.RATED_CURRENT_LV / outputData.CROSS_SECTION_LV;
+        outputData.CURRENT_DENSITY_LV = outputData.IPH_LV / outputData.CROSS_SECTION_LV;
     }
 
     public void current_density_HV() {
         //calculating current density value for HV connection type.
-        outputData.CURRENT_DENSITY_HV = outputData.RATED_CURRENT_HV / outputData.CROSS_SECTION_HV;
+        outputData.CURRENT_DENSITY_HV = outputData.IPH_HV / outputData.CROSS_SECTION_HV;
     }
 
     public void turn_limb_LV() {
         //calculating  turn/limb for LV connection type.
-        outputData.TURN_LIMB_LV = (double) Math.round(outputData.RATED_CURRENT_LV / outputData.V_T);
+        outputData.TURN_LIMB_LV = (double) Math.round(outputData.VPH_LV / outputData.V_T);
     }
 
     public void turn_limb_HV() {
         //calculating  turn/limb value for HV connection type.
-        outputData.TURN_LIMB_HV = (double) Math.round(outputData.RATED_VOLTAGE_HV / outputData.V_T);
+        outputData.TURN_LIMB_HV = (double) Math.round(outputData.VPH_HV / outputData.V_T);
     }
 
     public void turn_layer_LV() {
@@ -357,7 +356,7 @@ public class Calculations {
     }
 
     public void wire_insulated_HV2() {
-        double answer = inputData.WIREBAREHV1;
+        double answer = inputData.WIREBAREHV2;
         if (Objects.equals(inputData.WINDINGTYPEHV, "STRIP")) {
             answer += inputData.INSULATION_HV;
         }
@@ -409,28 +408,26 @@ public class Calculations {
     }
 
     public void limb_length_LV() {
-        outputData.LIMB_LENGTH_LV = outputData.WIND_LENGTH_LV * inputData.END_CLEARANCES_LV;
+        outputData.LIMB_LENGTH_LV = outputData.WIND_LENGTH_LV + inputData.END_CLEARANCES_LV;
     }
 
     public void limb_length_HV() {
-        outputData.LIMB_LENGTH_HV = outputData.WIND_LENGTH_HV * inputData.END_CLEARANCES_HV;
+        outputData.LIMB_LENGTH_HV = outputData.WIND_LENGTH_HV + inputData.END_CLEARANCES_HV;
     }
 
     public void wind_radial_depth_lv() {
-        double answer = outputData.WIRE_INSULATED_LV1 * inputData.NO_IN_PARALLEL_RA_LV2 * inputData.LAYER_LV;
+        double answer = outputData.WIRE_INSULATED_LV2 * inputData.NO_IN_PARALLEL_RA_LV1 * inputData.LAYER_LV;
         answer = answer + inputData.OIL_DUCTS_RADIAL_LV1 * inputData.OIL_DUCTS_RADIAL_LV2;
         answer = answer + (inputData.INSULATION_BETWEEN_LAYERS_LV * (inputData.LAYER_LV - 1) * 1.05);
-        answer = answer / 5.0;
-        answer = Math.round(answer) * 5;
+        answer = Math.round(answer / 5.0) * 5;
         outputData.WIND_RADIAL_DEPTH_LV = answer;
     }
 
     public void wind_radial_depth_hv() {
-        double answer = outputData.WIRE_INSULATED_HV1 * inputData.NO_IN_PARALLEL_RA_HV2 * inputData.LAYER_HV;
-        answer = answer + inputData.OIL_DUCTS_RADIAL_HV1 * inputData.OIL_DUCTS_RADIAL_HV2;
+        double answer = outputData.WIRE_INSULATED_HV2 * inputData.NO_IN_PARALLEL_RA_HV1 * inputData.LAYER_HV;
+        answer = answer + (inputData.OIL_DUCTS_RADIAL_HV1 * inputData.OIL_DUCTS_RADIAL_HV2);
         answer = answer + (inputData.INSULATION_BETWEEN_LAYERS_HV * (inputData.LAYER_HV - 1) * 1.05);
-        answer = answer / 5.0;
-        answer = Math.round(answer) * 5;
+        answer = Math.round(answer / 5.0) * 5;
         outputData.WIND_RADIAL_DEPTH_HV = answer;
     }
 
@@ -483,11 +480,11 @@ public class Calculations {
     }
 
     public void total_id_w() {
-        outputData.TOTAL_ID_W = outputData.ID_W + inputData.DELTA_W;
+        outputData.TOTAL_ID_W = outputData.OD_W + inputData.DELTA_W;
     }
 
     public void total_id_d() {
-        outputData.TOTAL_ID_D = outputData.ID_D + inputData.DELTA_D;
+        outputData.TOTAL_ID_D = outputData.OD_D + inputData.DELTA_D;
     }
 
     public void hv_wdg() {
@@ -519,7 +516,7 @@ public class Calculations {
     }
 
     public void total_core_mass() {
-        outputData.TOTAL_CORE_MASS = (((outputData.LIMB_H * 3) + (outputData.YOKE_L * 2)) * 0.1 * outputData.NET_CROSS_SECTION * 7.65) / 1000;
+        outputData.TOTAL_CORE_MASS = (((outputData.LIMB_H * 3) + (outputData.YOKE_L * 2)) * 0.1 * outputData.NET_CROSS_SECTION * 7.65) * 0.001;
     }
 
     public void calc_loss() {
@@ -535,7 +532,7 @@ public class Calculations {
     }
 
     public void r3() {
-        outputData.R3 = outputData.R2 + (inputData.DELTA_W / 2);
+        outputData.R3 = outputData.R2 + ((double) inputData.DELTA_W / 2);
     }
 
     public void r4() {
@@ -543,19 +540,19 @@ public class Calculations {
     }
 
     public void perimeter1() {
-        outputData.PERIMETER1 = (double)Math.round((2 * inputData.CORE_W * outputData.TOTAL_CORE_D) + (2 * 3.1416 * outputData.R1));
+        outputData.PERIMETER1 = (double)Math.round((2 * inputData.CORE_W) + (outputData.TOTAL_CORE_D * 2) + (2 * 3.1416 * outputData.R1));
     }
 
     public void perimeter2() {
-        outputData.PERIMETER2 = (double)Math.round((2 * inputData.CORE_W * outputData.TOTAL_CORE_D) + (2 * 3.1416 * outputData.R2));
+        outputData.PERIMETER2 = (double)Math.round((2 * inputData.CORE_W) + (outputData.TOTAL_CORE_D * 2) + (2 * 3.1416 * outputData.R2));
     }
 
     public void perimeter3() {
-        outputData.PERIMETER3 = (double)Math.round((2 * inputData.CORE_W * outputData.TOTAL_CORE_D) + (2 * 3.1416 * outputData.R3));
+        outputData.PERIMETER3 = (double)Math.round((2 * inputData.CORE_W) + (outputData.TOTAL_CORE_D * 2) + (2 * 3.1416 * outputData.R3));
     }
 
     public void perimeter4() {
-        outputData.PERIMETER4 = (double)Math.round((2 * inputData.CORE_W * outputData.TOTAL_CORE_D) + (2 * 3.1416 * outputData.R4));
+        outputData.PERIMETER4 = (double)Math.round((2 * inputData.CORE_W) + (outputData.TOTAL_CORE_D * 2) + (2 * 3.1416 * outputData.R4));
     }
 
     public void mean_lg_lv() {
@@ -643,7 +640,7 @@ public class Calculations {
     }
 
     public void b() {
-        outputData.B = (outputData.WIND_RADIAL_DEPTH_LV + inputData.DELTA_D) / (2 + outputData.WIND_RADIAL_DEPTH_HV);
+        outputData.B = ((outputData.WIND_RADIAL_DEPTH_LV + inputData.DELTA_D) / 2) + outputData.WIND_RADIAL_DEPTH_HV;
     }
 
     public void kr() {
@@ -663,9 +660,9 @@ public class Calculations {
     public void ex() {
         double answer = 8 * 3.1416 * 3.1416;
         answer = answer * inputData.FREQUENCY;
-        answer = answer * outputData.RATED_CURRENT_LV;
-        answer = answer * outputData.TURN_LIMB_LV;
-        answer = answer * (outputData.DELTA_DASH * 1e-8);
+        answer = answer * outputData.IPH_HV;
+        answer = answer * outputData.TURN_LIMB_HV;
+        answer = answer * (outputData.DELTA_DASH * 1e-9);
         answer = answer / (outputData.LS * outputData.V_T);
         outputData.EX = answer;
     }
@@ -706,11 +703,11 @@ public class Calculations {
     }
 
     public void load_loss_lv() {
-        outputData.LOAD_LOSS_LV = outputData.RATED_CURRENT_LV * outputData.RESISTANCE_LV * 3 * (1 + outputData.STRAY_LOSS_LV);
+        outputData.LOAD_LOSS_LV = outputData.IPH_LV * outputData.RESISTANCE_LV * 3 * (1 + outputData.STRAY_LOSS_LV);
     }
 
     public void load_loss_hv() {
-        outputData.LOAD_LOSS_HV = outputData.RATED_CURRENT_HV * outputData.RESISTANCE_HV * 3 * (1 + outputData.STRAY_LOSS_HV);
+        outputData.LOAD_LOSS_HV = outputData.IPH_HV * outputData.RESISTANCE_HV * 3 * (1 + outputData.STRAY_LOSS_HV);
     }
 
     public void mass_of_conductor() {
@@ -837,7 +834,7 @@ public class Calculations {
     }
 
     public void extra_nl_loss() {
-        outputData.EXTRA_NL_LOSS = Math.pow(((outputData.NL_CURRENT_PERCENTAGE / 100) * outputData.RATED_CURRENT_HV), 2) * outputData.RESISTANCE_HV * 3;
+        outputData.EXTRA_NL_LOSS = Math.pow(((outputData.NL_CURRENT_PERCENTAGE / 100) * outputData.IPH_HV), 2) * outputData.RESISTANCE_HV * 3;
     }
 
     public void l_active() {
