@@ -6,11 +6,14 @@ import com.dynalektric.control.Control;
 import com.dynalektric.model.Model;
 import com.dynalektric.model.repositories.project.InputData;
 import com.dynalektric.model.repositories.project.OutputData;
+import com.dynalektric.view.View;
 import com.dynalektric.view.ViewMessage;
 import com.dynalektric.view.components.MenuBar;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class OutputTwoWorkView extends AbstractWorkView{
 
@@ -39,6 +42,16 @@ public class OutputTwoWorkView extends AbstractWorkView{
         });
     }
 
+    @Override
+    public void update(String msg){
+        if(msg.equals("MODEL_UPDATED")){
+            this.initializeTankDimensionTable();
+            this.initializeBillTable();
+            this.initializeImpedanceTable();
+            this.initializeLossesTable();
+        }
+    }
+
     private void initializeUI() {
         this.mainPanel.setLayout(new BorderLayout());
         this.contentPanel.setLayout(new GridLayout(0 , 3));
@@ -54,25 +67,29 @@ public class OutputTwoWorkView extends AbstractWorkView{
         dimensionLabel.setFont(StyleConstants.HEADING_SUB1);
         this.dimensionPanel.add(dimensionLabel);
         this.dimensionPanel.add(Box.createVerticalStrut(30));
-        this.initializeTankDimensionTable();
+        if(model.getLoadedProject() != null)
+            this.initializeTankDimensionTable();
         this.dimensionPanel.add(tankDimensionTable);
         JLabel impedanceHeading = new JLabel("Impedance");
         impedanceHeading.setFont(StyleConstants.HEADING_SUB1);
         this.impedancePanel.add(impedanceHeading);
-        this.initializeImpedanceTable();
+        if(model.getLoadedProject() != null)
+            this.initializeImpedanceTable();
         this.impedancePanel.add(Box.createVerticalStrut(30));
         this.impedancePanel.add(impedanceVoltageTable);
         JLabel lossesHeading = new JLabel("Losses");
         lossesHeading.setFont(StyleConstants.HEADING_SUB1);
         this.lossesPanel.add(lossesHeading);
-        this.initializeLossesTable();
+        if(model.getLoadedProject() != null)
+            this.initializeLossesTable();
         this.lossesPanel.add(Box.createVerticalStrut(30));
         this.lossesPanel.add(lossesTable);
         this.dimensionPanel.add(Box.createVerticalStrut(15));
         JLabel billHeading = new JLabel("Bill of material");
         billHeading.setFont(StyleConstants.HEADING_SUB1);
         this.dimensionPanel.add(billHeading);
-        this.initializeBillTable();
+        if(model.getLoadedProject() != null)
+            this.initializeBillTable();
         this.dimensionPanel.add(Box.createVerticalStrut(30));
         this.dimensionPanel.add(billTable);
         this.impedancePanel.setBorder(BorderFactory.createEmptyBorder(20 , 20 , 20 ,20));
@@ -83,6 +100,7 @@ public class OutputTwoWorkView extends AbstractWorkView{
         this.contentPanel.add(lossesPanel);
         this.mainPanel.add(contentPanel , BorderLayout.CENTER);
         this.mainPanel.add(new MenuBar(thisReference) , BorderLayout.NORTH);
+        this.mainPanel.add(initializeNavigationPanel() , BorderLayout.SOUTH);
         this.add(mainPanel , BorderLayout.CENTER);
     }
 
@@ -192,11 +210,27 @@ public class OutputTwoWorkView extends AbstractWorkView{
 
     }
 
+    private JPanel initializeNavigationPanel(){
+        JPanel navigationPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        JButton previousBtn = new JButton("Previous");
+        navigationPanel.add(previousBtn);
+        previousBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                View.getSingleton().setView(OutputOneWorkView.VIEW_NAME);
+            }
+        });
+        return navigationPanel;
+    }
+
     @Override
     public void captureEventFromChildSubFrame(ViewMessage message) {
         switch (message.getMsgType()) {
             case ViewMessages.CLOSE_OPENED_PROJECT:
                 mainController.closeOpenedProject();
+                break;
+            case ViewMessages.SAVE_PROJECT:
+                mainController.saveProject();
                 break;
         }
     }

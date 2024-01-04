@@ -16,7 +16,8 @@ public class Control {
     public void saveProject(){
         ProjectRepo projectRepo = model.getProjectRepo();
         Project toSaveProject = model.getLoadedProject();
-        projectRepo.updateProject(toSaveProject);
+        if(toSaveProject != null)
+            projectRepo.updateProject(toSaveProject);
     }
     public void closeOpenedProject(){
         this.saveProject();

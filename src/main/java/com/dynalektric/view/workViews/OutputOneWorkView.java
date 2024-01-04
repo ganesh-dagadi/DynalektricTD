@@ -76,6 +76,9 @@ public class OutputOneWorkView extends AbstractWorkView{
             case ViewMessages.CLOSE_OPENED_PROJECT:
                 mainController.closeOpenedProject();
                 break;
+            case ViewMessages.SAVE_PROJECT:
+                mainController.saveProject();
+                break;
         }
     }
 
@@ -126,7 +129,7 @@ public class OutputOneWorkView extends AbstractWorkView{
     private void initializeCoreDetailsPanel(){
         BoxLayout layout = new BoxLayout(this.coreDetailsPanel , BoxLayout.Y_AXIS);
         this.coreDetailsPanel.setLayout(layout);
-        JLabel coreDetailsHeading = new JLabel("Core details");
+        JLabel coreDetailsHeading = new JLabel("Core");
         coreDetailsHeading.setFont(StyleConstants.HEADING_SUB1);
         coreDetailsHeading.setAlignmentX(CENTER_ALIGNMENT);
         if(model.getLoadedProject() != null)
@@ -156,8 +159,8 @@ public class OutputOneWorkView extends AbstractWorkView{
         nextBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-//                View.getSingleton().setView(OutputWorkViewTwo.VIEW_NAME);
-                System.out.println(coreWeightTable.getModel().getValueAt(0 , 1));
+                View.getSingleton().setView(OutputTwoWorkView.VIEW_NAME);
+//                System.out.println(coreWeightTable.getModel().getValueAt(0 , 1));
             }
         });
         navigationPanel.add(nextBtn);
@@ -327,12 +330,15 @@ public class OutputOneWorkView extends AbstractWorkView{
         coreWdgTable.setValueAt(inputData.AM_D, 12, 2);
 
         String C_dist_data = cDistLabel.getText();
+        C_dist_data = C_dist_data.substring(0 , 7);
         cDistLabel.setText(C_dist_data + String.valueOf(outputData.C_DIST));
 
         String yokeL_data = yokeL.getText();
+        yokeL_data = yokeL_data.substring(0 , 7);
         yokeL.setText(yokeL_data + String.valueOf(outputData.YOKE_L));
 
         String leads_data = leads.getText();
+        leads_data = leads_data.substring(0 , 7);
         leads.setText(leads_data + String.valueOf(outputData.LEADS));
 
     }

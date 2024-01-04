@@ -1,5 +1,6 @@
 package com.dynalektric.view;
 
+import com.dynalektric.control.Control;
 import com.dynalektric.control.WelcomeWorkViewController;
 import com.dynalektric.model.Model;
 import com.dynalektric.view.workViews.AbstractWorkView;
@@ -103,8 +104,7 @@ public class View{
             mainFrame.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosing(WindowEvent e) {
-//                    HibernateHelper.closeSessionFactory();
-                    System.out.println("Closing app");
+                    new Control().saveProject();
                 }
             });
         } catch (Exception e){

@@ -329,6 +329,9 @@ public class InputWorkView extends AbstractWorkView{
             case ViewMessages.CLOSE_OPENED_PROJECT:
                 controller.closeOpenedProject();
                 break;
+            case ViewMessages.SAVE_PROJECT:
+                controller.saveProject();
+                break;
         }
     }
 

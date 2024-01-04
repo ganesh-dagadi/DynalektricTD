@@ -7,4 +7,5 @@ public class ViewMessages{
     public final static String DELETE_SELECTED_PROJECT = "deleteSelectedProject";
     public final static String NEW_PROJECT_NAME = "newProjectName";
     public final static String CLOSE_OPENED_PROJECT = "closeProject";
+    public final static String SAVE_PROJECT = "saveProject";
 }
