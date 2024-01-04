@@ -35,7 +35,7 @@ public class MenuBar extends JMenuBar{
         });
         saveProject.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 parent.captureEventFromChildSubFrame(new ViewMessage(ViewMessages.SAVE_PROJECT , null));
             }
         });

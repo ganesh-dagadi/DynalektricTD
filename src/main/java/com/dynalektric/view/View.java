@@ -104,7 +104,7 @@ public class View{
             mainFrame.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosing(WindowEvent e) {
-                    new Control().saveProject();
+                    new Control().closeOpenedProject();
                 }
             });
         } catch (Exception e){

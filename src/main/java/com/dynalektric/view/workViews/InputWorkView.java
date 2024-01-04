@@ -1,7 +1,5 @@
 package com.dynalektric.view.workViews;
 
-import com.dynalektric.constants.DisplayConstant;
-import com.dynalektric.constants.StyleConstants;
 import com.dynalektric.constants.ViewMessages;
 import com.dynalektric.control.Control;
 import com.dynalektric.model.Model;
@@ -11,7 +9,6 @@ import com.dynalektric.view.ViewMessage;
 import com.dynalektric.view.components.InputDropDown;
 import com.dynalektric.view.components.InputTextFieldWithLabel;
 import com.dynalektric.view.components.MenuBar;
-import com.dynalektric.view.components.MenuItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,10 +17,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.List;
 
 
 public class InputWorkView extends AbstractWorkView{
@@ -352,8 +347,9 @@ public class InputWorkView extends AbstractWorkView{
         calculateBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                getEnteredValueAndCalculate();
+                storeEnteredValuesInModel();
                 controller.beginCalculations();
+                View.getSingleton().setView(OutputOneWorkView.VIEW_NAME);
             }
         });
         navigationPanel.add(calculateBtn);
@@ -372,10 +368,15 @@ public class InputWorkView extends AbstractWorkView{
         if(msg.equals("MODEL_UPDATED")){
             this.refreshInputValues();
         }
+        if(msg.equals("STORE_INPUT_IN_MODEL")){
+            System.out.println("Before storing in model" + model.getLoadedProjectInput().K);
+            this.storeEnteredValuesInModel();
+            System.out.println("After storing in model Before saving project" + model.getLoadedProjectInput().K);
+        }
     }
 
     private void refreshInputValues(){
-        InputData inputData = model.getLoadedProject().inputs;
+        InputData inputData = model.getLoadedProjectInput();
         this.kvaIn.setValueEntered(String.valueOf(inputData.KVA));
         this.kIn.setValueEntered(String.valueOf(inputData.K));
         this.LVIn.setValueEntered(String.valueOf(inputData.LINEVOLTSLV));
@@ -432,7 +433,8 @@ public class InputWorkView extends AbstractWorkView{
         this.oilDuctsHv2In.setValueSelected(String.valueOf(inputData.OIL_DUCTS_RADIAL_HV2));
     }
 
-    private void getEnteredValueAndCalculate(){
+    public void storeEnteredValuesInModel(){
+        System.out.println("Storing in model");
         InputData input = model.getLoadedProjectInput();
         input.KVA = Double.parseDouble(this.kvaIn.getValueEntered());
         input.K = Double.parseDouble(this.kIn.getValueEntered());
@@ -449,7 +451,7 @@ public class InputWorkView extends AbstractWorkView{
         input.WINDINGTYPELV = this.typesOfWindingLvIn.getValueSelected();
         input.WINDINGTYPEHV = this.typesOfWindingHvIn.getValueSelected();
         input.CONNECTIONTYPELV = this.typesOfConnectionLvIn.getValueSelected();
-        input.CONNECTIONTYPEHV = this.typesOfWindingHvIn.getValueSelected();
+        input.CONNECTIONTYPEHV = this.typesOfConnectionHvIn.getValueSelected();
         input.OIL_DUCTS_RADIAL_LV1 = Integer.parseInt(this.oilDuctsLv1In.getValueSelected());
         input.OIL_DUCTS_RADIAL_HV1 = Integer.parseInt(this.oilDuctsHv1In.getValueSelected());
         input.OIL_DUCTS_RADIAL_LV2 = Integer.parseInt(this.oilDuctsLv2In.getValueSelected());
