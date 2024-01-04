@@ -28,6 +28,11 @@ public class Control {
         View view = View.getSingleton();
         view.setView(view.loadedViews.get(WelcomeWorkView.VIEW_NAME));
     }
+
+    public void beginCalculations(){
+        calculations.beginCalculations();
+        model.notifyListeners("MODEL_UPDATED");
+    }
     public WelcomeWorkViewController getWelcomeWorkViewController(){
         return new WelcomeWorkViewController();
     }

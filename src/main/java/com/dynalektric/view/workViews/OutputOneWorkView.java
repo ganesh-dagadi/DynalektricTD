@@ -4,6 +4,8 @@ import com.dynalektric.constants.StyleConstants;
 import com.dynalektric.constants.ViewMessages;
 import com.dynalektric.control.Control;
 import com.dynalektric.model.Model;
+import com.dynalektric.model.repositories.project.InputData;
+import com.dynalektric.model.repositories.project.OutputData;
 import com.dynalektric.view.View;
 import com.dynalektric.view.ViewMessage;
 import com.dynalektric.view.components.MenuBar;
@@ -12,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Objects;
 
 public class OutputOneWorkView extends AbstractWorkView{
     private final Control mainController = new Control();
@@ -42,7 +45,7 @@ public class OutputOneWorkView extends AbstractWorkView{
     private final JLabel yokeL = new JLabel("Yoke L : ");
     private final JLabel leads = new JLabel("Leads : ");
 
-    JLabel VByTOutput = new JLabel("24.5");
+    JLabel VByTOutput = new JLabel();
     public OutputOneWorkView(Model model) {
         super(model);
         SwingUtilities.invokeLater(new Runnable() {
@@ -58,6 +61,14 @@ public class OutputOneWorkView extends AbstractWorkView{
         this.initializeMainPanel();
         this.add(mainPanel , BorderLayout.CENTER);
         this.add(initializeNavigationPanel() , BorderLayout.SOUTH);
+    }
+    @Override
+    public void update(String message){
+        if(Objects.equals(message, "MODEL_UPDATED")){
+            this.setLVHVPanelValues();
+            this.setCorePanelValues();
+
+        }
     }
     @Override
     public void captureEventFromChildSubFrame(ViewMessage message) {
@@ -89,7 +100,7 @@ public class OutputOneWorkView extends AbstractWorkView{
     private void initializeLV_HVPanel(){
         BoxLayout layout = new BoxLayout(this.LV_HVPanel , BoxLayout.Y_AXIS);
         this.LV_HVPanel.setLayout(layout);
-        initializeLVHVTable();
+        setLVHVPanelValues();
         JLabel LV_HVHeading = new JLabel("LV HV data");
         LV_HVHeading.setFont(StyleConstants.HEADING_SUB1);
         LV_HVHeading.setAlignmentX(CENTER_ALIGNMENT);
@@ -117,7 +128,7 @@ public class OutputOneWorkView extends AbstractWorkView{
         JLabel coreDetailsHeading = new JLabel("Core details");
         coreDetailsHeading.setFont(StyleConstants.HEADING_SUB1);
         coreDetailsHeading.setAlignmentX(CENTER_ALIGNMENT);
-        this.initializeCoreWDGTable();
+        this.setCorePanelValues();
         this.coreDetailsPanel.add(coreDetailsHeading);
         this.coreDetailsPanel.add(Box.createVerticalStrut(10));
         this.coreDetailsPanel.add(coreWdgTable);
@@ -150,7 +161,10 @@ public class OutputOneWorkView extends AbstractWorkView{
         navigationPanel.add(nextBtn);
         return navigationPanel;
     }
-    private void initializeLVHVTable(){
+    private void setLVHVPanelValues(){
+        OutputData outputData = Model.getSingleton().getOutputData();
+        InputData inputData = Model.getSingleton().getLoadedProjectInput();
+
         LV_HV_Table.setValueAt("Parameter" , 0 , 0);
         LV_HV_Table.setValueAt("LV" , 0 , 1);
         LV_HV_Table.setValueAt("HV" , 0 , 2);
@@ -168,21 +182,93 @@ public class OutputOneWorkView extends AbstractWorkView{
         LV_HV_Table.setValueAt("Wire Length" , 12 , 0);
         LV_HV_Table.setValueAt("Resistance (ohms)" , 13 , 0);
         LV_HV_Table.setValueAt("Stray Loss (%)" , 14 , 0);
-        LV_HV_Table.setValueAt("Wire Length" , 15 , 0);
-        LV_HV_Table.setValueAt("Load Loss (Watts)" , 16 , 0);
-        LV_HV_Table.setValueAt("S.a-m(wdg)" , 17 , 0);
+        LV_HV_Table.setValueAt("Load Loss (Watts)" , 15 , 0);
+        LV_HV_Table.setValueAt("S.a-m(wdg)" , 16 , 0);
+
+        // setting values
+        LV_HV_Table.setValueAt(outputData.VPH_LV, 1, 1);
+        LV_HV_Table.setValueAt(outputData.VPH_HV, 1, 2);
+
+        LV_HV_Table.setValueAt(outputData.IPH_LV, 2, 1);
+        LV_HV_Table.setValueAt(outputData.IPH_HV, 2, 2);
+
+        LV_HV_Table.setValueAt(outputData.CROSS_SECTION_LV, 3, 1);
+        LV_HV_Table.setValueAt(outputData.CROSS_SECTION_HV, 3, 2);
+
+        LV_HV_Table.setValueAt(outputData.CURRENT_DENSITY_LV, 4, 1);
+        LV_HV_Table.setValueAt(outputData.CURRENT_DENSITY_HV, 4, 2);
+
+        LV_HV_Table.setValueAt(outputData.TURN_LIMB_LV, 5, 1);
+        LV_HV_Table.setValueAt(outputData.TURN_LIMB_HV, 5, 2);
+
+        LV_HV_Table.setValueAt(outputData.TURN_LAYER_LV, 6, 1);
+        LV_HV_Table.setValueAt(outputData.TURN_LAYER_HV, 6, 2);
+
+        LV_HV_Table.setValueAt(outputData.WDG_LG_IMP_CALCU_LV, 7, 1);
+        LV_HV_Table.setValueAt(outputData.WDG_LG_IMP_CALCU_HV, 7, 2);
+
+        LV_HV_Table.setValueAt(outputData.WIND_LENGTH_LV, 8, 1);
+        LV_HV_Table.setValueAt(outputData.WIND_LENGTH_HV, 8, 2);
+
+        LV_HV_Table.setValueAt(outputData.LIMB_LENGTH_LV, 9, 1);
+        LV_HV_Table.setValueAt(outputData.LIMB_LENGTH_HV, 9, 2);
+
+        LV_HV_Table.setValueAt(outputData.WIND_RADIAL_DEPTH_LV, 10, 1);
+        LV_HV_Table.setValueAt(outputData.WIND_RADIAL_DEPTH_HV, 10, 2);
+
+        LV_HV_Table.setValueAt(outputData.TURN_LENGTH_LV, 11, 1);
+        LV_HV_Table.setValueAt(outputData.TURN_LENGTH_HV, 11, 2);
+
+        LV_HV_Table.setValueAt(outputData.WIRE_LENGTH_LV, 12, 1);
+        LV_HV_Table.setValueAt(outputData.WIRE_LENGTH_HV, 12, 2);
+
+        LV_HV_Table.setValueAt(outputData.RESISTANCE_LV ,13,1);
+        LV_HV_Table.setValueAt(outputData.RESISTANCE_HV,13,2);
+
+        LV_HV_Table.setValueAt(outputData.STRAY_LOSS_LV,14,1);
+        LV_HV_Table.setValueAt(outputData.STRAY_LOSS_HV,14,2);
+
+        LV_HV_Table.setValueAt(outputData.LOAD_LOSS_LV,15,1);
+        LV_HV_Table.setValueAt(outputData.LOAD_LOSS_HV,15,2);
+
+        LV_HV_Table.setValueAt(outputData.S_AM2_WDG_LV,16,1);
+        LV_HV_Table.setValueAt(outputData.S_AM2_WDG_HV,16,2);
+
 
         wireDetailTable.setValueAt("Parameter" , 0 ,0);
         wireDetailTable.setValueAt("LV 1" , 0 ,1);
         wireDetailTable.setValueAt("LV 2" , 0 ,2);
         wireDetailTable.setValueAt("HV 1" , 0 ,3);
         wireDetailTable.setValueAt("HV 2" , 0 ,4);
+
+        // setting parameter names
         wireDetailTable.setValueAt("Wire bare" , 1 , 0);
         wireDetailTable.setValueAt("Wire insulated" , 2 , 0);
         coreWeightTable.setValueAt("Conductor in KG" , 0 , 0);
+
+        // setting values
+        wireDetailTable.setValueAt(inputData.WIREBARELV1,1,1);
+        wireDetailTable.setValueAt(inputData.WIREBARELV2,1,2);
+        wireDetailTable.setValueAt(inputData.WIREBAREHV1,1,3);
+        wireDetailTable.setValueAt(inputData.WIREBAREHV2,1,4);
+        wireDetailTable.setValueAt(outputData.WIRE_INSULATED_LV1,2,1);
+        wireDetailTable.setValueAt(outputData.WIRE_INSULATED_LV2,2,2);
+        wireDetailTable.setValueAt(outputData.WIRE_INSULATED_HV1,2,3);
+        wireDetailTable.setValueAt(outputData.WIRE_INSULATED_HV2,2,4);
+
+        coreWeightTable.setValueAt(outputData.CONDUCTOR_LV1,0,1);
+        coreWeightTable.setValueAt(outputData.CONDUCTOR_LV2,0,2);
+        coreWeightTable.setValueAt(outputData.CONDUCTOR_HV1,0,3);
+        coreWeightTable.setValueAt(outputData.CONDUCTOR_HV2,0,4);
+
+        VByTOutput.setText(String.valueOf(outputData.V_T));
     }
 
-    private void initializeCoreWDGTable(){
+    private void setCorePanelValues(){
+
+        OutputData outputData = Model.getSingleton().getOutputData();
+        InputData inputData = Model.getSingleton().getLoadedProjectInput();
+
         coreWdgTable.setValueAt("Parameter" , 0 , 0);
         coreWdgTable.setValueAt("W" , 0 , 1);
         coreWdgTable.setValueAt("D" , 0 , 2);
@@ -200,5 +286,52 @@ public class OutputOneWorkView extends AbstractWorkView{
         coreWdgTable.setValueAt("OD(2)" , 11 , 0);
         coreWdgTable.setValueAt("am" , 12 , 0);
         coreWdgTable.setAlignmentX(CENTER_ALIGNMENT);
+
+        // setting values
+        coreWdgTable.setValueAt(inputData.CORE_W, 1, 1);
+        coreWdgTable.setValueAt(outputData.CORE_D, 1, 2);
+
+        coreWdgTable.setValueAt(inputData.LIMB_PLATE_W, 2, 1);
+        coreWdgTable.setValueAt(inputData.LIMB_PLATE_D, 2, 2);
+
+        coreWdgTable.setValueAt(outputData.TOTAL_CORE_W, 3, 1);
+        coreWdgTable.setValueAt(outputData.TOTAL_CORE_D, 3, 2);
+
+        coreWdgTable.setValueAt(inputData.GAP_W, 4, 1);
+        coreWdgTable.setValueAt(inputData.GAP_D, 4, 2);
+
+        coreWdgTable.setValueAt(outputData.ID_W, 5, 1);
+        coreWdgTable.setValueAt(outputData.ID_D, 5, 2);
+
+        coreWdgTable.setValueAt(outputData.LV_WDG, 6, 1);
+        coreWdgTable.setValueAt(outputData.LV_WDG, 6, 2);
+
+        coreWdgTable.setValueAt(outputData.OD_W, 7, 1);
+        coreWdgTable.setValueAt(outputData.OD_D, 7, 2);
+
+        coreWdgTable.setValueAt(inputData.DELTA_W, 8, 1);
+        coreWdgTable.setValueAt(inputData.DELTA_D, 8, 2);
+
+        coreWdgTable.setValueAt(outputData.TOTAL_ID_W, 9, 1);
+        coreWdgTable.setValueAt(outputData.TOTAL_ID_D, 9, 2);
+
+        coreWdgTable.setValueAt(outputData.HV_WDG, 10, 1);
+        coreWdgTable.setValueAt(outputData.HV_WDG, 10, 2);
+
+        coreWdgTable.setValueAt(outputData.TOTAL_OD_W, 11, 1);
+        coreWdgTable.setValueAt(outputData.TOTAL_OD_D, 11, 2);
+
+        coreWdgTable.setValueAt(inputData.AM_W, 12, 1);
+        coreWdgTable.setValueAt(inputData.AM_D, 12, 2);
+
+        String C_dist_data = cDistLabel.getText();
+        cDistLabel.setText(C_dist_data + String.valueOf(outputData.C_DIST));
+
+        String yokeL_data = yokeL.getText();
+        yokeL.setText(yokeL_data + String.valueOf(outputData.YOKE_L));
+
+        String leads_data = leads.getText();
+        leads.setText(leads_data + String.valueOf(outputData.LEADS));
+
     }
 }
