@@ -18,8 +18,8 @@ public class OutputTwoWorkView extends AbstractWorkView{
 
     private final JPanel mainPanel = new JPanel();
     private final JPanel contentPanel = new JPanel();
-    private final JTable dimensionTable = new JTable(10  , 3);
-    private final JTable impedanceVoltageTable = new JTable(10 , 3);
+    private final JTable tankDimensionTable = new JTable(7  , 2);
+    private final JTable impedanceVoltageTable = new JTable(8 , 2);
     private final JPanel dimensionPanel = new JPanel();
     private final JPanel impedancePanel = new JPanel();
     public OutputTwoWorkView(Model model) {
@@ -40,13 +40,17 @@ public class OutputTwoWorkView extends AbstractWorkView{
         this.dimensionPanel.setLayout(dimensionLayout);
         BoxLayout impedanceLayout = new BoxLayout(this.impedancePanel , BoxLayout.Y_AXIS);
         this.impedancePanel.setLayout(impedanceLayout);
-        JLabel dimensionLabel = new JLabel("Dimensions");
+        JLabel dimensionLabel = new JLabel("Tank Dimensions");
         dimensionLabel.setFont(StyleConstants.HEADING_SUB1);
         this.dimensionPanel.add(dimensionLabel);
-        this.dimensionPanel.add(dimensionTable);
+        this.dimensionPanel.add(Box.createVerticalStrut(30));
+        this.initializeTankDimensionTable();
+        this.dimensionPanel.add(tankDimensionTable);
         JLabel impedanceHeading = new JLabel("Impedance");
         impedanceHeading.setFont(StyleConstants.HEADING_SUB1);
         this.impedancePanel.add(impedanceHeading);
+        this.initializeImpedanceTable();
+        this.impedancePanel.add(Box.createVerticalStrut(30));
         this.impedancePanel.add(impedanceVoltageTable);
         this.impedancePanel.setBorder(BorderFactory.createEmptyBorder(20 , 20 , 20 ,20));
         this.dimensionPanel.setBorder(BorderFactory.createEmptyBorder(20 , 20 ,20 ,20));
@@ -55,6 +59,28 @@ public class OutputTwoWorkView extends AbstractWorkView{
         this.mainPanel.add(contentPanel , BorderLayout.CENTER);
         this.mainPanel.add(new MenuBar(thisReference) , BorderLayout.NORTH);
         this.add(mainPanel , BorderLayout.CENTER);
+    }
+
+    private void initializeImpedanceTable() {
+        this.impedanceVoltageTable.setValueAt("h" , 0 , 0);
+        this.impedanceVoltageTable.setValueAt("b" , 1 , 0);
+        this.impedanceVoltageTable.setValueAt( "kr",2 , 0);
+        this.impedanceVoltageTable.setValueAt( "Ls",3 , 0);
+        this.impedanceVoltageTable.setValueAt( "δ`",4 , 0);
+        this.impedanceVoltageTable.setValueAt( "ex",5 , 0);
+        this.impedanceVoltageTable.setValueAt( "Er",6 , 0);
+        this.impedanceVoltageTable.setValueAt( "Ek",7 , 0);
+    }
+
+    private void initializeTankDimensionTable() {
+        this.tankDimensionTable.setValueAt( "Parameter",0 , 0);
+        this.tankDimensionTable.setValueAt( "mtr",0 , 1);
+        this.tankDimensionTable.setValueAt( "Active L",1 , 0);
+        this.tankDimensionTable.setValueAt("Active H" , 2 , 0);
+        this.tankDimensionTable.setValueAt("Active B" , 3 , 0);
+        this.tankDimensionTable.setValueAt( "Overall L",4 , 0);
+        this.tankDimensionTable.setValueAt("Overall H" , 5 , 0);
+        this.tankDimensionTable.setValueAt("Overall B" , 6 , 0);
     }
 
     @Override
@@ -76,8 +102,4 @@ public class OutputTwoWorkView extends AbstractWorkView{
         return 4;
     }
 
-    @Override
-    public void refreshUI() {
-
-    }
 }
