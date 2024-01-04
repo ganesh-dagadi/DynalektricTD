@@ -367,11 +367,7 @@ public class InputWorkView extends AbstractWorkView{
     @Override
     public void update(String msg){
         if(msg.equals("MODEL_UPDATED")){
-            this.removeAll();
-            this.revalidate();
-            System.out.print(this.model.getLoadedProjectInput());
-            this.initializeUI();
-            this.repaint();
+            this.refreshInputValues();
         }
     }
 

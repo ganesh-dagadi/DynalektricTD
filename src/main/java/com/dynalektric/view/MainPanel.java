@@ -2,6 +2,8 @@ package com.dynalektric.view;
 
 import javax.swing.*;
 import java.awt.*;
+
+import com.dynalektric.model.Model;
 import com.dynalektric.view.workViews.AbstractWorkView;
 public class MainPanel extends JPanel{
     private JPanel workArea = new JPanel();
@@ -14,6 +16,9 @@ public class MainPanel extends JPanel{
     }
 
     public void displayWorkView(String viewName) {
+        if(Model.getSingleton().getLoadedProject() != null){
+            Model.getSingleton().notifyListeners("MODEL_UPDATED");
+        }
         this.workLayout.show(this.workArea , viewName);
     }
 

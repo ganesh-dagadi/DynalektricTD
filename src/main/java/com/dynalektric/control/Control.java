@@ -19,10 +19,7 @@ public class Control {
         projectRepo.updateProject(toSaveProject);
     }
     public void closeOpenedProject(){
-        if(model.hasUnsavedChanges()){
-            this.saveProject();
-            model.setHasUnsavedChanges(false);
-        }
+        this.saveProject();
         model.getGeneralRepo().setLoadedProjectName(null);
         model.clearProjectData();
         View view = View.getSingleton();
