@@ -1,11 +1,13 @@
 package com.dynalektric.view.workViews;
 
+import com.ctc.wstx.shaded.msv_core.util.Util;
 import com.dynalektric.constants.StyleConstants;
 import com.dynalektric.constants.ViewMessages;
 import com.dynalektric.control.Control;
 import com.dynalektric.model.Model;
 import com.dynalektric.model.repositories.project.InputData;
 import com.dynalektric.model.repositories.project.OutputData;
+import com.dynalektric.utils.UtilFunction;
 import com.dynalektric.view.View;
 import com.dynalektric.view.ViewMessage;
 import com.dynalektric.view.components.MenuBar;
@@ -123,17 +125,17 @@ public class OutputTwoWorkView extends AbstractWorkView{
         this.billTable.setValueAt("Total Mass", 10, 0);
 
         // setting values
-        this.billTable.setValueAt(outputData.BOM_CORE, 0, 1);
-        this.billTable.setValueAt(outputData.BOM_CORE_STEEL, 1, 1);
-        this.billTable.setValueAt(outputData.BOM_CONDUCTOR_WT, 2, 1);
-        this.billTable.setValueAt(outputData.BOM_LEADS, 3, 1);
-        this.billTable.setValueAt(outputData.BOM_INSULATION_FG, 4, 1);
-        this.billTable.setValueAt(outputData.BOM_CONNECTION_FG, 5, 1);
-        this.billTable.setValueAt(outputData.BOM_INSULATION_CL_H, 6, 1);
-        this.billTable.setValueAt(outputData.BOM_RESIN_VT50, 7, 1);
-        this.billTable.setValueAt(outputData.BOM_MISC, 8, 1);
-        this.billTable.setValueAt(inputData.BOM_CRCA_ENCL, 9, 1);
-        this.billTable.setValueAt(outputData.BOM_TOTAL_MASS, 10, 1);
+        this.billTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.BOM_CORE, 3), 0, 1);
+        this.billTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.BOM_CORE_STEEL, 3), 1, 1);
+        this.billTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.BOM_CONDUCTOR_WT, 3), 2, 1);
+        this.billTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.BOM_LEADS, 3), 3, 1);
+        this.billTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.BOM_INSULATION_FG, 3), 4, 1);
+        this.billTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.BOM_CONNECTION_FG, 3), 5, 1);
+        this.billTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.BOM_INSULATION_CL_H, 3), 6, 1);
+        this.billTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.BOM_RESIN_VT50, 3), 7, 1);
+        this.billTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.BOM_MISC, 3), 8, 1);
+        this.billTable.setValueAt(UtilFunction.RoundedToNDecimal(inputData.BOM_CRCA_ENCL, 3), 9, 1);
+        this.billTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.BOM_TOTAL_MASS, 3), 10, 1);
 
     }
 
@@ -151,15 +153,15 @@ public class OutputTwoWorkView extends AbstractWorkView{
         this.lossesTable.setValueAt("Spec Losses",7,0);
         this.lossesTable.setValueAt("Calc Loss watts",8,0);
 
-        this.lossesTable.setValueAt(outputData.MASS_OF_CONDUCTOR,0,1);
-        this.lossesTable.setValueAt(outputData.LOAD_LOSS_LV,1,1);
-        this.lossesTable.setValueAt(outputData.LOAD_LOSS_HV,2,1);
-        this.lossesTable.setValueAt(outputData.TANK, 3, 1);
-        this.lossesTable.setValueAt(outputData.OBTAINED_LOSS, 4, 1);
-        this.lossesTable.setValueAt(outputData.TOTAL_CORE_MASS, 5, 1);
-        this.lossesTable.setValueAt(outputData.NET_CROSS_SECTION, 6, 1);
-        this.lossesTable.setValueAt(outputData.SPEC_LOSSES, 7, 1);
-        this.lossesTable.setValueAt(outputData.CALC_LOSS, 8, 1);
+        this.lossesTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.MASS_OF_CONDUCTOR, 3),0,1);
+        this.lossesTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.LOAD_LOSS_LV, 3),1,1);
+        this.lossesTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.LOAD_LOSS_HV, 3),2,1);
+        this.lossesTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.TANK, 3), 3, 1);
+        this.lossesTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.OBTAINED_LOSS, 3), 4, 1);
+        this.lossesTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.TOTAL_CORE_MASS, 3), 5, 1);
+        this.lossesTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.NET_CROSS_SECTION, 3), 6, 1);
+        this.lossesTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.SPEC_LOSSES, 3), 7, 1);
+        this.lossesTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.CALC_LOSS, 3), 8, 1);
 
     }
 
@@ -177,14 +179,14 @@ public class OutputTwoWorkView extends AbstractWorkView{
         this.impedanceVoltageTable.setValueAt( "Ek",7 , 0);
 
         // setting values
-        this.impedanceVoltageTable.setValueAt(outputData.H, 0, 1);
-        this.impedanceVoltageTable.setValueAt(outputData.B, 1, 1);
-        this.impedanceVoltageTable.setValueAt(outputData.KR, 2, 1);
-        this.impedanceVoltageTable.setValueAt(outputData.LS, 3, 1);
-        this.impedanceVoltageTable.setValueAt(outputData.DELTA_DASH, 4, 1);
-        this.impedanceVoltageTable.setValueAt(outputData.EX, 5, 1);
-        this.impedanceVoltageTable.setValueAt(outputData.ER, 6, 1);
-        this.impedanceVoltageTable.setValueAt(outputData.EK, 7, 1);
+        this.impedanceVoltageTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.H, 3), 0, 1);
+        this.impedanceVoltageTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.B, 3), 1, 1);
+        this.impedanceVoltageTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.KR, 3), 2, 1);
+        this.impedanceVoltageTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.LS, 3), 3, 1);
+        this.impedanceVoltageTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.DELTA_DASH, 3), 4, 1);
+        this.impedanceVoltageTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.EX, 3), 5, 1);
+        this.impedanceVoltageTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.ER, 3), 6, 1);
+        this.impedanceVoltageTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.EK, 3), 7, 1);
     }
 
     private void initializeTankDimensionTable() {
@@ -192,7 +194,7 @@ public class OutputTwoWorkView extends AbstractWorkView{
         OutputData outputData = Model.getSingleton().getOutputData();
 
         this.tankDimensionTable.setValueAt( "Parameter",0 , 0);
-        this.tankDimensionTable.setValueAt( "mtr",0 , 1);
+        this.tankDimensionTable.setValueAt( "mm",0 , 1);
         this.tankDimensionTable.setValueAt( "Active L",1 , 0);
         this.tankDimensionTable.setValueAt("Active H" , 2 , 0);
         this.tankDimensionTable.setValueAt("Active B" , 3 , 0);
@@ -201,12 +203,12 @@ public class OutputTwoWorkView extends AbstractWorkView{
         this.tankDimensionTable.setValueAt("Overall B" , 6 , 0);
 
         // setting values
-        this.tankDimensionTable.setValueAt(outputData.L_ACTIVE, 1, 1);
-        this.tankDimensionTable.setValueAt(outputData.H_ACTIVE, 2, 1);
-        this.tankDimensionTable.setValueAt(outputData.B_ACTIVE, 3, 1);
-        this.tankDimensionTable.setValueAt(outputData.L_MECHANICAL, 4, 1);
-        this.tankDimensionTable.setValueAt(outputData.H_MECHANICAL, 5, 1);
-        this.tankDimensionTable.setValueAt(outputData.B_MECHANICAL, 6, 1);
+        this.tankDimensionTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.L_ACTIVE, 3), 1, 1);
+        this.tankDimensionTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.H_ACTIVE, 3), 2, 1);
+        this.tankDimensionTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.B_ACTIVE, 3), 3, 1);
+        this.tankDimensionTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.L_MECHANICAL, 3), 4, 1);
+        this.tankDimensionTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.H_MECHANICAL, 3), 5, 1);
+        this.tankDimensionTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.B_MECHANICAL, 3), 6, 1);
 
     }
 

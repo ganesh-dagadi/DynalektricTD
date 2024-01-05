@@ -1,11 +1,13 @@
 package com.dynalektric.view.workViews;
 
+import com.ctc.wstx.shaded.msv_core.util.Util;
 import com.dynalektric.constants.StyleConstants;
 import com.dynalektric.constants.ViewMessages;
 import com.dynalektric.control.Control;
 import com.dynalektric.model.Model;
 import com.dynalektric.model.repositories.project.InputData;
 import com.dynalektric.model.repositories.project.OutputData;
+import com.dynalektric.utils.UtilFunction;
 import com.dynalektric.view.View;
 import com.dynalektric.view.ViewMessage;
 import com.dynalektric.view.components.MenuBar;
@@ -22,6 +24,7 @@ public class OutputOneWorkView extends AbstractWorkView{
     private final JPanel mainPanel = new JPanel();
     private final JPanel LV_HVPanel = new JPanel();
     private final JPanel coreDetailsPanel = new JPanel();
+    private final JTable rTable = new JTable(12, 2);
     private final JTable LV_HV_Table = new JTable(18  , 3){
         @Override
         public boolean isCellEditable(int row , int col){
@@ -67,6 +70,7 @@ public class OutputOneWorkView extends AbstractWorkView{
         if(Objects.equals(message, "MODEL_UPDATED")){
             this.setLVHVPanelValues();
             this.setCorePanelValues();
+            this.setRPanelValues();
 
         }
     }
@@ -137,6 +141,12 @@ public class OutputOneWorkView extends AbstractWorkView{
         this.coreDetailsPanel.add(coreDetailsHeading);
         this.coreDetailsPanel.add(Box.createVerticalStrut(10));
         this.coreDetailsPanel.add(coreWdgTable);
+        this.coreDetailsPanel.add(Box.createVerticalStrut(15));
+        if(model.getLoadedProject() != null)
+            this.setRPanelValues();
+        this.coreDetailsPanel.add(Box.createVerticalStrut(30));
+        this.coreDetailsPanel.add(rTable);
+        this.coreDetailsPanel.add(Box.createVerticalStrut(15));
         this.coreDetailsPanel.setBackground(new Color(230 , 230 , 230));
         this.coreDetailsPanel.setBorder(BorderFactory.createEmptyBorder(20, 20 , 20 ,20));
 
@@ -166,6 +176,47 @@ public class OutputOneWorkView extends AbstractWorkView{
         navigationPanel.add(nextBtn);
         return navigationPanel;
     }
+
+    public void setRPanelValues() {
+        OutputData outputData = Model.getSingleton().getOutputData();
+
+        rTable.setValueAt("Parameter", 0, 0);
+        rTable.setValueAt("mm", 0, 1);
+
+        rTable.setValueAt("R1", 1, 0);
+        rTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.R1, 3), 1, 1);
+
+        rTable.setValueAt("R2", 2, 0);
+        rTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.R2, 3), 2, 1);
+
+        rTable.setValueAt("R3", 3, 0);
+        rTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.R3, 3), 3, 1);
+
+        rTable.setValueAt("R4", 4, 0);
+        rTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.R4, 3), 4, 1);
+
+        rTable.setValueAt("Perimeter 1", 5, 0);
+        rTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.PERIMETER1, 3), 5, 1);
+
+        rTable.setValueAt("Perimeter 2", 6, 0);
+        rTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.PERIMETER2, 3), 6, 1);
+
+        rTable.setValueAt("Perimeter 3", 7, 0);
+        rTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.PERIMETER3, 3), 7, 1);
+
+        rTable.setValueAt("Perimeter 5", 8, 0);
+        rTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.PERIMETER4, 3), 8, 1);
+
+        rTable.setValueAt("Mean LG LV", 9, 0);
+        rTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.MEAN_LG_LV, 3), 9, 1);
+
+        rTable.setValueAt("Mean LG DELTA", 10, 0);
+        rTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.MEAN_LG_DELTA, 3), 10, 1);
+
+        rTable.setValueAt("Mean LG HV", 11, 0);
+        rTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.MEAN_LG_HV, 3), 11, 1);
+    }
+
     private void setLVHVPanelValues(){
         OutputData outputData = Model.getSingleton().getOutputData();
         InputData inputData = Model.getSingleton().getLoadedProjectInput();
@@ -191,53 +242,53 @@ public class OutputOneWorkView extends AbstractWorkView{
         LV_HV_Table.setValueAt("S.a-m(wdg)" , 16 , 0);
 
         // setting values
-        LV_HV_Table.setValueAt(outputData.VPH_LV, 1, 1);
-        LV_HV_Table.setValueAt(outputData.VPH_HV, 1, 2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.VPH_LV, 3), 1, 1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.VPH_HV, 3), 1, 2);
 
-        LV_HV_Table.setValueAt(outputData.IPH_LV, 2, 1);
-        LV_HV_Table.setValueAt(outputData.IPH_HV, 2, 2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.IPH_LV, 3), 2, 1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.IPH_HV, 3), 2, 2);
 
-        LV_HV_Table.setValueAt(outputData.CROSS_SECTION_LV, 3, 1);
-        LV_HV_Table.setValueAt(outputData.CROSS_SECTION_HV, 3, 2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.CROSS_SECTION_LV, 3), 3, 1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.CROSS_SECTION_HV, 3), 3, 2);
 
-        LV_HV_Table.setValueAt(outputData.CURRENT_DENSITY_LV, 4, 1);
-        LV_HV_Table.setValueAt(outputData.CURRENT_DENSITY_HV, 4, 2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.CURRENT_DENSITY_LV, 3), 4, 1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.CURRENT_DENSITY_HV, 3), 4, 2);
 
-        LV_HV_Table.setValueAt(outputData.TURN_LIMB_LV, 5, 1);
-        LV_HV_Table.setValueAt(outputData.TURN_LIMB_HV, 5, 2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.TURN_LIMB_LV, 3), 5, 1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.TURN_LIMB_HV, 3), 5, 2);
 
-        LV_HV_Table.setValueAt(outputData.TURN_LAYER_LV, 6, 1);
-        LV_HV_Table.setValueAt(outputData.TURN_LAYER_HV, 6, 2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.TURN_LAYER_LV, 3), 6, 1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.TURN_LAYER_HV, 3), 6, 2);
 
-        LV_HV_Table.setValueAt(outputData.WDG_LG_IMP_CALCU_LV, 7, 1);
-        LV_HV_Table.setValueAt(outputData.WDG_LG_IMP_CALCU_HV, 7, 2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WDG_LG_IMP_CALCU_LV, 3), 7, 1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WDG_LG_IMP_CALCU_HV, 3), 7, 2);
 
-        LV_HV_Table.setValueAt(outputData.WIND_LENGTH_LV, 8, 1);
-        LV_HV_Table.setValueAt(outputData.WIND_LENGTH_HV, 8, 2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WIND_LENGTH_LV, 3), 8, 1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WIND_LENGTH_HV, 3), 8, 2);
 
-        LV_HV_Table.setValueAt(outputData.LIMB_LENGTH_LV, 9, 1);
-        LV_HV_Table.setValueAt(outputData.LIMB_LENGTH_HV, 9, 2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.LIMB_LENGTH_LV, 3), 9, 1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.LIMB_LENGTH_HV, 3), 9, 2);
 
-        LV_HV_Table.setValueAt(outputData.WIND_RADIAL_DEPTH_LV, 10, 1);
-        LV_HV_Table.setValueAt(outputData.WIND_RADIAL_DEPTH_HV, 10, 2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WIND_RADIAL_DEPTH_LV, 3), 10, 1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WIND_RADIAL_DEPTH_HV, 3), 10, 2);
 
-        LV_HV_Table.setValueAt(outputData.TURN_LENGTH_LV, 11, 1);
-        LV_HV_Table.setValueAt(outputData.TURN_LENGTH_HV, 11, 2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.TURN_LENGTH_LV, 3), 11, 1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.TURN_LENGTH_HV, 3), 11, 2);
 
-        LV_HV_Table.setValueAt(outputData.WIRE_LENGTH_LV, 12, 1);
-        LV_HV_Table.setValueAt(outputData.WIRE_LENGTH_HV, 12, 2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WIRE_LENGTH_LV,  3), 12, 1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WIRE_LENGTH_HV, 3), 12, 2);
 
-        LV_HV_Table.setValueAt(outputData.RESISTANCE_LV ,13,1);
-        LV_HV_Table.setValueAt(outputData.RESISTANCE_HV,13,2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.RESISTANCE_LV, 3) ,13,1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.RESISTANCE_HV, 3),13,2);
 
-        LV_HV_Table.setValueAt(outputData.STRAY_LOSS_LV,14,1);
-        LV_HV_Table.setValueAt(outputData.STRAY_LOSS_HV,14,2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.STRAY_LOSS_LV, 3),14,1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.STRAY_LOSS_HV, 3),14,2);
 
-        LV_HV_Table.setValueAt(outputData.LOAD_LOSS_LV,15,1);
-        LV_HV_Table.setValueAt(outputData.LOAD_LOSS_HV,15,2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.LOAD_LOSS_LV, 3),15,1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.LOAD_LOSS_HV, 3),15,2);
 
-        LV_HV_Table.setValueAt(outputData.S_AM2_WDG_LV,16,1);
-        LV_HV_Table.setValueAt(outputData.S_AM2_WDG_HV,16,2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.S_AM2_WDG_LV, 3),16,1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.S_AM2_WDG_HV, 3),16,2);
 
 
         wireDetailTable.setValueAt("Parameter" , 0 ,0);
@@ -252,21 +303,21 @@ public class OutputOneWorkView extends AbstractWorkView{
         coreWeightTable.setValueAt("Conductor in KG" , 0 , 0);
 
         // setting values
-        wireDetailTable.setValueAt(inputData.WIREBARELV1,1,1);
-        wireDetailTable.setValueAt(inputData.WIREBARELV2,1,2);
-        wireDetailTable.setValueAt(inputData.WIREBAREHV1,1,3);
-        wireDetailTable.setValueAt(inputData.WIREBAREHV2,1,4);
-        wireDetailTable.setValueAt(outputData.WIRE_INSULATED_LV1,2,1);
-        wireDetailTable.setValueAt(outputData.WIRE_INSULATED_LV2,2,2);
-        wireDetailTable.setValueAt(outputData.WIRE_INSULATED_HV1,2,3);
-        wireDetailTable.setValueAt(outputData.WIRE_INSULATED_HV2,2,4);
+        wireDetailTable.setValueAt(UtilFunction.RoundedToNDecimal(inputData.WIREBARELV1, 3),1,1);
+        wireDetailTable.setValueAt(UtilFunction.RoundedToNDecimal(inputData.WIREBARELV2, 3),1,2);
+        wireDetailTable.setValueAt(UtilFunction.RoundedToNDecimal(inputData.WIREBAREHV1, 3),1,3);
+        wireDetailTable.setValueAt(UtilFunction.RoundedToNDecimal(inputData.WIREBAREHV2, 3),1,4);
+        wireDetailTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WIRE_INSULATED_LV1, 3),2,1);
+        wireDetailTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WIRE_INSULATED_LV2, 3),2,2);
+        wireDetailTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WIRE_INSULATED_HV1, 3),2,3);
+        wireDetailTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WIRE_INSULATED_HV2, 3),2,4);
 
-        coreWeightTable.setValueAt(outputData.CONDUCTOR_LV1,0,1);
-        coreWeightTable.setValueAt(outputData.CONDUCTOR_LV2,0,2);
-        coreWeightTable.setValueAt(outputData.CONDUCTOR_HV1,0,3);
-        coreWeightTable.setValueAt(outputData.CONDUCTOR_HV2,0,4);
+        coreWeightTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.CONDUCTOR_LV1, 3),0,1);
+        coreWeightTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.CONDUCTOR_LV2, 3),0,2);
+        coreWeightTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.CONDUCTOR_HV1, 3),0,3);
+        coreWeightTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.CONDUCTOR_HV2, 3),0,4);
 
-        VByTOutput.setText(String.valueOf(outputData.V_T));
+        VByTOutput.setText(String.valueOf(UtilFunction.RoundedToNDecimal(outputData.V_T, 3)));
     }
 
     private void setCorePanelValues(){
@@ -293,41 +344,41 @@ public class OutputOneWorkView extends AbstractWorkView{
         coreWdgTable.setAlignmentX(CENTER_ALIGNMENT);
 
         // setting values
-        coreWdgTable.setValueAt(inputData.CORE_W, 1, 1);
-        coreWdgTable.setValueAt(outputData.CORE_D, 1, 2);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(inputData.CORE_W, 3), 1, 1);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.CORE_D, 3), 1, 2);
 
-        coreWdgTable.setValueAt(inputData.LIMB_PLATE_W, 2, 1);
-        coreWdgTable.setValueAt(inputData.LIMB_PLATE_D, 2, 2);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(inputData.LIMB_PLATE_W, 3), 2, 1);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(inputData.LIMB_PLATE_D, 3), 2, 2);
 
-        coreWdgTable.setValueAt(outputData.TOTAL_CORE_W, 3, 1);
-        coreWdgTable.setValueAt(outputData.TOTAL_CORE_D, 3, 2);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.TOTAL_CORE_W, 3), 3, 1);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.TOTAL_CORE_D, 3), 3, 2);
 
-        coreWdgTable.setValueAt(inputData.GAP_W, 4, 1);
-        coreWdgTable.setValueAt(inputData.GAP_D, 4, 2);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(inputData.GAP_W, 3), 4, 1);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(inputData.GAP_D, 3), 4, 2);
 
-        coreWdgTable.setValueAt(outputData.ID_W, 5, 1);
-        coreWdgTable.setValueAt(outputData.ID_D, 5, 2);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.ID_W, 3), 5, 1);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.ID_D, 3), 5, 2);
 
-        coreWdgTable.setValueAt(outputData.LV_WDG, 6, 1);
-        coreWdgTable.setValueAt(outputData.LV_WDG, 6, 2);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.LV_WDG, 3), 6, 1);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.LV_WDG, 3), 6, 2);
 
-        coreWdgTable.setValueAt(outputData.OD_W, 7, 1);
-        coreWdgTable.setValueAt(outputData.OD_D, 7, 2);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.OD_W, 3), 7, 1);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.OD_D, 3), 7, 2);
 
-        coreWdgTable.setValueAt(inputData.DELTA_W, 8, 1);
-        coreWdgTable.setValueAt(inputData.DELTA_D, 8, 2);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(inputData.DELTA_W, 3), 8, 1);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(inputData.DELTA_D, 3), 8, 2);
 
-        coreWdgTable.setValueAt(outputData.TOTAL_ID_W, 9, 1);
-        coreWdgTable.setValueAt(outputData.TOTAL_ID_D, 9, 2);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.TOTAL_ID_W, 3), 9, 1);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.TOTAL_ID_D, 3), 9, 2);
 
-        coreWdgTable.setValueAt(outputData.HV_WDG, 10, 1);
-        coreWdgTable.setValueAt(outputData.HV_WDG, 10, 2);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.HV_WDG, 3), 10, 1);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.HV_WDG, 3), 10, 2);
 
-        coreWdgTable.setValueAt(outputData.TOTAL_OD_W, 11, 1);
-        coreWdgTable.setValueAt(outputData.TOTAL_OD_D, 11, 2);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.TOTAL_OD_W, 3), 11, 1);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.TOTAL_OD_D, 3), 11, 2);
 
-        coreWdgTable.setValueAt(inputData.AM_W, 12, 1);
-        coreWdgTable.setValueAt(inputData.AM_D, 12, 2);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(inputData.AM_W, 3), 12, 1);
+        coreWdgTable.setValueAt(UtilFunction.RoundedToNDecimal(inputData.AM_D, 3), 12, 2);
 
         String C_dist_data = cDistLabel.getText();
         C_dist_data = C_dist_data.substring(0 , 7);
