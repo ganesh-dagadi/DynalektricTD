@@ -25,7 +25,7 @@ public class OutputOneWorkView extends AbstractWorkView{
     private final JPanel LV_HVPanel = new JPanel();
     private final JPanel coreDetailsPanel = new JPanel();
     private final JTable rTable = new JTable(12, 2);
-    private final JTable LV_HV_Table = new JTable(18  , 3){
+    private final JTable LV_HV_Table = new JTable(20  , 3){
         @Override
         public boolean isCellEditable(int row , int col){
             return false;
@@ -118,11 +118,11 @@ public class OutputOneWorkView extends AbstractWorkView{
         VByTLabel.setFont(StyleConstants.HEADING_SUB2);
         this.LV_HVPanel.add(LV_HVHeading);
         this.LV_HVPanel.add(Box.createVerticalStrut(10));
-        this.LV_HVPanel.add(LV_HV_Table);
-        this.LV_HVPanel.add(Box.createVerticalStrut(10));
         this.LV_HVPanel.add(VByTLabel);
         this.LV_HVPanel.add(Box.createVerticalStrut(5));
         this.LV_HVPanel.add(VByTOutput);
+        this.LV_HVPanel.add(LV_HV_Table);
+        this.LV_HVPanel.add(Box.createVerticalStrut(10));
         this.LV_HVPanel.add(Box.createVerticalStrut(10));
         this.LV_HVPanel.add(this.wireDetailTable);
         this.LV_HVPanel.add(Box.createVerticalStrut(40));
@@ -144,16 +144,14 @@ public class OutputOneWorkView extends AbstractWorkView{
         this.coreDetailsPanel.add(Box.createVerticalStrut(15));
         if(model.getLoadedProject() != null)
             this.setRPanelValues();
+        this.coreDetailsPanel.add(cDistLabel);
+        this.coreDetailsPanel.add(yokeL);
+        this.coreDetailsPanel.add(leads);
         this.coreDetailsPanel.add(Box.createVerticalStrut(30));
         this.coreDetailsPanel.add(rTable);
         this.coreDetailsPanel.add(Box.createVerticalStrut(15));
         this.coreDetailsPanel.setBackground(new Color(230 , 230 , 230));
         this.coreDetailsPanel.setBorder(BorderFactory.createEmptyBorder(20, 20 , 20 ,20));
-
-        this.cDistLabel.setAlignmentX(LEFT_ALIGNMENT);
-        this.coreDetailsPanel.add(cDistLabel);
-        this.coreDetailsPanel.add(yokeL);
-        this.coreDetailsPanel.add(leads);
     }
     private JPanel initializeNavigationPanel(){
         JPanel navigationPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
@@ -240,6 +238,9 @@ public class OutputOneWorkView extends AbstractWorkView{
         LV_HV_Table.setValueAt("Stray Loss (%)" , 14 , 0);
         LV_HV_Table.setValueAt("Load Loss (Watts)" , 15 , 0);
         LV_HV_Table.setValueAt("S.a-m(wdg)" , 16 , 0);
+        LV_HV_Table.setValueAt("Core",17,0);
+        LV_HV_Table.setValueAt("W/m^2",18,0);
+        LV_HV_Table.setValueAt("Wdg-Temp-Rise",19,0);
 
         // setting values
         LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.VPH_LV, 3), 1, 1);
@@ -278,8 +279,8 @@ public class OutputOneWorkView extends AbstractWorkView{
         LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WIRE_LENGTH_LV,  3), 12, 1);
         LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WIRE_LENGTH_HV, 3), 12, 2);
 
-        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.RESISTANCE_LV, 3) ,13,1);
-        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.RESISTANCE_HV, 3),13,2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.RESISTANCE_LV, 4) ,13,1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.RESISTANCE_HV, 4),13,2);
 
         LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.STRAY_LOSS_LV, 3),14,1);
         LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.STRAY_LOSS_HV, 3),14,2);
@@ -290,6 +291,13 @@ public class OutputOneWorkView extends AbstractWorkView{
         LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.S_AM2_WDG_LV, 3),16,1);
         LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.S_AM2_WDG_HV, 3),16,2);
 
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.CORE, 3),17,1);
+
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.W_M2_LV,3),18,1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.W_M2_HV,3),18,2);
+
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WDG_TEMP_RISE_LV,3),19,1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WDG_TEMP_RISE_HV,3),19,2);
 
         wireDetailTable.setValueAt("Parameter" , 0 ,0);
         wireDetailTable.setValueAt("LV 1" , 0 ,1);

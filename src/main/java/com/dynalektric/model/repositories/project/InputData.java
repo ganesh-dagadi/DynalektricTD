@@ -58,6 +58,6 @@ public class InputData {
     public int AM_D = 13;
     public String CONDUCTOR = "ALUMINIUM";
     public double WIND_TEMP = 90.0;
-    public double CONDUCTIVITY = 28.0;
+    public double CONDUCTIVITY;
     public double BOM_CRCA_ENCL = 0.0;
 }
