@@ -29,6 +29,8 @@ public class OutputTwoWorkView extends AbstractWorkView{
     private final JTable impedanceVoltageTable = new JTable(8 , 2);
     private final JTable lossesTable = new JTable(9 , 2);
     private final JTable billTable = new JTable(11, 2);
+    private final JTable surfaceAreaTable = new JTable(5,2);
+    private final JTable vaTable = new JTable(7,3);
     private final JPanel dimensionPanel = new JPanel();
     private final JPanel impedancePanel = new JPanel();
     private final JPanel lossesPanel = new JPanel();
@@ -51,6 +53,8 @@ public class OutputTwoWorkView extends AbstractWorkView{
             this.initializeBillTable();
             this.initializeImpedanceTable();
             this.initializeLossesTable();
+            this.initializeSurfaceTable();
+            this.initializeVATable();
         }
     }
 
@@ -79,6 +83,16 @@ public class OutputTwoWorkView extends AbstractWorkView{
             this.initializeImpedanceTable();
         this.impedancePanel.add(Box.createVerticalStrut(30));
         this.impedancePanel.add(impedanceVoltageTable);
+        this.impedancePanel.add(Box.createVerticalStrut(15));
+        JLabel surfaceAreaLabel = new JLabel("Surface Area:");
+
+        surfaceAreaLabel.setFont(StyleConstants.HEADING_SUB1);
+        this.impedancePanel.add(surfaceAreaLabel);
+        this.impedancePanel.add(Box.createVerticalStrut(15));
+        this.impedancePanel.add(surfaceAreaTable);
+        if(model.getLoadedProject() != null)
+            this.initializeSurfaceTable();
+        //
         JLabel lossesHeading = new JLabel("Losses");
         lossesHeading.setFont(StyleConstants.HEADING_SUB1);
         this.lossesPanel.add(lossesHeading);
@@ -86,8 +100,17 @@ public class OutputTwoWorkView extends AbstractWorkView{
             this.initializeLossesTable();
         this.lossesPanel.add(Box.createVerticalStrut(30));
         this.lossesPanel.add(lossesTable);
+        JLabel vaLabel = new JLabel("VA Table");
+        this.lossesPanel.add(Box.createVerticalStrut(15));
+        vaLabel.setFont(StyleConstants.HEADING_SUB1);
+        this.lossesPanel.add(vaLabel);
+        this.lossesPanel.add(Box.createVerticalStrut(15));
+        if(model.getLoadedProject() != null)
+            this.initializeVATable();
+        this.lossesPanel.add(vaTable);
+
         this.dimensionPanel.add(Box.createVerticalStrut(15));
-        JLabel billHeading = new JLabel("Bill of material");
+        JLabel billHeading = new JLabel("Bill of material in Kg");
         billHeading.setFont(StyleConstants.HEADING_SUB1);
         this.dimensionPanel.add(billHeading);
         if(model.getLoadedProject() != null)
@@ -106,6 +129,42 @@ public class OutputTwoWorkView extends AbstractWorkView{
         this.add(mainPanel , BorderLayout.CENTER);
     }
 
+    public void initializeSurfaceTable(){
+        OutputData outputData = Model.getSingleton().getOutputData();
+        this.surfaceAreaTable.setValueAt("Core s-a ",0,0);
+        this.surfaceAreaTable.setValueAt("Wdg s-a",1,0);
+        this.surfaceAreaTable.setValueAt("∑ s-a",2,0);
+        this.surfaceAreaTable.setValueAt("∑ Loss",3,0);
+        this.surfaceAreaTable.setValueAt("Θ(k)",4,0);
+        this.surfaceAreaTable.setValueAt(outputData.CORE_SA,0,1);
+        this.surfaceAreaTable.setValueAt(outputData.WDG_SA,1,1);
+        this.surfaceAreaTable.setValueAt(outputData.SUM_SA,2,1);
+        this.surfaceAreaTable.setValueAt(outputData.SUM_LOSS,3,1);
+        this.surfaceAreaTable.setValueAt(outputData.THETA_K,4,1);
+
+    }
+    public void initializeVATable(){
+
+        OutputData outputData = Model.getSingleton().getOutputData();
+        this.vaTable.setValueAt("Mass Limb",0,0);
+        this.vaTable.setValueAt("Mass Yoke",1,0);
+        this.vaTable.setValueAt("Mass Corner",2,0);
+        this.vaTable.setValueAt("Gap VA",3,0);
+        this.vaTable.setValueAt("∑ VA",4,0);
+        this.vaTable.setValueAt("%N.L.Current",5,0);
+        this.vaTable.setValueAt("Extra-N.L.Loss",6,0);
+        this.vaTable.setValueAt(outputData.MASS_LIMB,0,1);
+        this.vaTable.setValueAt(outputData.MASS_YOKE,1,1);
+        this.vaTable.setValueAt(outputData.MASS_CORNER,2,1);
+        this.vaTable.setValueAt(outputData.MASS_LIMB_DASH,0,2);
+        this.vaTable.setValueAt(outputData.MASS_YOKE_DASH,1,2);
+        this.vaTable.setValueAt(outputData.MASS_CORNER_DASH,2,2);
+        this.vaTable.setValueAt(outputData.GAP_VA,3,2);
+        this.vaTable.setValueAt(outputData.SUM_VA,4,2);
+        this.vaTable.setValueAt(outputData.NL_CURRENT_PERCENTAGE,5,2);
+        this.vaTable.setValueAt(outputData.EXTRA_NL_LOSS,6,2);
+
+    }
     public void initializeBillTable() {
         OutputData outputData = Model.getSingleton().getOutputData();
         InputData inputData = Model.getSingleton().getLoadedProjectInput();
@@ -148,9 +207,9 @@ public class OutputTwoWorkView extends AbstractWorkView{
         this.lossesTable.setValueAt("Load Loss HV Watts",2,0);
         this.lossesTable.setValueAt("Tank Watts",3,0);
         this.lossesTable.setValueAt("Total Obtained Watts",4,0);
-        this.lossesTable.setValueAt("Total Core Mass",5,0);
-        this.lossesTable.setValueAt("Net Cross Section",6,0);
-        this.lossesTable.setValueAt("Spec Losses",7,0);
+        this.lossesTable.setValueAt("Total Core Mass Kg",5,0);
+        this.lossesTable.setValueAt("Net Cross Section cm^2",6,0);
+        this.lossesTable.setValueAt("Spec Losses %",7,0);
         this.lossesTable.setValueAt("Calc Loss watts",8,0);
 
         this.lossesTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.MASS_OF_CONDUCTOR, 3),0,1);
@@ -174,9 +233,9 @@ public class OutputTwoWorkView extends AbstractWorkView{
         this.impedanceVoltageTable.setValueAt( "kr",2 , 0);
         this.impedanceVoltageTable.setValueAt( "Ls",3 , 0);
         this.impedanceVoltageTable.setValueAt( "δ`",4 , 0);
-        this.impedanceVoltageTable.setValueAt( "ex",5 , 0);
-        this.impedanceVoltageTable.setValueAt( "Er",6 , 0);
-        this.impedanceVoltageTable.setValueAt( "Ek",7 , 0);
+        this.impedanceVoltageTable.setValueAt( "ex %",5 , 0);
+        this.impedanceVoltageTable.setValueAt( "Er %",6 , 0);
+        this.impedanceVoltageTable.setValueAt( "Ek %",7 , 0);
 
         // setting values
         this.impedanceVoltageTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.H, 3), 0, 1);
@@ -236,6 +295,7 @@ public class OutputTwoWorkView extends AbstractWorkView{
                 break;
         }
     }
+
 
     @Override
     public String getViewName() {

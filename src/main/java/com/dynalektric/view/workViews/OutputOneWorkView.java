@@ -222,10 +222,10 @@ public class OutputOneWorkView extends AbstractWorkView{
         LV_HV_Table.setValueAt("Parameter" , 0 , 0);
         LV_HV_Table.setValueAt("LV" , 0 , 1);
         LV_HV_Table.setValueAt("HV" , 0 , 2);
-        LV_HV_Table.setValueAt("Rated Voltage" , 1 , 0);
-        LV_HV_Table.setValueAt("Rated Current" , 2 , 0);
+        LV_HV_Table.setValueAt("Rated Voltage V" , 1 , 0);
+        LV_HV_Table.setValueAt("Rated Current A" , 2 , 0);
         LV_HV_Table.setValueAt("Cross Section sqmm" , 3 , 0);
-        LV_HV_Table.setValueAt("Current density" , 4 , 0);
+        LV_HV_Table.setValueAt("Current density A/mm^2" , 4 , 0);
         LV_HV_Table.setValueAt("Turns/Limb" , 5 , 0);
         LV_HV_Table.setValueAt("Turns/Layer" , 6 , 0);
         LV_HV_Table.setValueAt("wdg lg-imp calc" , 7 , 0);
@@ -240,7 +240,7 @@ public class OutputOneWorkView extends AbstractWorkView{
         LV_HV_Table.setValueAt("S.a-m(wdg)" , 16 , 0);
         LV_HV_Table.setValueAt("Core",17,0);
         LV_HV_Table.setValueAt("W/m^2",18,0);
-        LV_HV_Table.setValueAt("Wdg-Temp-Rise",19,0);
+        LV_HV_Table.setValueAt("Wdg-Temp-Rise C",19,0);
 
         // setting values
         LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.VPH_LV, 3), 1, 1);
@@ -306,9 +306,9 @@ public class OutputOneWorkView extends AbstractWorkView{
         wireDetailTable.setValueAt("HV 2" , 0 ,4);
 
         // setting parameter names
-        wireDetailTable.setValueAt("Wire bare" , 1 , 0);
-        wireDetailTable.setValueAt("Wire insulated" , 2 , 0);
-        coreWeightTable.setValueAt("Conductor in KG" , 0 , 0);
+        wireDetailTable.setValueAt("Wire bare mm" , 1 , 0);
+        wireDetailTable.setValueAt("Wire insulated mm" , 2 , 0);
+        coreWeightTable.setValueAt("Conductor Wt KG" , 0 , 0);
 
         // setting values
         wireDetailTable.setValueAt(UtilFunction.RoundedToNDecimal(inputData.WIREBARELV1, 3),1,1);
