@@ -36,7 +36,7 @@ public class InputWorkView extends AbstractWorkView{
     String[] oilDuctsLv2Inputs = {"0","6","8","10","12"};
     String[] oilDuctsHv1Inputs = {"0","1","2"};
     String[] oilDuctsHv2Inputs = {"0","6","8","10","12"};
-    String[] coreBldgInputs = {"1.5","2"};
+    String[] coreBldgInputs = {"1.5","2.0"};
     String[] connectionInputs = {"Dyn11","Dyn5","Dd0","Yyn0","Yd1","Yd11","Dz0","Yz1","Yz11"};
     String[] coolingInputs = {"AN-CL-F","AF-CL","ONAN-CL","ONAF-CL","ONWF-CL","OFWF-CL"};
     String[] frequencyInputs = {"50","60"};
@@ -420,8 +420,8 @@ public class InputWorkView extends AbstractWorkView{
         this.coreBldgIn.setValueSelected(String.valueOf(inputData.CORE_BLDG_FACTOR));
         this.connectionIn.setValueSelected(inputData.CONNECTION);
         this.coolingIn.setValueSelected(inputData.COOLING);
-        this.frequencyIn.setValueSelected(String.valueOf(inputData.FREQUENCY));
-        this.windingTemperatureIn.setValueSelected(String.valueOf(inputData.WIND_TEMP));
+        this.frequencyIn.setValueSelected(String.valueOf((int)inputData.FREQUENCY));
+        this.windingTemperatureIn.setValueSelected(String.valueOf((int)inputData.WIND_TEMP));
         this.steelGradeIn.setValueSelected(inputData.STEEL_GRADE);
         this.typesOfWindingLvIn.setValueSelected(inputData.WINDINGTYPELV);
         this.typesOfWindingHvIn.setValueSelected(inputData.WINDINGTYPEHV);
