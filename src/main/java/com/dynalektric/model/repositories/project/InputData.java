@@ -1,14 +1,14 @@
 package com.dynalektric.model.repositories.project;
 
 public class InputData {
-    public double LINEVOLTSLV = 480;
+    public double LINEVOLTSLV;
     public String CONNECTIONTYPELV = "DELTA";
     public String CONNECTIONTYPEHV = "DELTA";
-    public double LINEVOLTSHV = 32;
-    public double KVA = 8;
+    public double LINEVOLTSHV;
+    public double KVA;
     public String CONNECTION = "Dd0";
     public double FREQUENCY = 60.0;
-    public double K = 97;
+    public double K;
     public double WIREBARELV1 = 2.60;
     public double WIREBARELV2 = 2.60;
     public double WIREBAREHV1 = 10.0;
