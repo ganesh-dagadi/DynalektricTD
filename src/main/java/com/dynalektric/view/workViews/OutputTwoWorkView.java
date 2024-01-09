@@ -136,11 +136,11 @@ public class OutputTwoWorkView extends AbstractWorkView{
         this.surfaceAreaTable.setValueAt("∑ s-a",2,0);
         this.surfaceAreaTable.setValueAt("∑ Loss",3,0);
         this.surfaceAreaTable.setValueAt("Θ(k)",4,0);
-        this.surfaceAreaTable.setValueAt(outputData.CORE_SA,0,1);
-        this.surfaceAreaTable.setValueAt(outputData.WDG_SA,1,1);
-        this.surfaceAreaTable.setValueAt(outputData.SUM_SA,2,1);
-        this.surfaceAreaTable.setValueAt(outputData.SUM_LOSS,3,1);
-        this.surfaceAreaTable.setValueAt(outputData.THETA_K,4,1);
+        this.surfaceAreaTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.CORE_SA , 3),0,1);
+        this.surfaceAreaTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WDG_SA , 3),1,1);
+        this.surfaceAreaTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.SUM_SA , 3),2,1);
+        this.surfaceAreaTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.SUM_LOSS , 3),3,1);
+        this.surfaceAreaTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.THETA_K , 3),4,1);
 
     }
     public void initializeVATable(){
@@ -153,17 +153,16 @@ public class OutputTwoWorkView extends AbstractWorkView{
         this.vaTable.setValueAt("∑ VA",4,0);
         this.vaTable.setValueAt("%N.L.Current",5,0);
         this.vaTable.setValueAt("Extra-N.L.Loss",6,0);
-        this.vaTable.setValueAt(outputData.MASS_LIMB,0,1);
-        this.vaTable.setValueAt(outputData.MASS_YOKE,1,1);
-        this.vaTable.setValueAt(outputData.MASS_CORNER,2,1);
-        this.vaTable.setValueAt(outputData.MASS_LIMB_DASH,0,2);
-        this.vaTable.setValueAt(outputData.MASS_YOKE_DASH,1,2);
-        this.vaTable.setValueAt(outputData.MASS_CORNER_DASH,2,2);
-        this.vaTable.setValueAt(outputData.GAP_VA,3,2);
-        this.vaTable.setValueAt(outputData.SUM_VA,4,2);
-        this.vaTable.setValueAt(outputData.NL_CURRENT_PERCENTAGE,5,2);
-        this.vaTable.setValueAt(outputData.EXTRA_NL_LOSS,6,2);
-
+        this.vaTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.MASS_LIMB , 3),0,1);
+        this.vaTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.MASS_YOKE , 3),1,1);
+        this.vaTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.MASS_CORNER , 3),2,1);
+        this.vaTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.MASS_LIMB_DASH , 3),0,2);
+        this.vaTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.MASS_YOKE_DASH , 3),1,2);
+        this.vaTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.MASS_CORNER_DASH,3),2,2);
+        this.vaTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.GAP_VA , 3),3,2);
+        this.vaTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.SUM_VA , 3),4,2);
+        this.vaTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.NL_CURRENT_PERCENTAGE , 3),5,2);
+        this.vaTable.setValueAt(UtilFunction.RoundedToNDecimal(outputData.EXTRA_NL_LOSS , 3),6,2);
     }
     public void initializeBillTable() {
         OutputData outputData = Model.getSingleton().getOutputData();

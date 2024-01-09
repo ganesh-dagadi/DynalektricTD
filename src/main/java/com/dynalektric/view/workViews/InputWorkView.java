@@ -301,15 +301,15 @@ public class InputWorkView extends AbstractWorkView{
             ImageIcon nhceScaledLogoIcon = new ImageIcon(nhceScaledLogoImage);
             JLabel nhceIconLabel = new JLabel(nhceScaledLogoIcon);
 
-            BufferedImage dynaLogoImage = ImageIO.read(this.getClass().getResource("DYNA.jpg"));
+            BufferedImage dynaLogoImage = ImageIO.read(this.getClass().getResource("DYNA.png"));
             ImageIcon dynaLogoIcon = new ImageIcon(dynaLogoImage);
-            Image dynaScaledLogoImage = dynaLogoIcon.getImage().getScaledInstance((int)(this.getPreferredSize().getWidth()*0.04), -1, Image.SCALE_SMOOTH);
+            Image dynaScaledLogoImage = dynaLogoIcon.getImage().getScaledInstance((int)(this.getPreferredSize().getWidth()*0.12), -1, Image.SCALE_SMOOTH);
             ImageIcon dynaScaledLogoIcon = new ImageIcon(dynaScaledLogoImage);
             JLabel dynaIconLabel = new JLabel(dynaScaledLogoIcon);
 
             logoPanel.add(Box.createHorizontalStrut((int)(this.getPreferredSize().getWidth()*0.1)));
             logoPanel.add(nhceIconLabel);
-            logoPanel.add(Box.createHorizontalStrut((int)(this.getPreferredSize().getWidth()*0.6)));
+            logoPanel.add(Box.createHorizontalStrut((int)(this.getPreferredSize().getWidth()*0.45)));
             logoPanel.add(dynaIconLabel);
             logoPanel.add(Box.createHorizontalStrut((int)(this.getPreferredSize().getWidth()*0.02)));
         }
