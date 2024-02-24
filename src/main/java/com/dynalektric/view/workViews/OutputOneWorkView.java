@@ -13,6 +13,11 @@ import com.dynalektric.view.ViewMessage;
 import com.dynalektric.view.components.MenuBar;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -37,12 +42,8 @@ public class OutputOneWorkView extends AbstractWorkView{
             return false;
         }
     };
-    private final JTable coreWdgTable = new JTable(13 , 3){
-        @Override
-        public boolean isCellEditable(int row , int col){
-            return false;
-        }
-    };
+    private final JTable coreWdgTable = new JTable(13 , 3);
+
     private final JTable coreWeightTable = new JTable(1 , 5);
     private final JLabel cDistLabel = new JLabel("C Dist : ");
     private final JLabel yokeL = new JLabel("Yoke L : ");

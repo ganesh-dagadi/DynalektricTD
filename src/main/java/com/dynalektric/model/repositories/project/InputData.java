@@ -60,4 +60,5 @@ public class InputData {
     public double WIND_TEMP = 90.0;
     public double CONDUCTIVITY;
     public double BOM_CRCA_ENCL = 0.0;
+    public String something = "";
 }

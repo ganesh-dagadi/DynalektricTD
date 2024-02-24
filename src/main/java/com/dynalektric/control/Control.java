@@ -18,9 +18,7 @@ public class Control {
         System.out.println("in save project");
         //calculation is where the model is updated..need to move to separate method.
         model.notifyListeners("STORE_INPUT_IN_MODEL");
-        System.out.println("Before begin calculations" + model.getLoadedProjectInput().K);
         beginCalculations();
-        System.out.println("After begin calculations" + model.getLoadedProjectInput().K);
         ProjectRepo projectRepo = model.getProjectRepo();
         Project toSaveProject = model.getLoadedProject();
         if(toSaveProject != null){
