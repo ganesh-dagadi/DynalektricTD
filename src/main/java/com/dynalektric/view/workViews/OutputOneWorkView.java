@@ -4,6 +4,7 @@ import com.ctc.wstx.shaded.msv_core.util.Util;
 import com.dynalektric.constants.StyleConstants;
 import com.dynalektric.constants.ViewMessages;
 import com.dynalektric.control.Control;
+import com.dynalektric.control.paramValSetters.CoreDValueSetter;
 import com.dynalektric.model.Model;
 import com.dynalektric.model.repositories.project.InputData;
 import com.dynalektric.model.repositories.project.OutputData;
@@ -418,6 +419,11 @@ class CoreDColumnSpinnerEditor extends AbstractSpinnerCellEditor{
 
     @Override
     protected void handleSpinnerValueChange() {
-        System.out.print("SOmthing happened");
+        //sets the updated value into the cache which is used when recalculated
+        Double newValue = (Double) this.getCellEditorValue();
+        CoreDValueSetter valueSetter = new CoreDValueSetter();
+        valueSetter.setLatestValue(newValue);
+        Control control = new Control();
+        control.beginCalculations();
     }
 }

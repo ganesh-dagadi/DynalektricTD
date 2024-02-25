@@ -1,6 +1,7 @@
 package com.dynalektric.control;
 
 import com.dynalektric.constants.ParameterNameConstants;
+import com.dynalektric.control.paramValSetters.CoreDValueSetter;
 import com.dynalektric.model.Model;
 import com.dynalektric.model.repositories.project.InputData;
 import com.dynalektric.model.repositories.project.OutputData;
@@ -448,6 +449,9 @@ public class Calculations {
 
     public void core_d() {
         outputData.CORE_D = (double)Math.round(((outputData.NET_CROSS_SECTION / inputData.STACKING_FACTOR) / (inputData.CORE_W * 0.1)) * 10);
+        //This is used to override the calculated core D value if it is changed by the user
+        CoreDValueSetter valueSetter = new CoreDValueSetter();
+        valueSetter.setRequiredValueIntoOutput(outputData);
     }
 
     public void total_core_w() {

@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 public abstract class AbstractSpinnerCellEditor extends DefaultCellEditor {
-    private final JSpinner sp = new JSpinner();
+    private final JSpinner sp = new JSpinner(new SpinnerNumberModel(10.0, 0.0 ,1000.0 , 0.5));
     Set<Point> rowsWithSpinner = new HashSet<>();
     public AbstractSpinnerCellEditor(){
         super(new JTextField());
