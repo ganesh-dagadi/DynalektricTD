@@ -4,13 +4,16 @@ import com.ctc.wstx.shaded.msv_core.util.Util;
 import com.dynalektric.constants.StyleConstants;
 import com.dynalektric.constants.ViewMessages;
 import com.dynalektric.control.Control;
+import com.dynalektric.control.paramValSetters.CoreDValueSetter;
 import com.dynalektric.model.Model;
 import com.dynalektric.model.repositories.project.InputData;
 import com.dynalektric.model.repositories.project.OutputData;
 import com.dynalektric.utils.UtilFunction;
 import com.dynalektric.view.View;
 import com.dynalektric.view.ViewMessage;
+import com.dynalektric.view.components.AbstractSpinnerCellEditor;
 import com.dynalektric.view.components.MenuBar;
+import com.dynalektric.view.components.SpinnerCellRenderer;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -137,6 +140,14 @@ public class OutputOneWorkView extends AbstractWorkView{
         JLabel coreDetailsHeading = new JLabel("Core");
         coreDetailsHeading.setFont(StyleConstants.HEADING_SUB1);
         coreDetailsHeading.setAlignmentX(CENTER_ALIGNMENT);
+        //Initializing spinners for D column in table
+        SpinnerCellRenderer spinnerCellRenderer = new SpinnerCellRenderer();
+        CoreDColumnSpinnerEditor dSpinnerColEditor = new CoreDColumnSpinnerEditor();
+        dSpinnerColEditor.addSpinnerToCell(1 , 2);
+        spinnerCellRenderer.addSpinnerToCell(1 , 2);
+        TableColumn columnModel= coreWdgTable.getColumnModel().getColumn(2);
+        columnModel.setCellEditor(dSpinnerColEditor);
+        columnModel.setCellRenderer(spinnerCellRenderer);
         if(model.getLoadedProject() != null)
             this.setCorePanelValues();
         this.coreDetailsPanel.add(coreDetailsHeading);
@@ -401,5 +412,18 @@ public class OutputOneWorkView extends AbstractWorkView{
         leads_data = leads_data.substring(0 , 7);
         leads.setText(leads_data + String.valueOf(outputData.LEADS));
 
+    }
+}
+
+class CoreDColumnSpinnerEditor extends AbstractSpinnerCellEditor{
+
+    @Override
+    protected void handleSpinnerValueChange() {
+        //sets the updated value into the cache which is used when recalculated
+        Double newValue = (Double) this.getCellEditorValue();
+        CoreDValueSetter valueSetter = new CoreDValueSetter();
+        valueSetter.setLatestValue(newValue);
+        Control control = new Control();
+        control.beginCalculations();
     }
 }
