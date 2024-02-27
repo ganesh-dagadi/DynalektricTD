@@ -75,7 +75,7 @@ public class InputWorkView extends AbstractWorkView{
     InputTextFieldWithLabel amIn = new InputTextFieldWithLabel("am :");
     InputTextFieldWithLabel leadsIn = new InputTextFieldWithLabel("Leads (w) :");
     InputTextFieldWithLabel stackingFactorIn = new InputTextFieldWithLabel("Stacking Factor :");
-    InputTextFieldWithLabel fluxDensityIn = new InputTextFieldWithLabel("Flux Density ((G) w/m sqr) :");
+    InputSpinner fluxDensityIn = new InputSpinner("Flux Density ((G) w/m sqr) :");
     InputTextFieldWithLabel specLossIn = new InputTextFieldWithLabel("Spec Loses (w/kg) :");
     InputTextFieldWithLabel coreWIn = new InputTextFieldWithLabel("Core W :");
     InputTextFieldWithLabel ekPercentageGaurIn = new InputTextFieldWithLabel("ek % Gaur :");

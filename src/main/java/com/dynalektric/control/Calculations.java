@@ -1,6 +1,7 @@
 package com.dynalektric.control;
 
 import com.dynalektric.constants.ParameterNameConstants;
+import com.dynalektric.model.FluxDensityVAMap;
 import com.dynalektric.model.FluxDensityWKgMap;
 import com.dynalektric.control.paramValSetters.CoreDValueSetter;
 import com.dynalektric.model.Model;
@@ -14,6 +15,9 @@ public class Calculations {
 
     private InputData inputData;
     private OutputData outputData;
+
+    private final FluxDensityVAMap fluxDensityVAMap = new FluxDensityVAMap();
+    private final FluxDensityWKgMap fluxDensityWKgMap = new FluxDensityWKgMap();
 
     public Calculations() {
         model = Model.getSingleton();
@@ -436,8 +440,6 @@ public class Calculations {
     }
 
     public void spec_losses() {
-        FluxDensityWKgMap fluxDensityWKgMap = new FluxDensityWKgMap();
-        System.out.println(inputData.FLUX_DENSITY + " " + inputData.STEEL_GRADE);
         Double Wkg = fluxDensityWKgMap.getWKgValue(inputData.FLUX_DENSITY, inputData.STEEL_GRADE);
         outputData.SPEC_LOSSES = 1.32 * Wkg;
     }
@@ -819,11 +821,11 @@ public class Calculations {
         outputData.MASS_CORNER = Math.pow(inputData.CORE_W,2) * outputData.CORE_D * inputData.STACKING_FACTOR * 6 * 7.65 * 0.000001;
     }
     public void MASS_CORNER_DASH() {
-        outputData.MASS_CORNER_DASH = 6 * 0.82 * outputData.MASS_CORNER;
+        outputData.MASS_CORNER_DASH = 6 * fluxDensityVAMap.getVAPerKgValue(inputData.FLUX_DENSITY) * outputData.MASS_CORNER;
     }
 
     public void gap_va() {
-        outputData.GAP_VA = 6 * 1.37 * inputData.CORE_W * outputData.CORE_D * inputData.STACKING_FACTOR * 0.01;
+        outputData.GAP_VA = 6 * fluxDensityVAMap.getVA_CM2Value(inputData.FLUX_DENSITY) * inputData.CORE_W * outputData.CORE_D * inputData.STACKING_FACTOR * 0.01;
     }
 
     public void sum_va() {
