@@ -7,6 +7,7 @@ import com.dynalektric.model.repositories.project.InputData;
 import com.dynalektric.view.View;
 import com.dynalektric.view.ViewMessage;
 import com.dynalektric.view.components.InputDropDown;
+import com.dynalektric.view.components.InputSpinner;
 import com.dynalektric.view.components.InputTextFieldWithLabel;
 import com.dynalektric.view.components.MenuBar;
 import org.apache.logging.log4j.LogManager;
@@ -94,7 +95,7 @@ public class InputWorkView extends AbstractWorkView{
     InputDropDown steelGradeIn =new InputDropDown(steelGradeInputs,"Steel Grade","CRNO-35");
     InputDropDown coreBldgIn = new InputDropDown(coreBldgInputs,"Core Bldg","1.5");
     InputDropDown oilDuctsHv1In = new InputDropDown(oilDuctsHv1Inputs,"Oil Ducts Hv1","0");
-    InputDropDown oilDuctsHv2In = new InputDropDown(oilDuctsHv2Inputs,"Oil Ducts Hv1","0");
+    InputDropDown oilDuctsHv2In = new InputDropDown(oilDuctsHv2Inputs,"Oil Ducts Hv2","0");
     InputDropDown coolingIn = new InputDropDown(coolingInputs,"Cooling Inputs","AN-CL-F");
     InputDropDown connectionIn = new InputDropDown(connectionInputs,"Connection","Dyn11");
     InputDropDown frequencyIn = new InputDropDown(frequencyInputs,"Frequency","50");
@@ -409,7 +410,7 @@ public class InputWorkView extends AbstractWorkView{
         this.amIn.setValueEntered(String.valueOf(inputData.AM_W));
         this.leadsIn.setValueEntered("6");
         this.stackingFactorIn.setValueEntered(String.valueOf(inputData.STACKING_FACTOR));
-        this.fluxDensityIn.setValueEntered(String.valueOf(inputData.FLUX_DENSITY));
+        this.fluxDensityIn.setValueEntered(inputData.FLUX_DENSITY);
         //this.specLossIn.setValueEntered(inputData.);
         this.coreWIn.setValueEntered(String.valueOf(inputData.CORE_W));
         this.ambienceAirTempIn.setValueEntered("50");
@@ -457,7 +458,7 @@ public class InputWorkView extends AbstractWorkView{
         input.OIL_DUCTS_RADIAL_LV2 = Integer.parseInt(this.oilDuctsLv2In.getValueSelected());
         input.OIL_DUCTS_RADIAL_HV2 = Integer.parseInt(this.oilDuctsHv2In.getValueSelected());
 
-        input.FLUX_DENSITY = Double.parseDouble(this.fluxDensityIn.getValueEntered());
+        input.FLUX_DENSITY = this.fluxDensityIn.getValueEntered();
         input.CORE_W = Double.parseDouble(this.coreWIn.getValueEntered());
         input.WIREBARELV1 = Double.parseDouble(this.wireBareLv1In.getValueEntered());
         input.WIREBARELV2 = Double.parseDouble(this.wireBareLv2In.getValueEntered());
