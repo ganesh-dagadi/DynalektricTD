@@ -42,9 +42,9 @@ public class MenuBar extends JMenuBar{
         projectMenu.add(closeProject);
         projectMenu.add(saveProject);
         this.add(projectMenu);
-        this.add(viewMenu);
-        this.add(windowMenu);
-        this.add(helpMenu);
+//        this.add(viewMenu);
+//        this.add(windowMenu);
+//        this.add(helpMenu);
     }
 
     private void setStyling() {

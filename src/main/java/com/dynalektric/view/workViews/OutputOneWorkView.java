@@ -4,15 +4,23 @@ import com.ctc.wstx.shaded.msv_core.util.Util;
 import com.dynalektric.constants.StyleConstants;
 import com.dynalektric.constants.ViewMessages;
 import com.dynalektric.control.Control;
+import com.dynalektric.control.paramValSetters.CoreDValueSetter;
 import com.dynalektric.model.Model;
 import com.dynalektric.model.repositories.project.InputData;
 import com.dynalektric.model.repositories.project.OutputData;
 import com.dynalektric.utils.UtilFunction;
 import com.dynalektric.view.View;
 import com.dynalektric.view.ViewMessage;
+import com.dynalektric.view.components.AbstractSpinnerCellEditor;
 import com.dynalektric.view.components.MenuBar;
+import com.dynalektric.view.components.SpinnerCellRenderer;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -25,7 +33,7 @@ public class OutputOneWorkView extends AbstractWorkView{
     private final JPanel LV_HVPanel = new JPanel();
     private final JPanel coreDetailsPanel = new JPanel();
     private final JTable rTable = new JTable(12, 2);
-    private final JTable LV_HV_Table = new JTable(18  , 3){
+    private final JTable LV_HV_Table = new JTable(20  , 3){
         @Override
         public boolean isCellEditable(int row , int col){
             return false;
@@ -37,12 +45,8 @@ public class OutputOneWorkView extends AbstractWorkView{
             return false;
         }
     };
-    private final JTable coreWdgTable = new JTable(13 , 3){
-        @Override
-        public boolean isCellEditable(int row , int col){
-            return false;
-        }
-    };
+    private final JTable coreWdgTable = new JTable(13 , 3);
+
     private final JTable coreWeightTable = new JTable(1 , 5);
     private final JLabel cDistLabel = new JLabel("C Dist : ");
     private final JLabel yokeL = new JLabel("Yoke L : ");
@@ -118,11 +122,11 @@ public class OutputOneWorkView extends AbstractWorkView{
         VByTLabel.setFont(StyleConstants.HEADING_SUB2);
         this.LV_HVPanel.add(LV_HVHeading);
         this.LV_HVPanel.add(Box.createVerticalStrut(10));
-        this.LV_HVPanel.add(LV_HV_Table);
-        this.LV_HVPanel.add(Box.createVerticalStrut(10));
         this.LV_HVPanel.add(VByTLabel);
         this.LV_HVPanel.add(Box.createVerticalStrut(5));
         this.LV_HVPanel.add(VByTOutput);
+        this.LV_HVPanel.add(LV_HV_Table);
+        this.LV_HVPanel.add(Box.createVerticalStrut(10));
         this.LV_HVPanel.add(Box.createVerticalStrut(10));
         this.LV_HVPanel.add(this.wireDetailTable);
         this.LV_HVPanel.add(Box.createVerticalStrut(40));
@@ -136,6 +140,14 @@ public class OutputOneWorkView extends AbstractWorkView{
         JLabel coreDetailsHeading = new JLabel("Core");
         coreDetailsHeading.setFont(StyleConstants.HEADING_SUB1);
         coreDetailsHeading.setAlignmentX(CENTER_ALIGNMENT);
+        //Initializing spinners for D column in table
+        SpinnerCellRenderer spinnerCellRenderer = new SpinnerCellRenderer();
+        CoreDColumnSpinnerEditor dSpinnerColEditor = new CoreDColumnSpinnerEditor();
+        dSpinnerColEditor.addSpinnerToCell(1 , 2);
+        spinnerCellRenderer.addSpinnerToCell(1 , 2);
+        TableColumn columnModel= coreWdgTable.getColumnModel().getColumn(2);
+        columnModel.setCellEditor(dSpinnerColEditor);
+        columnModel.setCellRenderer(spinnerCellRenderer);
         if(model.getLoadedProject() != null)
             this.setCorePanelValues();
         this.coreDetailsPanel.add(coreDetailsHeading);
@@ -144,16 +156,14 @@ public class OutputOneWorkView extends AbstractWorkView{
         this.coreDetailsPanel.add(Box.createVerticalStrut(15));
         if(model.getLoadedProject() != null)
             this.setRPanelValues();
+        this.coreDetailsPanel.add(cDistLabel);
+        this.coreDetailsPanel.add(yokeL);
+        this.coreDetailsPanel.add(leads);
         this.coreDetailsPanel.add(Box.createVerticalStrut(30));
         this.coreDetailsPanel.add(rTable);
         this.coreDetailsPanel.add(Box.createVerticalStrut(15));
         this.coreDetailsPanel.setBackground(new Color(230 , 230 , 230));
         this.coreDetailsPanel.setBorder(BorderFactory.createEmptyBorder(20, 20 , 20 ,20));
-
-        this.cDistLabel.setAlignmentX(LEFT_ALIGNMENT);
-        this.coreDetailsPanel.add(cDistLabel);
-        this.coreDetailsPanel.add(yokeL);
-        this.coreDetailsPanel.add(leads);
     }
     private JPanel initializeNavigationPanel(){
         JPanel navigationPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
@@ -224,10 +234,10 @@ public class OutputOneWorkView extends AbstractWorkView{
         LV_HV_Table.setValueAt("Parameter" , 0 , 0);
         LV_HV_Table.setValueAt("LV" , 0 , 1);
         LV_HV_Table.setValueAt("HV" , 0 , 2);
-        LV_HV_Table.setValueAt("Rated Voltage" , 1 , 0);
-        LV_HV_Table.setValueAt("Rated Current" , 2 , 0);
+        LV_HV_Table.setValueAt("Rated Voltage V" , 1 , 0);
+        LV_HV_Table.setValueAt("Rated Current A" , 2 , 0);
         LV_HV_Table.setValueAt("Cross Section sqmm" , 3 , 0);
-        LV_HV_Table.setValueAt("Current density" , 4 , 0);
+        LV_HV_Table.setValueAt("Current density A/mm^2" , 4 , 0);
         LV_HV_Table.setValueAt("Turns/Limb" , 5 , 0);
         LV_HV_Table.setValueAt("Turns/Layer" , 6 , 0);
         LV_HV_Table.setValueAt("wdg lg-imp calc" , 7 , 0);
@@ -240,6 +250,9 @@ public class OutputOneWorkView extends AbstractWorkView{
         LV_HV_Table.setValueAt("Stray Loss (%)" , 14 , 0);
         LV_HV_Table.setValueAt("Load Loss (Watts)" , 15 , 0);
         LV_HV_Table.setValueAt("S.a-m(wdg)" , 16 , 0);
+        LV_HV_Table.setValueAt("Core",17,0);
+        LV_HV_Table.setValueAt("W/m^2",18,0);
+        LV_HV_Table.setValueAt("Wdg-Temp-Rise C",19,0);
 
         // setting values
         LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.VPH_LV, 3), 1, 1);
@@ -278,8 +291,8 @@ public class OutputOneWorkView extends AbstractWorkView{
         LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WIRE_LENGTH_LV,  3), 12, 1);
         LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WIRE_LENGTH_HV, 3), 12, 2);
 
-        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.RESISTANCE_LV, 3) ,13,1);
-        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.RESISTANCE_HV, 3),13,2);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.RESISTANCE_LV, 4) ,13,1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.RESISTANCE_HV, 4),13,2);
 
         LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.STRAY_LOSS_LV, 3),14,1);
         LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.STRAY_LOSS_HV, 3),14,2);
@@ -290,6 +303,13 @@ public class OutputOneWorkView extends AbstractWorkView{
         LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.S_AM2_WDG_LV, 3),16,1);
         LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.S_AM2_WDG_HV, 3),16,2);
 
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.CORE, 3),17,1);
+
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.W_M2_LV,3),18,1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.W_M2_HV,3),18,2);
+
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WDG_TEMP_RISE_LV,3),19,1);
+        LV_HV_Table.setValueAt(UtilFunction.RoundedToNDecimal(outputData.WDG_TEMP_RISE_HV,3),19,2);
 
         wireDetailTable.setValueAt("Parameter" , 0 ,0);
         wireDetailTable.setValueAt("LV 1" , 0 ,1);
@@ -298,9 +318,9 @@ public class OutputOneWorkView extends AbstractWorkView{
         wireDetailTable.setValueAt("HV 2" , 0 ,4);
 
         // setting parameter names
-        wireDetailTable.setValueAt("Wire bare" , 1 , 0);
-        wireDetailTable.setValueAt("Wire insulated" , 2 , 0);
-        coreWeightTable.setValueAt("Conductor in KG" , 0 , 0);
+        wireDetailTable.setValueAt("Wire bare mm" , 1 , 0);
+        wireDetailTable.setValueAt("Wire insulated mm" , 2 , 0);
+        coreWeightTable.setValueAt("Conductor Wt KG" , 0 , 0);
 
         // setting values
         wireDetailTable.setValueAt(UtilFunction.RoundedToNDecimal(inputData.WIREBARELV1, 3),1,1);
@@ -392,5 +412,18 @@ public class OutputOneWorkView extends AbstractWorkView{
         leads_data = leads_data.substring(0 , 7);
         leads.setText(leads_data + String.valueOf(outputData.LEADS));
 
+    }
+}
+
+class CoreDColumnSpinnerEditor extends AbstractSpinnerCellEditor{
+
+    @Override
+    protected void handleSpinnerValueChange() {
+        //sets the updated value into the cache which is used when recalculated
+        Double newValue = (Double) this.getCellEditorValue();
+        CoreDValueSetter valueSetter = new CoreDValueSetter();
+        valueSetter.setLatestValue(newValue);
+        Control control = new Control();
+        control.beginCalculations();
     }
 }

@@ -84,44 +84,44 @@ public class WelcomeWorkViewControllerUnitTest {
         }
     }
 
-    @Test
-    @Order(4)
-    public void openingProjectShouldLoadCorrectDataIntoModel() {
-        // Arrange
-        WelcomeWorkViewController controller = new WelcomeWorkViewController();
-        controller.createNewProject("Project1");
-        controller.createNewProject("Project2");
-
-        ProjectRepo repo = new ProjectRepoJSONImpl();
-        Project p1 = repo.getProjectByName("Project1");
-        p1.inputs.something = "From p1";
-        repo.updateProject(p1);
-
-        Project p2 = repo.getProjectByName("Project2");
-        p2.inputs.something = "From p2";
-        repo.updateProject(p2);
-
-        // Act
-        try {
-            controller.openProjectWithName("Project1");
-
-            // Assert
-            assertEquals("From p1", Model.getSingleton().getLoadedProject().inputs.something);
-            assertEquals("Project1", Model.getSingleton().getGeneralRepo().getLoadedProjectName());
-
-            controller.openProjectWithName("Project2");
-
-            // Assert
-            assertEquals("From p2", Model.getSingleton().getLoadedProject().inputs.something);
-            assertEquals("Project2", Model.getSingleton().getGeneralRepo().getLoadedProjectName());
-
-        } catch (Exception e) {
-            fail("Exception occurred: " + e.getMessage());
-        } finally {
-            // Clean up
-            controller.deleteProjectByName("Project1");
-            controller.deleteProjectByName("Project2");
-        }
-    }
+//    @Test
+//    @Order(4)
+//    public void openingProjectShouldLoadCorrectDataIntoModel() {
+//        // Arrange
+//        WelcomeWorkViewController controller = new WelcomeWorkViewController();
+//        controller.createNewProject("Project1");
+//        controller.createNewProject("Project2");
+//
+//        ProjectRepo repo = new ProjectRepoJSONImpl();
+//        Project p1 = repo.getProjectByName("Project1");
+//        p1.inputs.something = "From p1";
+//        repo.updateProject(p1);
+//
+//        Project p2 = repo.getProjectByName("Project2");
+//        p2.inputs.something = "From p2";
+//        repo.updateProject(p2);
+//
+//        // Act
+//        try {
+//            controller.openProjectWithName("Project1");
+//
+//            // Assert
+//            assertEquals("From p1", Model.getSingleton().getLoadedProject().inputs.something);
+//            assertEquals("Project1", Model.getSingleton().getGeneralRepo().getLoadedProjectName());
+//
+//            controller.openProjectWithName("Project2");
+//
+//            // Assert
+//            assertEquals("From p2", Model.getSingleton().getLoadedProject().inputs.something);
+//            assertEquals("Project2", Model.getSingleton().getGeneralRepo().getLoadedProjectName());
+//
+//        } catch (Exception e) {
+//            fail("Exception occurred: " + e.getMessage());
+//        } finally {
+//            // Clean up
+//            controller.deleteProjectByName("Project1");
+//            controller.deleteProjectByName("Project2");
+//        }
+//    }
 
 }

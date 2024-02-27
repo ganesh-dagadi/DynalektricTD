@@ -36,6 +36,6 @@ public class InputTextFieldWithLabel extends JPanel {
         this.add(this.label);
         this.add(this.textField);
         this.textField.setColumns(10);
-        this.setMaximumSize(this.getPreferredSize());
+//        this.setMaximumSize(this.getPreferredSize());
     }
 }

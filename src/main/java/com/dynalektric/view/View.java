@@ -100,7 +100,7 @@ public class View{
             mainFrame.setContentPane(new JPanel(new BorderLayout()));
             mainFrame.getContentPane().add(mainPanel , BorderLayout.CENTER);
             mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            mainFrame.setSize(View.SCREEN_DIMENSION);
+            mainFrame.setSize((int)(0.95 * View.SCREEN_DIMENSION.width) , (int)(0.95 * View.SCREEN_DIMENSION.height));
             mainFrame.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosing(WindowEvent e) {

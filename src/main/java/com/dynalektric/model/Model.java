@@ -18,7 +18,6 @@ public class Model {
     private final static Logger LOGGER = LogManager.getLogger(Model.class);
     private Set<ModelObserver> listeners = new HashSet<>();
     private ModelObserver liveView;
-
     private Project loadedProject;
     private OutputData loadedProjectOutput;
     private Boolean hasUnsavedChanges = false;
@@ -73,6 +72,10 @@ public class Model {
     public void clearProjectData(){
         this.loadedProjectOutput = new OutputData();
         this.loadedProject = null;
+    }
+
+    public MidCalculationUpdatedCache getMidCalculationUpdatedCache(){
+        return MidCalculationUpdatedCache.getSingleton();
     }
     public OutputData getOutputData(){
         return this.loadedProjectOutput;

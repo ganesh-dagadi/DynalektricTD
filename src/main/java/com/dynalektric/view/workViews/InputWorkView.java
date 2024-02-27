@@ -45,43 +45,43 @@ public class InputWorkView extends AbstractWorkView{
     //Input fields
     InputTextFieldWithLabel kvaIn = new InputTextFieldWithLabel("KVA :");
     InputTextFieldWithLabel kIn = new InputTextFieldWithLabel("K :");
-    InputTextFieldWithLabel LVIn = new InputTextFieldWithLabel("Low Voltage :");
-    InputTextFieldWithLabel HVIn = new InputTextFieldWithLabel("High Voltage :");
+    InputTextFieldWithLabel LVIn = new InputTextFieldWithLabel("Low Voltage (V) :");
+    InputTextFieldWithLabel HVIn = new InputTextFieldWithLabel("High Voltage (V) :");
 
-    InputTextFieldWithLabel wireBareLv1In = new InputTextFieldWithLabel("Wire Bare LV1");
-    InputTextFieldWithLabel wireBareLv2In = new InputTextFieldWithLabel("Wire Bare LV2");
-    InputTextFieldWithLabel wireBareHv1In = new InputTextFieldWithLabel("Wire Bare HV1");
-    InputTextFieldWithLabel wireBareHv2In = new InputTextFieldWithLabel("Wire Bare HV2");
-    InputTextFieldWithLabel noInParallel_R_A_Lv1In = new InputTextFieldWithLabel("No in Parallel R-A LV1");
-    InputTextFieldWithLabel noInParallel_R_A_Lv2In = new InputTextFieldWithLabel("No in Parallel R-A LV2");
-    InputTextFieldWithLabel noInParallel_R_A_Hv1In = new InputTextFieldWithLabel("No in Parallel R-A HV1");
-    InputTextFieldWithLabel noInParallel_R_A_Hv2In = new InputTextFieldWithLabel("No in Parallel R-A HV2");
+    InputTextFieldWithLabel wireBareLv1In = new InputTextFieldWithLabel("Wire Bare LV1 (mm) :");
+    InputTextFieldWithLabel wireBareLv2In = new InputTextFieldWithLabel("Wire Bare LV2 (mm) :");
+    InputTextFieldWithLabel wireBareHv1In = new InputTextFieldWithLabel("Wire Bare HV1 (mm) :");
+    InputTextFieldWithLabel wireBareHv2In = new InputTextFieldWithLabel("Wire Bare HV2 (mm) :");
+    InputTextFieldWithLabel noInParallel_R_A_Lv1In = new InputTextFieldWithLabel("No in Parallel R-A LV1 :");
+    InputTextFieldWithLabel noInParallel_R_A_Lv2In = new InputTextFieldWithLabel("No in Parallel R-A LV2 :");
+    InputTextFieldWithLabel noInParallel_R_A_Hv1In = new InputTextFieldWithLabel("No in Parallel R-A HV1 :");
+    InputTextFieldWithLabel noInParallel_R_A_Hv2In = new InputTextFieldWithLabel("No in Parallel R-A HV2 :");
     InputTextFieldWithLabel sectionIn = new InputTextFieldWithLabel("Sections");
-    InputTextFieldWithLabel layersLvIn = new InputTextFieldWithLabel("Layers Lv");
-    InputTextFieldWithLabel layersHvIn = new InputTextFieldWithLabel("Layers Hv");
-    InputTextFieldWithLabel insulationBetweenLayersLvIn = new InputTextFieldWithLabel("Insulation B/W Layers Lv");
-    InputTextFieldWithLabel insulationBetweenLayersHvIn = new InputTextFieldWithLabel("Insulation B/W Layers Hv");
+    InputTextFieldWithLabel layersLvIn = new InputTextFieldWithLabel("Layers Lv :");
+    InputTextFieldWithLabel layersHvIn = new InputTextFieldWithLabel("Layers Hv :");
+    InputTextFieldWithLabel insulationBetweenLayersLvIn = new InputTextFieldWithLabel("Insulation B/W Layers Lv :");
+    InputTextFieldWithLabel insulationBetweenLayersHvIn = new InputTextFieldWithLabel("Insulation B/W Layers Hv :");
 
     InputTextFieldWithLabel sectionLengthIn = new InputTextFieldWithLabel("Section Length");
-    InputTextFieldWithLabel oilDuctsAxialIn = new InputTextFieldWithLabel("Oil Ducts - Axial");
-    InputTextFieldWithLabel transpositionLvIn = new InputTextFieldWithLabel("Transposition Lv");
-    InputTextFieldWithLabel transpositionHvIn = new InputTextFieldWithLabel("Transposition Hv");
-    InputTextFieldWithLabel compGapIn = new InputTextFieldWithLabel("Comp-Gap");
-    InputTextFieldWithLabel endClearanceLvIn = new InputTextFieldWithLabel("End Clearances Lv");
-    InputTextFieldWithLabel endClearanceHvIn = new InputTextFieldWithLabel("End Clearances Hv");
-    InputTextFieldWithLabel limbPlateIn = new InputTextFieldWithLabel("Limb Plate");
-    InputTextFieldWithLabel gapBobbinIn = new InputTextFieldWithLabel("Gap/Bobbin");
-    InputTextFieldWithLabel deltaIn = new InputTextFieldWithLabel("δ");
-    InputTextFieldWithLabel amIn = new InputTextFieldWithLabel("am");
-    InputTextFieldWithLabel leadsIn = new InputTextFieldWithLabel("Leads");
-    InputTextFieldWithLabel stackingFactorIn = new InputTextFieldWithLabel("Stacking Factor");
-    InputSpinner fluxDensityIn = new InputSpinner("Flux Density" , 0.0);
-    InputTextFieldWithLabel specLossIn = new InputTextFieldWithLabel("Spec Loses");
-    InputTextFieldWithLabel coreWIn = new InputTextFieldWithLabel("Core W");
-    InputTextFieldWithLabel ekPercentageGaurIn = new InputTextFieldWithLabel("ek % Gaur");
-    InputTextFieldWithLabel ambienceAirTempIn = new InputTextFieldWithLabel("Ambience Air Temp");
-    InputTextFieldWithLabel insulationLvIn = new InputTextFieldWithLabel("Insulation Lv");
-    InputTextFieldWithLabel insulationHvIn = new InputTextFieldWithLabel("Insulation Hv");
+    InputTextFieldWithLabel oilDuctsAxialIn = new InputTextFieldWithLabel("Oil Ducts - Axial :");
+    InputTextFieldWithLabel transpositionLvIn = new InputTextFieldWithLabel("Transposition Lv :");
+    InputTextFieldWithLabel transpositionHvIn = new InputTextFieldWithLabel("Transposition Hv :");
+    InputTextFieldWithLabel compGapIn = new InputTextFieldWithLabel("Comp-Gap :");
+    InputTextFieldWithLabel endClearanceLvIn = new InputTextFieldWithLabel("End Clearances Lv (mm) :");
+    InputTextFieldWithLabel endClearanceHvIn = new InputTextFieldWithLabel("End Clearances Hv (mm) :");
+    InputTextFieldWithLabel limbPlateIn = new InputTextFieldWithLabel("Limb Plate :");
+    InputTextFieldWithLabel gapBobbinIn = new InputTextFieldWithLabel("Gap/Bobbin :");
+    InputTextFieldWithLabel deltaIn = new InputTextFieldWithLabel("δ :");
+    InputTextFieldWithLabel amIn = new InputTextFieldWithLabel("am :");
+    InputTextFieldWithLabel leadsIn = new InputTextFieldWithLabel("Leads (w) :");
+    InputTextFieldWithLabel stackingFactorIn = new InputTextFieldWithLabel("Stacking Factor :");
+    InputTextFieldWithLabel fluxDensityIn = new InputTextFieldWithLabel("Flux Density ((G) w/m sqr) :");
+    InputTextFieldWithLabel specLossIn = new InputTextFieldWithLabel("Spec Loses (w/kg) :");
+    InputTextFieldWithLabel coreWIn = new InputTextFieldWithLabel("Core W :");
+    InputTextFieldWithLabel ekPercentageGaurIn = new InputTextFieldWithLabel("ek % Gaur :");
+    InputTextFieldWithLabel ambienceAirTempIn = new InputTextFieldWithLabel("Ambience Air Temp (C):");
+    InputTextFieldWithLabel insulationLvIn = new InputTextFieldWithLabel("Insulation Lv (mm) :");
+    InputTextFieldWithLabel insulationHvIn = new InputTextFieldWithLabel("Insulation Hv (mm) :");
 
 
     InputDropDown typesOfMaterialIn = new InputDropDown(typesOfMaterialInputs , "Type Of Material" , "COPPER");
@@ -302,15 +302,15 @@ public class InputWorkView extends AbstractWorkView{
             ImageIcon nhceScaledLogoIcon = new ImageIcon(nhceScaledLogoImage);
             JLabel nhceIconLabel = new JLabel(nhceScaledLogoIcon);
 
-            BufferedImage dynaLogoImage = ImageIO.read(this.getClass().getResource("DYNA.jpg"));
+            BufferedImage dynaLogoImage = ImageIO.read(this.getClass().getResource("DYNA.png"));
             ImageIcon dynaLogoIcon = new ImageIcon(dynaLogoImage);
-            Image dynaScaledLogoImage = dynaLogoIcon.getImage().getScaledInstance((int)(this.getPreferredSize().getWidth()*0.04), -1, Image.SCALE_SMOOTH);
+            Image dynaScaledLogoImage = dynaLogoIcon.getImage().getScaledInstance((int)(this.getPreferredSize().getWidth()*0.12), -1, Image.SCALE_SMOOTH);
             ImageIcon dynaScaledLogoIcon = new ImageIcon(dynaScaledLogoImage);
             JLabel dynaIconLabel = new JLabel(dynaScaledLogoIcon);
 
             logoPanel.add(Box.createHorizontalStrut((int)(this.getPreferredSize().getWidth()*0.1)));
             logoPanel.add(nhceIconLabel);
-            logoPanel.add(Box.createHorizontalStrut((int)(this.getPreferredSize().getWidth()*0.6)));
+            logoPanel.add(Box.createHorizontalStrut((int)(this.getPreferredSize().getWidth()*0.45)));
             logoPanel.add(dynaIconLabel);
             logoPanel.add(Box.createHorizontalStrut((int)(this.getPreferredSize().getWidth()*0.02)));
         }
