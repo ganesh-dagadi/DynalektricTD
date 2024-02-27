@@ -1,11 +1,11 @@
 package com.dynalektric.control;
 
 import com.dynalektric.constants.ParameterNameConstants;
+import com.dynalektric.model.FluxDensityWKgMap;
 import com.dynalektric.model.Model;
 import com.dynalektric.model.repositories.project.InputData;
 import com.dynalektric.model.repositories.project.OutputData;
 import java.lang.Math;
-import java.security.PublicKey;
 import java.util.Objects;
 
 public class Calculations {
@@ -439,15 +439,10 @@ public class Calculations {
     }
 
     public void spec_losses() {
-        if(Objects.equals(inputData.STEEL_GRADE, "CRNO-35")) {
-            outputData.SPEC_LOSSES = 2.508;
-        }
-        else if(Objects.equals(inputData.STEEL_GRADE, "M4-27")) {
-            outputData.SPEC_LOSSES = 0.924;
-        }
-        else if(Objects.equals(inputData.STEEL_GRADE, "MOH-23")) {
-            outputData.SPEC_LOSSES = 0.7392;
-        }
+        FluxDensityWKgMap fluxDensityWKgMap = new FluxDensityWKgMap();
+        System.out.println(inputData.FLUX_DENSITY + " " + inputData.STEEL_GRADE);
+        Double Wkg = fluxDensityWKgMap.getWKgValue(inputData.FLUX_DENSITY, inputData.STEEL_GRADE);
+        outputData.SPEC_LOSSES = 1.32 * Wkg;
     }
 
     public void core_d() {
